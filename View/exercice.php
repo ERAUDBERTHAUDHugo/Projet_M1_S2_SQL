@@ -11,16 +11,16 @@
 		?>
 
 		<?php //display quizz info
-		$quizId=0;
-		$quizSelection= $con->query("SELECT `quizz_id`, `quizz_name`,`quizz_difficulty`, `quizz_description` FROM `quizz` WHERE `quizz_id`= $quizId")->fetch();
+		$quizId=0; //L'id du quiz est à récupérer par GET selon la page sélectionée par l'utilisateur
+		$quizSelection= $con->query("SELECT `quiz_id`, `quiz_name`,`quiz_difficulty`, `quiz_description` FROM `quiz` WHERE `quiz_id`= $quizId")->fetch();
 		?>
 
-		<h1><?php echo $quizSelection['quizz_name']; ?></h1>
+		<h1><?php echo $quizSelection['quiz_name']; ?></h1>
 
 		<br> 
-		<?php echo "Diffuculté: ".$quizSelection['quizz_difficulty']; ?>
+		<?php echo "Diffuculté: ".$quizSelection['quiz_difficulty']; ?>
 		<br> 
-		<?php echo "Enoncé: ".$quizSelection['quizz_description']; ?>
+		<?php echo "Enoncé: ".$quizSelection['quiz_description']; ?>
 
 	</div>
 
@@ -28,7 +28,7 @@
 		<h3>Answer All Questions : </h3>
 
 		<?php //display questions   
-		$questionSelection= $con->query("SELECT `question_id`, `question_text`,`question_answer` FROM `question` WHERE `quizz_id`= $quizId");
+		$questionSelection= $con->query("SELECT `question_id`, `question_text`,`question_answer` FROM `question` WHERE `quiz_id`= $quizId");
 
  		foreach ($questionSelection as $question) {
   			$questionText=$question['question_text'];
