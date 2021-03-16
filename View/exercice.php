@@ -8,8 +8,8 @@
 		?>
 
 		<h1><?php echo "Quiz ".$quizId; ?></h1> 
-
-		<?php 
+		<br> 
+		<?php //Ajouter la description du quizz après
 		try{ 			 
 			$con = new PDO('mysql:host=localhost;dbname='.$bddName,'root','');  //Connection PDO à bdd à faire extérieurement
 		}catch(PDOException $e){ 
