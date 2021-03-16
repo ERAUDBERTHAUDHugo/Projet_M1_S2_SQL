@@ -12,7 +12,7 @@
 
 		<?php //display quizz info
 		$quizId=0; //L'id du quiz est à récupérer par GET selon la page sélectionée par l'utilisateur
-		$quizSelection= $con->query("SELECT `quiz_id`, `quiz_name`,`quiz_difficulty`, `quiz_description` FROM `quiz` WHERE `quiz_id`= $quizId")->fetch();
+		$quizSelection= $con->query("SELECT `quiz_id`, `quiz_name`,`quiz_difficulty`, `quiz_description`, `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetch();
 		?>
 
 		<h1><?php echo $quizSelection['quiz_name']; ?></h1>
@@ -35,22 +35,39 @@
   			echo $questionText;
   			?>
   			<br> 
-  			<input type="text" id="<?php echo($question['question_id']);?>" name="<?php echo($question['question_id']);?>">
+  			<form action="exercice.php" method="post">
+  				<input type="text" id="<?php echo($question['question_id']);?>" name="<?php echo($question['question_id']);?>">
+  			</form>
   			<br>
   		<?php
   		} 
 		?>
 
 		<br>
-		<form action='' method='POST'>
+		<form action="exercice.php" method="post">
 			<input type="submit" name="submitAnswers" value="Submit">
 		</form>
 
       	<?php //write user answers
       	if(isset($_POST['submit'])){
-			//$submitAnswers= $con->query("INSERT INTO user_answer(user_text) VALUES (1)"); ------> INSERT DATETIME, USERID LINK, USER INPUT VALUE
+
+      		// inserer apres infos user DATETIME, USERID LINK, USER INPUT VALUE
+			
+
+			try{ 			 
+			$test = new PDO('mysql:host=localhost;dbname='.$quizSelection['quiz_database'],'root','');  //connexion à la bdd quiz
+			}catch(PDOException $e){ 
+				die('Erreur : '.$e->getMessage()); 
+			}
+
+			try{
+				$submitAnswers= $test->query($_POST[0])->fetch(); //test requete user sur la bdd du quiz 
+			}catch(PDOException $e){ 
+				die('Requête non valide!'); 
+			}
+			
 		}
-		//$submitAnswers->closeCursor(); 
+
       	?>
 
 	</div>
