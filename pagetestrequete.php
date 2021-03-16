@@ -10,18 +10,22 @@
 
 		<?php 
 		try{
+			
 			$con = new PDO('mysql:host=localhost;dbname=cycle_v3','root','');
+			$response = $con->query("SELECT * FROM `fournisseur` ");
+
+				while ($result = $response->fetch()) {
+					echo ' '.$result['RAISON_SOCIALE'];
+				}
+
+			$response->closeCursor();
+
 		}catch(PDOException $e){
 				die('Erreur : '.$e->getMessage());
 			}
-		
-		$response = $con->query("SELECT * FROM `fournisseur` ");
-		while ($result = $response->fetch()) {
-			echo ' '.$result['NOM_DIRECTEUR'];
-			$response->closeCursor() ;
-		}	
-		
+
         ?>
+
 
     </body>
 </html>
