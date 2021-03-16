@@ -22,7 +22,7 @@
 	<div>
 		<h3>Answer All Questions : </h3>
 
-		<?php
+		<?php    
 		$quizSelection= $con->query("SELECT `question_id`, `question_text`,`question_answer` FROM `question` WHERE `quizz_id`= $quizId");
 
  		foreach ($quizSelection as $question) {
@@ -37,6 +37,18 @@
 
 		$quizSelection->closeCursor(); 
 		?>
+
+		<br>
+		<form action='' method='POST'>
+			<input type="submit" name="submitAnswers" value="Submit">
+		</form>
+
+      	<?php //ecrire les données réponse user
+      	if(isset($_POST['submit'])){
+			//$submitAnswers= $con->query("INSERT INTO user_answer(user_text) VALUES (1)"); ------> INSERT DATETIME, USERID LINK, USER INPUT VALUE
+		}
+		$submitAnswers->closeCursor(); 
+      	?>
 
 	</div>
 
