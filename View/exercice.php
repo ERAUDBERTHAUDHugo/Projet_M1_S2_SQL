@@ -2,25 +2,18 @@
 
 	<div id=exercice>
 
-		<?php 
-		try{ 			 
-			$con = new PDO('mysql:host=localhost;dbname=db_project','root','');  //Connection PDO à bdd à faire extérieurement
-		}catch(PDOException $e){ 
-				die('Erreur : '.$e->getMessage()); 
-		} 
-		?>
-
 		<?php //display quiz info
 		$quizId=0; //L'id du quiz est à récupérer par GET selon la page sélectionée par l'utilisateur
-		$quizSelection= $con->query("SELECT `quiz_id`, `quiz_name`,`quiz_difficulty`, `quiz_description`, `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetch();
+
+		$quizSelection=BDD::get()->query("SELECT `quiz_id`, `quiz_name`,`quiz_difficulty`, `quiz_description`, `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetchAll();
 		?>
 
-		<h1><?php echo $quizSelection['quiz_name']; ?></h1>
+		<h1><?php echo $quizSelection[$quizId]['quiz_name']; ?></h1>
 
 		<br> 
-		<?php echo "Diffuculté: ".$quizSelection['quiz_difficulty']; ?>
+		<?php echo "Diffuculté: ".$quizSelection[0]['quiz_difficulty']; ?>
 		<br> 
-		<?php echo "Enoncé: ".$quizSelection['quiz_description']; ?>
+		<?php echo "Enoncé: ".$quizSelection[0]['quiz_description']; ?>
 
 	</div>
 
@@ -28,7 +21,7 @@
 		<h3>Répondez à la question : </h3>
 
 		<?php //display questions   
-		$questionSelection= $con->query("SELECT `question_id`, `question_text`,`question_answer` FROM `question` WHERE `quiz_id`= $quizId");
+		$questionSelection=BDD::get()->query("SELECT `question_id`, `question_text`,`question_answer` FROM `question` WHERE `quiz_id`= $quizId")->fetchAll();
  		foreach ($questionSelection as $question) {
  			?>
  			<div id='step' name='step'>
