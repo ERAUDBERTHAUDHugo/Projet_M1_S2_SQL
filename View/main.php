@@ -30,7 +30,7 @@
                     <div class="social-box">
                         <p1><?php echo $quizAvailable[$index]['quiz_name']; ?></p1>
                     </div>
-                    <p><?php echo $quizAvailable[$index]['quiz_description']; ?></p>
+                    <p><?php echo substr($quizAvailable[$index]['quiz_description'], 0, 55)."..."; ?></p>
                 </div>
 
                 <?php  
