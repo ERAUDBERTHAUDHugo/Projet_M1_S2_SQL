@@ -15,6 +15,7 @@ session_start();
 
 //--------------------------------------Includes-------------------------------
 
+include("Controller/PDOFactory.php");
 include('View/header.php');
 include("Controller/connexion.php");
 
