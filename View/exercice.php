@@ -10,7 +10,7 @@
 		} 
 		?>
 
-		<?php //display quizz info
+		<?php //display quiz info
 		$quizId=0; //L'id du quiz est à récupérer par GET selon la page sélectionée par l'utilisateur
 		$quizSelection= $con->query("SELECT `quiz_id`, `quiz_name`,`quiz_difficulty`, `quiz_description`, `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetch();
 		?>
@@ -25,48 +25,59 @@
 	</div>
 
 	<div>
-		<h3>Answer All Questions : </h3>
+		<h3>Répondez à la question : </h3>
 
 		<?php //display questions   
 		$questionSelection= $con->query("SELECT `question_id`, `question_text`,`question_answer` FROM `question` WHERE `quiz_id`= $quizId");
-
  		foreach ($questionSelection as $question) {
+ 			?>
+ 			<div id='step' name='step'>
+
+ 			<?php
   			$questionText=$question['question_text'];
   			echo $questionText;
   			?>
+
   			<br> 
-  			<form action="exercice.php" method="post">
   				<input type="text" id="<?php echo($question['question_id']);?>" name="<?php echo($question['question_id']);?>">
-  			</form>
   			<br>
-  		<?php
+ 
+  			<script>
+			function next(el,index) {
+  				document.getElementById(el).remove();
+			}
+			</script>
+
+  			<button onclick="next('step')">Valider</button>
+  			</div>
+			
+  			<br>
+  			<?php
   		} 
 		?>
 
 		<br>
-		<form action="exercice.php" method="post">
-			<input type="submit" name="submitAnswers" value="Submit">
-		</form>
+			
 
       	<?php //write user answers
-      	if(isset($_POST['submit'])){
+      	//if(isset($_POST['submit'])){
 
       		// inserer apres infos user DATETIME, USERID LINK, USER INPUT VALUE
 			
 
-			try{ 			 
-			$test = new PDO('mysql:host=localhost;dbname='.$quizSelection['quiz_database'],'root','');  //connexion à la bdd quiz
-			}catch(PDOException $e){ 
-				die('Erreur : '.$e->getMessage()); 
-			}
+			//try{ 			 
+			//$test = new PDO('mysql:host=localhost;dbname='.$quizSelection['quiz_database'],'root','');  //connexion à la bdd quiz
+			//}catch(PDOException $e){ 
+				//die('Erreur : '.$e->getMessage()); 
+			//}
 
-			try{
-				$submitAnswers= $test->query($_POST[0])->fetch(); //test requete user sur la bdd du quiz 
-			}catch(PDOException $e){ 
-				die('Requête non valide!'); 
-			}
+			//try{
+				//$submitAnswers= $test->query($_POST[0])->fetch(); //test requete user sur la bdd du quiz 
+			//}catch(PDOException $e){ 
+				//die('Requête non valide!'); 
+			//}
 			
-		}
+		//}
 
       	?>
 
