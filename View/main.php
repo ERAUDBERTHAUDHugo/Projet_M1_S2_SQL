@@ -47,7 +47,7 @@
         <div class="profile-box">
             <h4>D.DELANNOY</h4>
             <small>Admin</small>
-            <img src="avatar.png">
+            <img src="View/Img/avatar.png">
             <div class="social-box">
                 <p1>Cours n°1</p1>
             </div>
@@ -56,7 +56,7 @@
         <div class="profile-box">
             <h4>D.DELANNOY</h4>
             <small>Admin</small>
-            <img src="avatar.png">
+            <img src="View/Img/avatar.png">
             <div class="social-box">
                 <p1>Cours n°2</p1>
             </div>
@@ -65,7 +65,7 @@
         <div class="profile-box">
             <h4>D.DELANNOY</h4>
             <small>Admin</small>
-            <img src="avatar.png">
+            <img src="View/Img/avatar.png">
             <div class="social-box">
                 <p1>Cours n°3</p1>
             </div>
@@ -74,7 +74,7 @@
         <div class="profile-box">
             <h4>Dominique DELANNOY</h4>
             <small>Admin</small>
-            <img src="avatar.png">
+            <img src="View/Img/avatar.png">
             <div class="social-box">
                 <p1>Cours n°4</p1>
             </div>
