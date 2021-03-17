@@ -72,7 +72,7 @@
             <p>Les cours avec DD c'est la base, avec un très bon accent anglais en plus</p>
         </div>
         <div class="profile-box">
-            <h4>Dominique DELANNOY</h4>
+            <h4>D.DELANNOY</h4>
             <small>Admin</small>
             <img src="View/Img/avatar.png">
             <div class="social-box">
