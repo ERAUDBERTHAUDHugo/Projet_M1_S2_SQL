@@ -24,7 +24,7 @@
                     $quizCreator=BDD::get()->query("SELECT `user_id`,`user_role`,`user_name` FROM `users` WHERE `user_id`=$id")->fetchAll();
                     ?>
 
-                    <h4><?php echo $quizCreator[0]['user_name']; ?></h4>
+                    <h4><?php echo "Par ".$quizCreator[0]['user_name']; ?></h4>
                     <small><?php if($quizCreator[0]['user_role']==1){echo "Admin";} else{echo "Unknown";}?></small>
                     <img src="View/Img/avatar.png">
                     <div class="social-box">
