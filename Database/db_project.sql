@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 16 mars 2021 à 15:19
+-- Généré le : mer. 17 mars 2021 à 14:46
 -- Version du serveur :  8.0.21
 -- Version de PHP : 7.3.21
 
@@ -30,44 +30,48 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
   `question_id` int NOT NULL,
-  `question_text` varchar(50) DEFAULT NULL,
-  `question_answer` varchar(50) DEFAULT NULL,
-  `quizz_id` int NOT NULL,
+  `question_text` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `question_answer` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `quiz_id` int NOT NULL,
   PRIMARY KEY (`question_id`),
-  KEY `quizz_id` (`quizz_id`)
+  KEY `quizz_id` (`quiz_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `question`
 --
 
-INSERT INTO `question` (`question_id`, `question_text`, `question_answer`, `quizz_id`) VALUES
-(0, 'Afficher les noms des directeurs de la classe four', 'SELECT * FROM `fournisseur` ', 0),
-(1, 'Afficher les fournisseur', 'SELECT * FROM `fournisseur`', 0);
+INSERT INTO `question` (`question_id`, `question_text`, `question_answer`, `quiz_id`) VALUES
+(0, 'Affichez les informations sur les fournisseurs', 'SELECT * FROM `fournisseur` ', 0),
+(1, 'Afficher les pièces', 'SELECT * FROM `piece`', 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `quizz`
+-- Structure de la table `quiz`
 --
 
-DROP TABLE IF EXISTS `quizz`;
-CREATE TABLE IF NOT EXISTS `quizz` (
-  `quizz_id` int NOT NULL,
-  `quizz_name` varchar(50) DEFAULT NULL,
-  `quizz_difficulty` varchar(50) DEFAULT NULL,
-  `quizz_description` varchar(1000) DEFAULT NULL,
+DROP TABLE IF EXISTS `quiz`;
+CREATE TABLE IF NOT EXISTS `quiz` (
+  `quiz_id` int NOT NULL,
+  `quiz_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `quiz_difficulty` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `quiz_description` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `user_id` int NOT NULL,
-  PRIMARY KEY (`quizz_id`),
+  `quiz_database` varchar(50) NOT NULL,
+  PRIMARY KEY (`quiz_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `quizz`
+-- Déchargement des données de la table `quiz`
 --
 
-INSERT INTO `quizz` (`quizz_id`, `quizz_name`, `quizz_difficulty`, `quizz_description`, `user_id`) VALUES
-(0, 'Quizz numéro 1', 'Facile', 'Tester vos connaissances en réalisant des requêtes de base SQL.', 0);
+INSERT INTO `quiz` (`quiz_id`, `quiz_name`, `quiz_difficulty`, `quiz_description`, `user_id`, `quiz_database`) VALUES
+(0, 'Quiz notions base', 'Facile', 'Testez vos connaissances en réalisant des requêtes de base SQL.', 0, 'cycle_v3'),
+(1, 'Quiz tri de données', 'Moyen', 'Appliquez vos connaissances pour trier d\'informations sélectionnées d\'une base de donnée. ', 2, 'cycle_v3'),
+(2, 'Quiz avancé', 'Difficile', 'Réalisez des requêtes avancées.', 1, 'cycle_v3'),
+(3, 'Quiz test', 'Moyen', 'Faites des requêtes SQL avec une étude de cas particulière.', 2, 'cycle_v3');
 
 -- --------------------------------------------------------
 
@@ -89,7 +93,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_password`, `user_role`) VALUES
-(0, 'Professeur1', '12345', 1);
+(0, 'Delannoy', '12345', 1),
+(1, 'Mosba', '12345', 1),
+(2, 'Denis', '12345', 0);
 
 -- --------------------------------------------------------
 
