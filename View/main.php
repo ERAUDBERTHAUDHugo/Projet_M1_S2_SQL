@@ -1,5 +1,5 @@
 <div id=main>
-<link rel="stylesheet" type="text/css" href="styleMain.css">
+<link rel="stylesheet" type="text/css" href="View/styleMain.css">
 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <div class="title-box">
         <h1>Vos quiz :</h1>
