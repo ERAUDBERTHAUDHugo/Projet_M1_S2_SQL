@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 17 mars 2021 à 14:46
--- Version du serveur :  8.0.21
+-- Généré le : mer. 17 mars 2021 à 15:18
+-- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
-  `question_id` int NOT NULL,
-  `question_text` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `question_answer` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `quiz_id` int NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `question_text` varchar(1000) DEFAULT NULL,
+  `question_answer` varchar(1000) DEFAULT NULL,
+  `quiz_id` int(11) NOT NULL,
   PRIMARY KEY (`question_id`),
   KEY `quizz_id` (`quiz_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -53,11 +53,11 @@ INSERT INTO `question` (`question_id`, `question_text`, `question_answer`, `quiz
 
 DROP TABLE IF EXISTS `quiz`;
 CREATE TABLE IF NOT EXISTS `quiz` (
-  `quiz_id` int NOT NULL,
-  `quiz_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `quiz_difficulty` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `quiz_description` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `user_id` int NOT NULL,
+  `quiz_id` int(11) NOT NULL,
+  `quiz_name` varchar(50) DEFAULT NULL,
+  `quiz_difficulty` varchar(50) DEFAULT NULL,
+  `quiz_description` varchar(1000) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
   `quiz_database` varchar(50) NOT NULL,
   PRIMARY KEY (`quiz_id`),
   KEY `user_id` (`user_id`)
@@ -81,21 +81,14 @@ INSERT INTO `quiz` (`quiz_id`, `quiz_name`, `quiz_difficulty`, `quiz_description
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int NOT NULL,
-  `user_name` varchar(50) DEFAULT NULL,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_adress` varchar(50) DEFAULT NULL,
+  `user_last_name` varchar(50) NOT NULL,
+  `user_first_name` varchar(50) NOT NULL,
   `user_password` varchar(50) DEFAULT NULL,
-  `user_role` tinyint DEFAULT NULL,
+  `user_role` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `users`
---
-
-INSERT INTO `users` (`user_id`, `user_name`, `user_password`, `user_role`) VALUES
-(0, 'Delannoy', '12345', 1),
-(1, 'Mosba', '12345', 1),
-(2, 'Denis', '12345', 0);
 
 -- --------------------------------------------------------
 
@@ -105,11 +98,11 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_password`, `user_role`) VALUE
 
 DROP TABLE IF EXISTS `user_answer`;
 CREATE TABLE IF NOT EXISTS `user_answer` (
-  `user_answer_id` int NOT NULL,
+  `user_answer_id` int(11) NOT NULL,
   `user_answer_text` varchar(50) DEFAULT NULL,
   `user_answer_time` datetime DEFAULT NULL,
   `question_id` varchar(50) NOT NULL,
-  `user_id` int NOT NULL,
+  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`user_answer_id`),
   UNIQUE KEY `question_id` (`question_id`),
   KEY `user_id` (`user_id`)

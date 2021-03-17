@@ -17,7 +17,7 @@ session_start();
 
 include("Controller/PDOFactory.php");
 include('View/header.php');
-include("Controller/connexion.php");
+include("Controller/connectionRegisterCheck.php");
 
 //------------------------------------Redirection---------------------------------------
 
@@ -37,7 +37,9 @@ else{
         case "login":
             include('View/login.php');
             break;
-        
+            case "register":
+                include('View/register.php');
+                break;
         default:
             include('View/main.php');
         break;
