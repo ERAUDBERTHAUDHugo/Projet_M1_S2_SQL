@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 17 mars 2021 à 15:18
+-- Généré le : jeu. 18 mars 2021 à 08:57
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -88,7 +88,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_password` varchar(50) DEFAULT NULL,
   `user_role` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`user_id`, `user_adress`, `user_last_name`, `user_first_name`, `user_password`, `user_role`) VALUES
+(89, 'kjekdjezkdjeez', 'Goedert', 'Thibault', 'motdepasse', 0);
 
 -- --------------------------------------------------------
 
