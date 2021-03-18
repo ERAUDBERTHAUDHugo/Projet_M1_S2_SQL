@@ -1,8 +1,11 @@
+
+
 <link rel="stylesheet" type="text/css" href="View/styleDashboard.css">
+
 <div id=dashboard>
 	<div>
 		<h1>Tableau de bord</h1>
-		<h2>Bonjour User Name!<h2>
+		<h2>Bonjour User Name!<h2> <!-- get user id!-->
 	</div>  
 
 	<br>
@@ -31,7 +34,6 @@ window.onload = function () {
  
 var chart1 = new CanvasJS.Chart("chartContainer1", {
 	animationEnabled: true,
-	exportEnabled: true,
 	title:{
 		text: "Taux de réussite des exercices"
 	},
@@ -84,65 +86,80 @@ chart2.render();
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	<br>
 	<!-- ---------------------------------table to make dynamic ----------------------------->
+
 	<div style="height: 300px; width: 50%; float:left;">
 	<h4>Classement</h4>
 	<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
-	<table class="pure-table pure-table-horizontal">
-    <thead>
-        <tr>
+
+        <?php 
+	//recuperer les ranking disponibles
+        $userRanking=BDD::get()->query("SELECT `user_name`, `user_score` FROM `user` ORDER BY `user_score` DESC")->fetchAll();
+  		?>
+     <table class="pure-table pure-table-horizontal">
+    	<thead>
+    	<tr>
             <th>#</th>
             <th>Nom</th>
-            <th>Score</th>
+            <th>Score Total</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Student 1</td>
-            <td>99</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Student</td>
-            <td>97</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Student 3</td>
-            <td>90</td>
-        </tr>
-    </tbody>
-	</table>
+    	</thead>
+    	<tbody>
+
+    		<?php 
+            	$index=0;
+            	foreach ($userRanking as $rankedUser) {
+                	if($index<=9){      //afficher le top 10
+        			?>
+    				<tr>
+            			<td><?php echo $index+1; ?></td>
+            			<td><?php echo $rankedUser[$index]['user_name']; ?></td>
+            			<td><?php echo $rankedUser[$index]['user_score']; ?></td>
+        			</tr>
+				<?php  
+                	}
+                $index+=1;      
+            	}
+         		?>
+   		</tbody>
+		</table>
+
 	</div>
 	<!-- ---------------------------------table to make dynamic ----------------------------->
     <br>
     <div style="height: 300px; width: 50%; float:left;">
-    <h4>Mes exercices</h4>
-    <table class="pure-table pure-table-horizontal">
-    <thead>
-        <tr>
-            <th>Exercice</th>
+    <h4>Mes derniers exercices</h4>
+    <?php 
+	//recuperer les exercices faits disponibles
+        $userAnswers=BDD::get()->query("SELECT `user_id`, `user_answer_time`, `question_id`, `question_score`FROM `user_answer` WHERE `user_id`== 0 ORDER BY `user_answer_time` DESC")->fetchAll(); //user_id depend de l'tuilisateur, à changer en fonction
+  	?>
+     <table class="pure-table pure-table-horizontal">
+    	<thead>
+    	<tr>
+            <th>Question</th>
             <th>Date</th>
             <th>Score</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>6</td>
-            <td>11 09 2021</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>14 09 2021</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>21 10 2021</td>
-            <td>2</td>
-        </tr>
-    </tbody>
-	</table>
-	<div>
+    	</thead>
+    	<tbody>
+
+    		<?php 
+            	$index=0;
+            	foreach ($userAnswers as $question) {
+                	if($index<=9){      //afficher les 10 derniers exercices faits
+        			?>
+    				<tr>
+            			<td><?php echo $index+1; ?></td>
+            			<td><?php echo "Question n°".$question[$index]['question_id']; ?></td>
+            			<td><?php echo $question[$index]['user_answer_time']; ?></td>
+            			<td><?php echo $question[$index]['question_id']; ?></td>
+        			</tr>
+				<?php  
+                	}
+                $index+=1;      
+            	}
+         		?>
+   		</tbody>
+		</table>
+	</div>
+<!-- if user is admin (user_role==1) afficher rubrique gestion des exercices-->
 </body>
