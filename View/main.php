@@ -21,10 +21,10 @@
 
                     <?php //recuperer le teacher qui a crée le quiz
                     $id=(int)$quizAvailable[$index]['user_id'];
-                    $quizCreator=BDD::get()->query("SELECT `user_id`,`user_role`,`user_name` FROM `users` WHERE `user_id`=$id")->fetchAll();
+                    $quizCreator=BDD::get()->query("SELECT `user_id`,`user_role`,`user_first_name` FROM `users` WHERE `user_id`=$id")->fetchAll();
                     ?>
 
-                    <h4><?php echo "Par ".$quizCreator[0]['user_name']; ?></h4>
+                    <h4><?php echo "Par ".$quizCreator[0]['user_first_name']; ?></h4>
                     <small><?php if($quizCreator[0]['user_role']==1){echo "Admin";} else{echo "Unknown";}?></small>
                     <img src="View/Img/avatar.png">
                     <div class="social-box">
