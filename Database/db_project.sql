@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 18 mars 2021 à 09:04
+-- Généré le : jeu. 18 mars 2021 à 20:04
 -- Version du serveur :  8.0.21
 -- Version de PHP : 7.3.21
 
@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_first_name` varchar(50) NOT NULL,
   `user_password` varchar(50) DEFAULT NULL,
   `user_role` tinyint DEFAULT NULL,
+  `user_score` int DEFAULT '0',
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
 
@@ -94,8 +95,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_adress`, `user_last_name`, `user_first_name`, `user_password`, `user_role`) VALUES
-(0, 'kjekdjezkdjeez', 'Goedert', 'Thibault', 'motdepasse', 0);
+INSERT INTO `users` (`user_id`, `user_adress`, `user_last_name`, `user_first_name`, `user_password`, `user_role`, `user_score`) VALUES
+(0, 'kjekdjezkdjeez', 'Goedert', 'Thibault', 'motdepasse', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -110,10 +111,19 @@ CREATE TABLE IF NOT EXISTS `user_answer` (
   `user_answer_time` datetime DEFAULT NULL,
   `question_id` varchar(50) NOT NULL,
   `user_id` int NOT NULL,
+  `question_score` int DEFAULT '0',
+  `valide` int DEFAULT NULL,
   PRIMARY KEY (`user_answer_id`),
   UNIQUE KEY `question_id` (`question_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `user_answer`
+--
+
+INSERT INTO `user_answer` (`user_answer_id`, `user_answer_text`, `user_answer_time`, `question_id`, `user_id`, `question_score`, `valide`) VALUES
+(0, 'Reponse', '2021-03-18 21:03:01', '0', 0, 2, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
