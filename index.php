@@ -9,12 +9,12 @@
 </head>
 <body>
 
-
 <?php
+
 session_start();
 
 //--------------------------------------Includes-------------------------------
-
+include("Controller/testLinkDb.php");
 include("Controller/PDOFactory.php");
 include('View/header.php');
 include("Controller/connectionRegisterCheck.php");
@@ -37,15 +37,20 @@ else{
         case "login":
             include('View/login.php');
             break;
-            case "register":
-                include('View/register.php');
-                break;
+        case "register":
+            include('View/register.php');
+            break;
+        case "dashboard":
+            include('View/dashboard.php');
+            break;
         default:
             include('View/main.php');
         break;
         }
     }
+
 include('View/footer.php')
+
 ?>
 
 </body>
