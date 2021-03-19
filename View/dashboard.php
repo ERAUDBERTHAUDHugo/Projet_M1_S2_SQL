@@ -171,7 +171,7 @@ chart2.render();
 	</div>
 
 <!-- if user is admin (user_role==1) afficher rubrique gestion des exercices-->
-	<?php 
+<!--	<?php 
 	$user_role=1; //admin pour test, à determiner avec requete user session
 	if($user_role==1){
 		?>
@@ -180,5 +180,5 @@ chart2.render();
 		</div>
 		<?php
 	}
-	?>
+	?> -->
 </body>
