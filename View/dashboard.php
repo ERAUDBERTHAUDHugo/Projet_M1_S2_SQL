@@ -20,7 +20,6 @@
     $userInvalid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=1 AND `valide`=0")->fetchAll();
     $valid+=(int)$userValid;
     $invalid+=(int)$userInvalid;
-
 	$dataPie = array(
 		array("label"=> "Réussite", "y"=> $valid),
 		array("label"=> "Echec", "y"=> $invalid),
@@ -167,5 +166,16 @@ chart2.render();
    		</tbody>
 		</table>
 	</div>
+
 <!-- if user is admin (user_role==1) afficher rubrique gestion des exercices-->
+	<?php 
+	$user_role=1; //admin pour test, à determiner avec requete user session
+	if($user_role==1){
+		?>
+		<div>
+			<h4>Gérer les exercices</h4>
+		</div>
+		<?php
+	}
+	?>
 </body>
