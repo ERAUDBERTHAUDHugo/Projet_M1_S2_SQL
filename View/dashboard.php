@@ -13,16 +13,12 @@
 	<div>
 <!--  ----------------------------data for diagrams-------------------------- -->
 	<?php
-	$valid=0;
-	$invalid=0;
 	//recuperer le nombre de réponses valides et invalides
     $userValid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=1 AND `valide`=1")->fetchAll();//user id à adapter selon la session// ici valide interger 1
     $userInvalid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=1 AND `valide`=0")->fetchAll();
-    $valid+=(int)$userValid;
-    $invalid+=(int)$userInvalid;
 	$dataPie = array(
-		array("label"=> "Réussite", "y"=> $valid),
-		array("label"=> "Echec", "y"=> $invalid),
+		array("label"=> "Réussite", "y"=> (int)$userValid[0][0]),
+		array("label"=> "Echec", "y"=> (int)$userInvalid[0][0]),
 	);
 	//gerer les dateTime pour l'affichage --> format
 	 $dataCurve = array(
