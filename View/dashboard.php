@@ -16,8 +16,8 @@
 	$valid=0;
 	$invalid=0;
 	//recuperer le nombre de réponses valides et invalides
-    $userValid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`==0 AND `valide`==1")->fetchAll();//user id à adapter selon la session// ici valide interger 1
-    $userInvalid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`==0 AND `valide`==0")->fetchAll();
+    $userValid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=1 AND `valide`=1")->fetchAll();//user id à adapter selon la session// ici valide interger 1
+    $userInvalid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=1 AND `valide`=0")->fetchAll();
     $valid+=(int)$userValid;
     $invalid+=(int)$userInvalid;
 
@@ -100,7 +100,7 @@ chart2.render();
 
         <?php 
 	//recuperer les ranking disponibles
-        $userRanking=BDD::get()->query("SELECT `user_name`, `user_score` FROM `user` ORDER BY `user_score` DESC")->fetchAll();
+        $userRanking=BDD::get()->query("SELECT `user_first_name`, `user_score` FROM `users` ORDER BY `user_score` DESC")->fetchAll();
   		?>
      <table class="pure-table pure-table-horizontal">
     	<thead>
@@ -119,8 +119,8 @@ chart2.render();
         			?>
     				<tr>
             			<td><?php echo $index+1; ?></td>
-            			<td><?php echo $rankedUser[$index]['user_name']; ?></td>
-            			<td><?php echo $rankedUser[$index]['user_score']; ?></td>
+            			<td><?php echo $userRanking[$index]['user_first_name']; ?></td>
+            			<td><?php echo $userRanking[$index]['user_score']; ?></td>
         			</tr>
 				<?php  
                 	}
@@ -137,7 +137,7 @@ chart2.render();
     <h4>Mes derniers exercices</h4>
     <?php 
 	//recuperer les exercices faits disponibles
-        $userAnswers=BDD::get()->query("SELECT `user_id`, `user_answer_time`, `question_id`, `question_score`FROM `user_answer` WHERE `user_id`== 0 ORDER BY `user_answer_time` DESC")->fetchAll(); //user_id depend de l'tuilisateur, à changer en fonction
+        $userAnswers=BDD::get()->query("SELECT `user_id`, `user_answer_time`, `question_id`, `question_score`FROM `user_answer` WHERE `user_id`= 1 ORDER BY `user_answer_time` DESC")->fetchAll(); //user_id depend de l'tuilisateur, à changer en fonction
   	?>
      <table class="pure-table pure-table-horizontal">
     	<thead>
@@ -155,10 +155,9 @@ chart2.render();
                 	if($index<=9){      //afficher les 10 derniers exercices faits
         			?>
     				<tr>
-            			<td><?php echo $index+1; ?></td>
-            			<td><?php echo "Question n°".$question[$index]['question_id']; ?></td>
-            			<td><?php echo $question[$index]['user_answer_time']; ?></td>
-            			<td><?php echo $question[$index]['question_id']; ?></td>
+            			<td><?php echo "Question n°".$userAnswers[$index]['question_id']; ?></td>
+            			<td><?php echo $userAnswers[$index]['user_answer_time']; ?></td>
+            			<td><?php echo $userAnswers[$index]['question_score']; ?></td>
         			</tr>
 				<?php  
                 	}
