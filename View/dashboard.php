@@ -16,15 +16,20 @@
 	//recuperer le nombre de réponses valides et invalides
     $userValid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=1 AND `valide`=1")->fetchAll();//user id à adapter selon la session// ici valide interger 1
     $userInvalid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=1 AND `valide`=0")->fetchAll();
+
 	$dataPie = array(
 		array("label"=> "Réussite", "y"=> (int)$userValid[0][0]),
 		array("label"=> "Echec", "y"=> (int)$userInvalid[0][0]),
 	);
+
+
+	//recuperer les scores totaux au fil du temps
+	$userEvolution=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=1 AND `valide`=0")->fetchAll();
 	//gerer les dateTime pour l'affichage --> format
 	 $dataCurve = array(
-	array("x" => 946665000000, "y" => 3),
-	array("x" => 978287400000, "y" => 4),
-	array("x" => 1009823400000, "y" => 8),
+	array("x" => 3, "y" => 3),
+	array("x" => 4, "y" => 4),
+	array("x" => 5, "y" => 8),
  	);
 	
 ?>
@@ -63,12 +68,14 @@ var chart2 = new CanvasJS.Chart("chartContainer2", {
 		title: "Score",
 		suffix: " pts",
 	},
+	axisX: {
+		title: "Mois",
+		xvalueFormatString:"#",
+	},
 	data: [{
 		type: "spline",
 		lineColor: "green",
 		markerSize: 5,
-		xValueFormatString: "YYYY",
-		xValueType: "dateTime",
 		dataPoints: <?php echo json_encode($dataCurve, JSON_NUMERIC_CHECK); ?>
 	}]
 });
