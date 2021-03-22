@@ -17,6 +17,7 @@
             foreach ($quizAvailable as $quiz) {
                 if($index<=3){      //afficher 4 exercices sur la page
                 ?>
+                <a href="index.php?page=exercice&id=<?php echo($quiz["quiz_id"]); ?>">
                 <div class="quiz-box">
 
                     <?php //recuperer le teacher qui a crée le quiz
@@ -32,7 +33,7 @@
                     </div>
                     <p><?php echo substr($quizAvailable[$index]['quiz_description'], 0, 55)."..."; ?></p>
                 </div>
-
+                </a>
                 <?php  
                 }
                 $index+=1;      

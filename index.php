@@ -17,7 +17,7 @@ session_start();
 //--------------------------------------Includes-------------------------------
 
 
-include("Controller/testLinkDb.php");
+include("Controller/bddManagement.php");
 include("Controller/PDOFactory.php");
 include('View/header.php');
 include("Controller/connectionRegisterCheck.php");
@@ -25,7 +25,7 @@ include("Controller/displayExercice.php");
 
 
 //------------------------------------Redirection---------------------------------------
-var_dump([$_SESSION]);
+
 if(!isset($_GET['page'])){
     $page=' ';
     include('View/main.php');
