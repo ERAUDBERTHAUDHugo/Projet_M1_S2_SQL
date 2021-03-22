@@ -77,6 +77,7 @@
 
                     $_SESSION["connected"]=1;
                     $_SESSION["user"]=$users["user_id"];
+                    $_SESSION["question"]=-1;
 
                     return ("Vous êtes bien connecté");
 

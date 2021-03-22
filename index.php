@@ -21,6 +21,7 @@ session_start();
 include("Controller/PDOFactory.php");
 include('View/header.php');
 include("Controller/connectionRegisterCheck.php");
+include("Controller/displayExercice.php");
 
 
 //------------------------------------Redirection---------------------------------------
