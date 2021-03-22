@@ -11,7 +11,6 @@
 		?>
 		<h1>Tableau de bord</h1>
 		<h2>Bonjour <?php echo $userInfo[0]['user_first_name'].' '.$userInfo[0]['user_last_name'];?> !<h2> <!-- display user info-->
-		<h3>Ton score actuel est de <?php echo $userInfo[0]['user_score']?> points.</h3>
 
 	</div>  
 
@@ -98,12 +97,13 @@ chart2.render();
 
 	<div id="chartContainer1" style="height: 300px; width: 50%; float:left;"></div>
 	<br>
-	<div id="chartContainer2" style="height: 300px; width: 45%; float:left;"></div>
+	<div id="chartContainer2" style="height: 300px; width: 50%; float:left;"></div>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	<br>
 	<!-- ---------------------------------table to make dynamic ----------------------------->
 
 	<div style="height: 300px; width: 50%; float:left;">
+		<br>
 	<h4>Classement</h4>
 	<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
 
@@ -143,6 +143,7 @@ chart2.render();
 	<!-- ---------------------------------table to make dynamic ----------------------------->
     <br>
     <div style="height: 300px; width: 50%; float:left;">
+    	<br>
     <h4>Mes derniers exercices</h4>
     <?php 
 	//recuperer les exercices faits disponibles
@@ -182,14 +183,7 @@ chart2.render();
 	</div>
 
 <!-- if user is admin (user_role==1) afficher rubrique gestion des exercices-->
-<!--	<?php 
-	$user_role=1; //admin pour test, à determiner avec requete user session
-	if($user_role==1){
-		?>
-		<div>
-			<h4>Gérer les exercices</h4>
-		</div>
-		<?php
-	}
-	?> -->
 </body>
+
+<br>
+Obligée d'ecrire quelque chose là sinon le footer se met mal, erreur à régler!
