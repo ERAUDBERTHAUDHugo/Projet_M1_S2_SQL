@@ -4,8 +4,15 @@
 
 <div id=dashboard>
 	<div>
+		<?php
+		$userBoard=$_GET["id"];
+		//get user info
+    	$userInfo=BDD::get()->query("SELECT `user_adress`, `user_last_name`, `user_first_name`, `user_score` FROM `users` WHERE `user_id`= $userBoard")->fetchAll();
+		?>
 		<h1>Tableau de bord</h1>
-		<h2>Bonjour User Name!<h2> <!-- get user id!-->
+		<h2>Bonjour <?php echo $userInfo[0]['user_first_name'].' '.$userInfo[0]['user_last_name'];?> !<h2> <!-- display user info-->
+		<h3>Ton score actuel est de <?php echo $userInfo[0]['user_score']?> points.</h3>
+
 	</div>  
 
 	<br>
@@ -14,8 +21,8 @@
 <!--  ----------------------------data for diagrams-------------------------- -->
 	<?php
 	//recuperer le nombre de réponses valides et invalides
-    $userValid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=1 AND `valide`=1")->fetchAll();//user id à adapter selon la session// ici valide interger 1
-    $userInvalid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=1 AND `valide`=0")->fetchAll();
+    $userValid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`= $userBoard AND `valide`=1")->fetchAll();
+    $userInvalid=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=$userBoard AND `valide`=0")->fetchAll();
 
 	$dataPie = array(
 		array("label"=> "Réussite", "y"=> (int)$userValid[0][0]),
@@ -24,7 +31,7 @@
 
 
 	//recuperer les scores totaux au fil du temps
-	$userEvolution=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=1 AND `valide`=0")->fetchAll();
+	$userEvolution=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=$userBoard AND `valide`=0")->fetchAll();
 	//gerer les dateTime pour l'affichage --> format
 	 $dataCurve = array(
 	array("x" => 3, "y" => 3),
@@ -34,7 +41,7 @@
 	
 ?>
 
-<!--  ----------------------------diagrams reation-------------------------- -->
+<!--  ----------------------------diagrams creation-------------------------- -->
 
 <script>
 window.onload = function () {
@@ -139,7 +146,7 @@ chart2.render();
     <h4>Mes derniers exercices</h4>
     <?php 
 	//recuperer les exercices faits disponibles
-        $userAnswers=BDD::get()->query("SELECT `user_id`, `user_answer_time`, `question_id`, `question_score`FROM `user_answer` WHERE `user_id`= 1 ORDER BY `user_answer_time` DESC")->fetchAll(); //user_id depend de l'tuilisateur, à changer en fonction
+        $userAnswers=BDD::get()->query("SELECT `user_id`, `user_answer_time`, `question_id`, `question_score`FROM `user_answer` WHERE `user_id`= $userBoard ORDER BY `user_answer_time` DESC")->fetchAll(); 
   	?>
      <table class="pure-table pure-table-horizontal">
     	<thead>
