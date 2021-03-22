@@ -15,9 +15,12 @@ session_start();
 
 //--------------------------------------Includes-------------------------------
 
+
+include("Controller/testLinkDb.php");
 include("Controller/PDOFactory.php");
 include('View/header.php');
 include("Controller/connectionRegisterCheck.php");
+
 
 //------------------------------------Redirection---------------------------------------
 
@@ -43,9 +46,10 @@ else{
         default:
             include('View/main.php');
         break;
-        }
     }
 include('View/footer.php')
+
+
 ?>
 
 </body>

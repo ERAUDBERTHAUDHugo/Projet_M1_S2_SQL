@@ -26,8 +26,11 @@
     function mailUnique($mail){
 
         $users_adress=BDD::get()->query('SELECT user_adress FROM users;')->fetchAll();
+
         foreach ($users_adress as $adress){
+
             if ($adress["user_adress"]==$mail){
+
                 return FALSE;
             }
         }
@@ -41,13 +44,18 @@
         $firstname=$_POST["firstName"];
         $psw=$_POST["psw"];
         $pswConfirmed=$_POST["pswConfirmed"];
+
         if (checkSimilarpassword($psw,$pswConfirmed)){
+
             if (mailUnique($mail)){
+
                 echo("yes");
                 insertNewUser($mail,$lastname,$firstname,$psw,0);
                 return("Inscription effectuée ! Connectez-vous. ");
+
             }else{
-                return ("L'adresse mail est déjà utilisé");
+
+                return ("L'adresse mail est déjà utilisée");
             }
         }else {
             return("Les deux mots de passe ne corespondent pas");
@@ -81,19 +89,29 @@
         return("Adresse ou mot de passe incorrect");
     }
 
-    function isConnected(){                 
+    function isConnected(){   
+                      
         if (isset($_SESSION['connected'])) {
+
           return 1;
         }
+
         else {
+
           return 0;
         }
-      }
+    }
            
-      function disconnect(){   
+    function disconnect(){   
+
         $_SESSION = array();
-      }
-      
+    }
+
+    function cookieConnDestr(){
+
+        $_SESSION["returnRegister"]="";
+        $_SESSION["returnConnection"]="";
+    }
     //---------------------------------------------Register Check-----------------------------------------------------
 
     if (isset($_POST["register"])){
@@ -101,10 +119,15 @@
         $returnRegister=register();
         setcookie("returnRegister",$returnRegister,time()+3);
         echo($returnRegsiter);
+
         if($returnRegister=="Inscription effectuée ! Connectez-vous. "){
+
             header('Location: index.php?page=login');
+
         }else{
+
             header('Location: index.php?page=register');
+
         }
     }
 
@@ -120,12 +143,16 @@
             $psw=$_POST["psw"];
             $returnCon=checkConnection($mail,$psw);
             echo($returnCon);
-            setcookie("returnRConnection",$returnCon,time()+3);
-            if ($returnCon=="Vous êtes bien connecté"){
-                echo("qdqdq");
+            setcookie("returnConnection",$returnCon,time()+3);
+
+            if ($returnCon=="Vous êtes bien connecté")
+            {
                 header('Location: index.php?page=main');
+
             }else{
+
                 header('Location: index.php?page=login');
+
             }
         }
     }

@@ -3,6 +3,12 @@
     <img src="View/img/avatar.png" class="avatar">
         <h1>Enregistre-toi ici !</h1>
         <form action="index.php?page=login" method='POST'>
+            <?php
+                if (isset($_COOKIE["returnRegister"])){
+                    echo($_COOKIE["returnRegister"]);
+                }
+                
+            ?>
             <p>Email</p>
             <input type="text" name="mail" placeholder="Entre ton pseudo">
             <p>Nom</p>
