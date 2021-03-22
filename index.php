@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://kit.fontawesome.com/e4339b56d6.js" crossorigin="anonymous"></script>
-  <title>Apprendre la BDD avec DD</title>
+  <title>Plateforme d'apprentissage de la BDD</title>
 </head>
 <body>
 
@@ -17,7 +17,7 @@ session_start();
 //--------------------------------------Includes-------------------------------
 
 
-//include("Controller/testLinkDb.php");
+include("Controller/testLinkDb.php");
 include("Controller/PDOFactory.php");
 include('View/header.php');
 include("Controller/connectionRegisterCheck.php");
@@ -25,7 +25,7 @@ include("Controller/displayExercice.php");
 
 
 //------------------------------------Redirection---------------------------------------
-
+var_dump([$_SESSION]);
 if(!isset($_GET['page'])){
     $page=' ';
     include('View/main.php');
@@ -54,7 +54,7 @@ else{
     }
 }
 include('View/footer.php');
-
+//disconnect();
 
 ?>
 

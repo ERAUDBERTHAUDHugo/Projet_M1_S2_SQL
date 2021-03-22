@@ -30,9 +30,9 @@ function createBase ($dbname){
 //---------------------------------------IMPORT .sql FILE-------------------------------------------
   
 
-function importSqlFile($dbname){
+function importSqlFile($dbname,$filename){
     
-    $query = file_get_contents(__DIR__."\\".$dbname.".sql");
+    $query = file_get_contents(__DIR__."\\".$filename.".sql");
     $con = new PDO("mysql:host=localhost;dbname=".$dbname."","root","");
     $stmt = $con->prepare($query);
     if($stmt->execute()){
@@ -67,8 +67,8 @@ function deleteBase($dbname){
     }
     unset($db);
 }
-    //createBase("demo");
-    //importSqlFile("demo");
+    //createBase("cycle_v3");
+    //importSqlFile("cycle_v3","cycle_v3");
     //getTables("demo");
     //deleteBase("demo");
     //exportDatabase("localhost","root","","demo","D:\programme\wamp\www\ProjetM1S2\Projet_M1_S2_SQL\Controller");

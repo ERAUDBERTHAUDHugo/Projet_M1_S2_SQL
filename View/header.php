@@ -1,6 +1,6 @@
 <header>
 	<link rel="stylesheet" type="text/css" href="View/styleHeader.css">	
-    <h1>Apprendre la BDD avec DD</h1>
+    <h1>Plateforme d'apprentissage de la BDD</h1>
     <ul id="menu-demo2">
 		<li><a href="index.php?page=main">Accueil</a>
 		</li>
