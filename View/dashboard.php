@@ -146,11 +146,12 @@ chart2.render();
     <h4>Mes derniers exercices</h4>
     <?php 
 	//recuperer les exercices faits disponibles
-        $userAnswers=BDD::get()->query("SELECT `user_id`, `user_answer_time`, `question_id`, `question_score`FROM `user_answer` WHERE `user_id`= $userBoard ORDER BY `user_answer_time` DESC")->fetchAll(); 
+        $userAnswers=BDD::get()->query("SELECT `user_id`, `user_answer_time`, `question_id`, `question_score`, `quiz_id` FROM `user_answer` WHERE `user_id`= $userBoard ORDER BY `user_answer_time` DESC")->fetchAll(); 
   	?>
      <table class="pure-table pure-table-horizontal">
     	<thead>
     	<tr>
+            <th>Exercice</th>
             <th>Question</th>
             <th>Date</th>
             <th>Score</th>
@@ -162,9 +163,12 @@ chart2.render();
             	$index=0;
             	foreach ($userAnswers as $question) {
                 	if($index<=9){      //afficher les 10 derniers exercices faits
+                	$quizId=(int)$userAnswers[$index]['quiz_id'];
+        			$userQuiz=BDD::get()->query("SELECT `quiz_name` FROM `quiz` WHERE `quiz_id`=$quizId")->fetchAll();
         			?>
     				<tr>
-            			<td><?php echo "Question n°".$userAnswers[$index]['question_id']; ?></td>
+    					<td><?php echo $userQuiz[0]['quiz_name']; ?></td>
+            			<td><?php echo $userAnswers[$index]['question_id']; ?></td>
             			<td><?php echo $userAnswers[$index]['user_answer_time']; ?></td>
             			<td><?php echo $userAnswers[$index]['question_score']; ?></td>
         			</tr>
