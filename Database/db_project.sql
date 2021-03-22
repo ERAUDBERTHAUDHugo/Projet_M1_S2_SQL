@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 19 mars 2021 à 08:54
+-- Généré le : lun. 22 mars 2021 à 17:49
 -- Version du serveur :  8.0.21
 -- Version de PHP : 7.3.21
 
@@ -114,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `user_answer` (
   `user_id` int NOT NULL,
   `question_score` int DEFAULT '0',
   `valide` int DEFAULT NULL,
+  `quiz_id` int DEFAULT NULL,
   PRIMARY KEY (`user_answer_id`),
   UNIQUE KEY `question_id` (`question_id`),
   KEY `user_id` (`user_id`)
@@ -123,10 +124,11 @@ CREATE TABLE IF NOT EXISTS `user_answer` (
 -- Déchargement des données de la table `user_answer`
 --
 
-INSERT INTO `user_answer` (`user_answer_id`, `user_answer_text`, `user_answer_time`, `question_id`, `user_id`, `question_score`, `valide`) VALUES
-(0, 'Reponse', '2021-03-18 21:03:01', '0', 0, 2, 1),
-(1, 'Reponse&&&z', '2021-03-19 11:50:20', '1', 1, 3, 1),
-(2, 'omhsa', '2021-03-19 09:51:16', '3', 1, 2, 1);
+INSERT INTO `user_answer` (`user_answer_id`, `user_answer_text`, `user_answer_time`, `question_id`, `user_id`, `question_score`, `valide`, `quiz_id`) VALUES
+(0, 'Reponse', '2021-03-18 21:03:01', '0', 0, 2, 1, 0),
+(1, 'Reponse&&&z', '2021-03-19 11:50:20', '1', 1, 3, 1, 0),
+(2, 'omhsa', '2021-03-19 09:51:16', '3', 1, 2, 1, 0),
+(3, 'Reponseaaz', '2021-03-22 10:05:28', '4', 1, 5, 0, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
