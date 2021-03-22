@@ -5,16 +5,16 @@
   <link rel="stylesheet" href="View/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/e4339b56d6.js" crossorigin="anonymous"></script>
-  <title>Apprendre le SQL avec DD</title>
+  <title>Apprendre la BDD avec DD</title>
 </head>
 <body>
 
-<?php
 
+<?php
 session_start();
 
 //--------------------------------------Includes-------------------------------
-include("Controller/testLinkDb.php");
+
 include("Controller/PDOFactory.php");
 include('View/header.php');
 include("Controller/connectionRegisterCheck.php");
@@ -37,20 +37,15 @@ else{
         case "login":
             include('View/login.php');
             break;
-        case "register":
-            include('View/register.php');
-            break;
-        case "dashboard":
-            include('View/dashboard.php');
-            break;
+            case "register":
+                include('View/register.php');
+                break;
         default:
             include('View/main.php');
         break;
         }
     }
-
 include('View/footer.php')
-
 ?>
 
 </body>
