@@ -57,7 +57,7 @@ small{
     color: #555;
 }
 
-.team-row{
+.quiz-row{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;

@@ -1,3 +1,101 @@
+/*---------------------------------------------MainCSS-----------------------------------------------------------*/
+.title-box{
+    text-align: center;
+    font-family: sans-serif;
+    margin: 100px auto 50px;
+    color: #000080;
+}
 
+.title-box p{
+    margin-top: 10px;
+    line-height: 24px;
+    color: #555;
+}
+
+.quiz-box{
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 10px 10px rgba(115, 193, 255, 0.1);
+    padding: 20px;
+    position: relative;
+    transition: .5s;
+}
+
+.quiz-box img{
+    width:75px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border-radius: 4px;
+    transition: .5s;
+}
+
+.quiz-box h4{
+    margin-top: 25px;
+    margin-bottom: 5px;
+    color:#000080;
+}
+
+small{
+    color:#555;
+}
+
+.title-quiz-box{
+    background: #000080;
+    margin: 60px auto 20px;
+    text-align: center;
+    border-radius: 3px;
+    color: #fff;
+}
+
+
+.quiz-box p{
+    text-align: center;
+    line-height: 24px;
+    color: #555;
+}
+
+.quiz-row{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 85%;
+    margin: auto;
+}
+
+.quiz-box:hover
+{
+    background: #000080;
+}
+
+.quiz-box:hover h4
+{
+    color: #fff;
+}
+
+.quiz-box:hover p
+{
+    color: #efefef;
+}
+
+.quiz-box:hover small
+{
+    color: #efefef;
+}
+
+.quiz-box:hover .social-box
+{
+    background: #fff;
+}
+
+.quiz-box:hover .social-box p1
+{
+    color: #000080;
+}
+
+/*----------------------------------------------FinMainCSS---------------------------------------------------------*/
 
 

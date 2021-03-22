@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="View/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://kit.fontawesome.com/e4339b56d6.js" crossorigin="anonymous"></script>
   <title>Apprendre la BDD avec DD</title>
 </head>
