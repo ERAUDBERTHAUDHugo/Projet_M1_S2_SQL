@@ -28,15 +28,27 @@
 		array("label"=> "Echec", "y"=> (int)$userInvalid[0][0]),
 	);
 
+	//recuperer les scores totaux au fil du temps --> affichage scpre à chaque timestamp (question répondue)
+	$scoresTime=BDD::get()->query("SELECT `user_answer_time` FROM `user_answer` WHERE `user_id`=$userBoard")->fetchAll();
+	 // à faire pour chaque date length(times available)
+	$i=0;
+	$dataCurveTest=array();
+	foreach ($scoresTime as $scoreTime) {
+		$time = $scoresTime[$i]['user_answer_time'];
+		$userEvolution=BDD::get()->query("SELECT SUM(`question_score`) FROM `user_answer` WHERE `user_id`= $userBoard  AND `user_answer_time`<= '$time'")->fetchAll(); // a changer avec vrai timestamp
+		$arrayData = array("x" => $time, "y" => $userEvolution[0][0]);
+		$dataCurve = array_merge($dataCurveTest,array($arrayData)); //probleme dans data (ajout des array)
 
-	//recuperer les scores totaux au fil du temps
-	$userEvolution=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id`=$userBoard AND `valide`=0")->fetchAll();
-	//gerer les dateTime pour l'affichage --> format
-	 $dataCurve = array(
-	array("x" => 3, "y" => 3),
-	array("x" => 4, "y" => 4),
-	array("x" => 5, "y" => 8),
- 	);
+		$i++;
+	}
+	var_dump($dataCurve); //gerer les dateTime pour l'affichage --> format
+	
+
+	// $dataCurve = array( -->test de depart
+	//array("x" => $time, "y" => $userEvolution[0][0]),
+	//array("x" => 4, "y" => 4),
+	//array("x" => 5, "y" => 8),
+ 	//);
 	
 ?>
 
