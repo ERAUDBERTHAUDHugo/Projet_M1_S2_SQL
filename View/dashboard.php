@@ -35,20 +35,13 @@
 	$dataCurveTest=array();
 	foreach ($scoresTime as $scoreTime) {
 		$time = $scoresTime[$i]['user_answer_time'];
-		$userEvolution=BDD::get()->query("SELECT SUM(`question_score`) FROM `user_answer` WHERE `user_id`= $userBoard  AND `user_answer_time`<= '$time'")->fetchAll(); // a changer avec vrai timestamp
-		$arrayData = array("x" => $time, "y" => $userEvolution[0][0]);
-		$dataCurve = array_merge($dataCurveTest,array($arrayData)); //probleme dans data (ajout des array)
+		$userEvolution=BDD::get()->query("SELECT SUM(`question_score`) FROM `user_answer` WHERE `user_id`= $userBoard  AND `user_answer_time`<= '$time'")->fetchAll(); 
+		$arrayData = array("x" => strtotime($time)*1000, "y" => (int)$userEvolution[0][0]);
+		$dataCurve[$i]=$arrayData; 
 
 		$i++;
 	}
 	var_dump($dataCurve); //gerer les dateTime pour l'affichage --> format
-	
-
-	// $dataCurve = array( -->test de depart
-	//array("x" => $time, "y" => $userEvolution[0][0]),
-	//array("x" => 4, "y" => 4),
-	//array("x" => 5, "y" => 8),
- 	//);
 	
 ?>
 
@@ -87,13 +80,13 @@ var chart2 = new CanvasJS.Chart("chartContainer2", {
 		suffix: " pts",
 	},
 	axisX: {
-		title: "Mois",
-		xvalueFormatString:"#",
+		title: "Date",
 	},
 	data: [{
 		type: "spline",
 		lineColor: "green",
 		markerSize: 5,
+		xValueType: "dateTime",
 		dataPoints: <?php echo json_encode($dataCurve, JSON_NUMERIC_CHECK); ?>
 	}]
 });
