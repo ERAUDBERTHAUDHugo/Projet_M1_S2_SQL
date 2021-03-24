@@ -5,7 +5,7 @@
 <div id=dashboard>
 	<div>
 		<?php
-		$userBoard=$_GET["id"];
+		$userBoard=$_SESSION["user"];
 		//get user info
     	$userInfo=BDD::get()->query("SELECT `user_adress`, `user_last_name`, `user_first_name`, `user_score` FROM `users` WHERE `user_id`= $userBoard")->fetchAll();
 		?>
