@@ -25,7 +25,7 @@ include("Controller/displayExercice.php");
 
 
 //------------------------------------Redirection---------------------------------------
-
+var_dump($_SESSION);
 if(!isset($_GET['page'])){
     $page=' ';
     include('View/main.php');
@@ -53,8 +53,11 @@ else{
         break;
     }
 }
+include("TestFiles/transactionPDO.php");
+
 include('View/footer.php');
-//disconnect();
+
+// disconnect();
 
 ?>
 

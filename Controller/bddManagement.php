@@ -5,21 +5,26 @@
 
 
 function createBase ($dbname){
+    /**
+     * @param String $dbname a "string containing the name db wich will be create by the fonction is expected"
+     * @return None (only creating a db)
+     **/
+    
     try{
         $pdo = new PDO("mysql:host=localhost;", "root", "");
         // Set the PDO error mode to exception
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch(PDOException $e){
-        die("ERROR: Could not connect. " . $e->getMessage());
+        die("ERROR: Impossible de se connecter " . $e->getMessage());
     }
      
     // Attempt create database query execution
     try{
         $sql = "CREATE DATABASE $dbname";
         $pdo->exec($sql);
-        echo "Database created successfully";
+        return "BDD crée avec succès !";
     } catch(PDOException $e){
-        die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+        die("ERROR: Impossible de faire $sql. " . $e->getMessage());
     }
      
     // Close connection
