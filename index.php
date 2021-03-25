@@ -53,11 +53,10 @@ else{
         break;
     }
 }
-include("TestFiles/transactionPDO.php");
 
 include('View/footer.php');
 
-// disconnect();
+//disconnect();
 
 ?>
 
