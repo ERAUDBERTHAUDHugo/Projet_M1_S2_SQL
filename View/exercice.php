@@ -39,6 +39,18 @@
 	if (isset($_POST["reponse"])){
 		
 		include("Controller/correction.php");
+
+		/////////////////////////////////////test////////////////////////////////////////
+		//bdd cycle_v3
+		//SELECT * FROM `type_piece`
+		$userId=$_SESSION["user"];
+		$username=BDD::get()->query("SELECT `user_last_name` FROM `users` WHERE `user_id`= $userId")->fetchAll();
+		$dbname=hash("MD5",$username[0]["user_last_name"]);
+		$dbnameCorrec=$dbname."Correc";
+
+		$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET["id"],$_SESSION["question"]);
+		var_dump($resultat);
+		////////////////////////////////////test///////////////////////////////////////////
 		?>
 		<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
 			<button name="previous">Question précédente</button>
