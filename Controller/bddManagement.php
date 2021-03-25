@@ -50,8 +50,8 @@ function importSqlFile($dbname,$filename){
 function getTables($dbname){
     $db = new PDO("mysql:host=localhost;dbname=".$dbname."","root","");
     $tables=$db->query('SHOW TABLES FROM `'.$dbname.'`')->fetchAll();
-    var_dump($tables);
     unset($db);
+    return $tables;
 }
 
 function exportDatabase($host, $user, $password, $database, $targetFilePath){
