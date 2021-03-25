@@ -1,8 +1,6 @@
 <?php
 echo"Requete à corriger : ".$_POST["reponse"];
 
-/////////////////////////////////ETAPE 1////////////////////////////////////////////
-
 function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId){
     /**
      * @param 
@@ -19,7 +17,7 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
 
     //if user request doesn't work on their db, wrong answer 
     if(!$requestTest->execute()){
-        return "Mauvaise réponse!";
+        return " Requête invalide";
     }else{
         //get correct request from website db
         $conGetRequest = new PDO("mysql:host=localhost;dbname=db_project","root","");
@@ -43,7 +41,7 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
         //check count and compare number of tables
         if(!(count($tableTest)==count($tableCorrec))){
 
-            return " Pas de même nbr de tables";
+            return " Pas de même nombre de tables";
 
         } else{
 
