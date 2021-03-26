@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 22 mars 2021 à 17:49
+-- Généré le : ven. 26 mars 2021 à 14:17
 -- Version du serveur :  8.0.21
 -- Version de PHP : 7.3.21
 
@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `question_text` varchar(1000) DEFAULT NULL,
   `question_answer` varchar(1000) DEFAULT NULL,
   `quiz_id` int NOT NULL,
+  `question_points` int DEFAULT '0',
   PRIMARY KEY (`question_id`),
   KEY `quizz_id` (`quiz_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -41,9 +42,9 @@ CREATE TABLE IF NOT EXISTS `question` (
 -- Déchargement des données de la table `question`
 --
 
-INSERT INTO `question` (`question_id`, `question_text`, `question_answer`, `quiz_id`) VALUES
-(0, 'Affichez les informations sur les fournisseurs', 'SELECT * FROM `fournisseur` ', 0),
-(1, 'Afficher les pièces', 'SELECT * FROM `piece`', 0);
+INSERT INTO `question` (`question_id`, `question_text`, `question_answer`, `quiz_id`, `question_points`) VALUES
+(0, 'Affichez les informations sur les fournisseurs', 'SELECT * FROM `fournisseur` ', 0, 5),
+(1, 'Afficher les pièces', 'SELECT * FROM `piece`', 0, 3);
 
 -- --------------------------------------------------------
 
@@ -96,8 +97,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_adress`, `user_last_name`, `user_first_name`, `user_password`, `user_role`, `user_score`) VALUES
-(0, 'kjekdjezkdjeez', 'Goedert', 'Thibault', 'motdepasse', 0, 0),
-(1, 'hafdf', 'Choukhi', 'Imane', '12345', 0, 54);
+(0, 'kjekdjezkdjeez', 'Goedert', 'Thibault', 'motdepasse', 0, 32),
+(1, 'hafdf', 'Choukhi', 'Imane', '12345', 0, 54),
+(2, 'adresse', 'Lala', 'Nono', '0000', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -128,7 +130,10 @@ INSERT INTO `user_answer` (`user_answer_id`, `user_answer_text`, `user_answer_ti
 (0, 'Reponse', '2021-03-18 21:03:01', '0', 0, 2, 1, 0),
 (1, 'Reponse&&&z', '2021-03-19 11:50:20', '1', 1, 3, 1, 0),
 (2, 'omhsa', '2021-03-19 09:51:16', '3', 1, 2, 1, 0),
-(3, 'Reponseaaz', '2021-03-22 10:05:28', '4', 1, 5, 0, 0);
+(3, 'Reponseaaz', '2021-03-22 10:05:28', '4', 1, 5, 0, 0),
+(5, 'test', '2021-03-22 21:39:58', '9', 0, 6, 1, 2),
+(7, 'test', '2021-03-22 21:42:59', '8', 0, 6, 1, 0),
+(9, 'testrep', '2021-03-25 10:40:35', '11', 0, 9, 1, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
