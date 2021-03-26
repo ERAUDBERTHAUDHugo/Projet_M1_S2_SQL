@@ -20,11 +20,8 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
         return " Requête invalide";
     }else{
         //get correct request from website db
-        $conGetRequest = new PDO("mysql:host=localhost;dbname=db_project","root","");
-        $apply=$conGetRequest->prepare("SELECT `question_answer` FROM `question` WHERE`quiz_id`=$quizId AND `question_id`=$questionId");
-        $apply->execute();
-        $request= $apply->fetchAll();
-        $trueRequest=$request[0][0];
+        $conGetRequest = BDD::get()->query("SELECT `question_answer` FROM `question` WHERE`quiz_id`=$quizId AND `question_id`=$questionId")->fetchAll();
+        $trueRequest=$conGetRequest[0][0];
 
         //apply correct request on correction db
         $conCorrec = new PDO("mysql:host=localhost;dbname=".$dbnameCorrec."","root","");
@@ -86,6 +83,15 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
     }
 
 }
+
+function writeUserAnswer($dbname,$dbnameCorrec,$request,$quizId,$questionId){
+    /**
+     * @param 
+     * @return 
+     **/
+
+}
+
 
 /*
 

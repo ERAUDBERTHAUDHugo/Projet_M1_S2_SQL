@@ -47,9 +47,13 @@
 		$username=BDD::get()->query("SELECT `user_last_name` FROM `users` WHERE `user_id`= $userId")->fetchAll();
 		$dbname=hash("MD5",$username[0]["user_last_name"]);
 		$dbnameCorrec=$dbname."Correc";
+		//get actual question id
+		$getQuestionId=$_GET["id"];
+		$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `question_id`= $getQuestionId")->fetchAll();
+		$Id=$questionId[0][0];
 
-		$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET["id"],$_SESSION["question"]);
-		var_dump($resultat);
+		$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$Id,$_SESSION["question"]);
+		echo $resultat;
 		////////////////////////////////////test///////////////////////////////////////////
 		?>
 		<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
