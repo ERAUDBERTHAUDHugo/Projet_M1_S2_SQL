@@ -86,12 +86,12 @@ small{
     color: #efefef;
 }
 
-.quiz-box:hover .social-box
+.quiz-box:hover .title-quiz-box
 {
     background: #fff;
 }
 
-.quiz-box:hover .social-box p1
+.quiz-box:hover .title-quiz-box p1
 {
     color: #000080;
 }
