@@ -92,8 +92,9 @@ function writeUserAnswer($userAnswerText,$questionId,$userId,$questionScore, $va
      **/
 
 ////////////////////////write data to user_answer/////////////////////////////
-$writeAnswer=BDD::get()->query("INSERT INTO  `user_answer` (user_answer_text, user_answer_time, question_id, user_id, question_score, valide, quiz_id)
-  VALUES ($userAnswerText, CURRENT_TIME(), $questionId, $userId, $questionScore, $valid, $quizId"); 
+$writeAnswer=BDD::get()->query("INSERT INTO  `user_answer` (`user_answer_text`, `user_answer_time`, `question_id`, `user_id`, `question_score`, `valide`, `quiz_id`)
+  VALUES ($userAnswerText, CURRENT_TIMESTAMP, $questionId, $userId, $questionScore, $valid, $quizId)"); 
+var_dump($writeAnswer);
 //////////////////add points to user total user score//////////////////////////////////
 $writeScore=BDD::get()->query("UPDATE `users` SET `user_score` = `user_score` + $questionScore WHERE `user_id`= $userId");
 }
