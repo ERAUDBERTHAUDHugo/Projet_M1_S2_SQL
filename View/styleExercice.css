@@ -1,0 +1,72 @@
+h1{
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.contextbox{
+    position: relative;
+    background: lightgray;
+    height: auto;
+    border-radius: 5px;
+    color: #000080;
+    font-family: sans-serif;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 50px;
+}
+
+.contextbox img{
+    position: relative;
+    width: 100px;
+    top: 12px;
+    left: 80%;
+
+}
+
+.questionbox{
+    position: relative;
+    background: lightgray;
+    height: auto;
+    border-radius: 5px;
+    color: #000080;
+    font-family: sans-serif;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 50px;
+}
+
+.questionbox button{
+    background: #000080;
+    border: none;
+    color: #fff;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    border-radius: 2rem;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    position: relative;
+    left: 10px;
+}
+
+.questionbox button:hover{
+    background: #ffc107;
+    color: #000080;
+}
+
+
+
+.questionbox input[type="text"]{
+    background: #fff;
+    outline-color: #ffc107;
+    width: 90%;
+    color: #000080;
+    font-size: 16px;
+    left: 10px;
+    position: relative;
+    height: 25px;
+    border-radius: 5px;
+}

@@ -9,12 +9,16 @@
 		$quizSelection=BDD::get()->query("SELECT `quiz_id`, `quiz_name`,`quiz_difficulty`, `quiz_description`, `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetchAll();
 		?>
 
+        <link rel="stylesheet" type="text/css" href="View/styleExercice.css">
 		<h1><?php echo $quizSelection[$quizId]['quiz_name']; ?></h1>
-
+        <div class="contextbox">
+            <?php echo "Difficulté: ".$quizSelection[0]['quiz_difficulty']; ?>
+            <img src="View/img/avatar.png">
+		    <br> 
+		    <?php echo "Enoncé: ".$quizSelection[0]['quiz_description']; ?>
+        </div>
 		<br> 
-		<?php echo "Diffuculté: ".$quizSelection[0]['quiz_difficulty']; ?>
-		<br> 
-		<?php echo "Enoncé: ".$quizSelection[0]['quiz_description']; ?>
+		
 
 	</div>
     <?php
@@ -22,8 +26,8 @@
 
     function displayQuestion(){
         ?>
-        <div>
-            <h3>Répondez à la question : </h3>
+        <div class="questionbox">
+            <h3>Voici la question : </h3>
             <?php  
             $quizId=$_GET["id"]; 
             $questionSelection=BDD::get()->query("SELECT `question_id`, `question_text`,`question_answer` FROM `question` WHERE `quiz_id`= $quizId")->fetchAll();
