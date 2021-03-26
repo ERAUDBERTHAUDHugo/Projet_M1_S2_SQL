@@ -4,7 +4,7 @@ echo"Requete à corriger : ".$_POST["reponse"];
 function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId){
     /**
      * @param 
-     * @return 
+     * @return array(réponse text(str), question score (int), valid(int))
      **/
     /////////////////////////////Apply requests////////////////////////////
 
@@ -17,11 +17,12 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
 
     //if user request doesn't work on their db, wrong answer 
     if(!$requestTest->execute()){
-        return " Requête invalide";
+        return array("Requête invalide", 0, 0);
     }else{
-        //get correct request from website db
-        $conGetRequest = BDD::get()->query("SELECT `question_answer` FROM `question` WHERE`quiz_id`=$quizId AND `question_id`=$questionId")->fetchAll();
+        //get correct request and question points from website db
+        $conGetRequest = BDD::get()->query("SELECT `question_answer`, `question_points` FROM `question` WHERE`quiz_id`=$quizId AND `question_id`=$questionId")->fetchAll();
         $trueRequest=$conGetRequest[0][0];
+        $points=$conGetRequest[0][1];
 
         //apply correct request on correction db
         $conCorrec = new PDO("mysql:host=localhost;dbname=".$dbnameCorrec."","root","");
@@ -38,7 +39,7 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
         //check count and compare number of tables
         if(!(count($tableTest)==count($tableCorrec))){
 
-            return " Pas de même nombre de tables";
+            return array("Pas de même nombre de tables", 0, 0);
 
         } else{
 
@@ -46,7 +47,7 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
             for($i=0;$i<count($tableTest);$i++){
 
                 if(!($tableTest[$i][0]==$tableCorrec[$i][0])){
-                    return " Erreur nom de table";
+                    return array("Erreur nom de table", 0, 0);
                 }
 
                 $tableName=$tableTest[$i][0];
@@ -66,12 +67,12 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
                     foreach ($fields as $field => $value) {
                         if (isset($dataCorrec[$key][$field])) {
                             if ($dataCorrec[$key][$field] != $value) {
-                                return " Pas mêmes valeurs";
+                                return array("Pas mêmes valeurs", 0, 0);
                             } else {
-                                return " Bonne réponse!";
+                                return array("Bonne réponse!", $points, 1);
                             }
                         } else{
-                            return " Pas mêmes valeurs";
+                            return array("Pas mêmes valeurs", 0, 0);
                         }
                     }
                 }
@@ -84,11 +85,14 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
 
 }
 
-function writeUserAnswer($dbname,$dbnameCorrec,$request,$quizId,$questionId){
+function writeUserAnswer($userAnswerId,$userAnswerText,$questionId,$userId,$questionScore, $valid, $quizId){
     /**
      * @param 
      * @return 
      **/
+
+
+// requete ($userAnswerId,$userAnswerText,$userAnswerTime,$questionId,$userId,$questionScore, $valid, $quizId)
 
 }
 

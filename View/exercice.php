@@ -52,8 +52,8 @@
 		$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `question_id`= $getQuestionId")->fetchAll();
 		$Id=$questionId[0][0];
 
-		$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$Id,$_SESSION["question"]);
-		echo $resultat;
+		$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET["id"],$Id);
+		echo " Résultat: ".$resultat[0]." - Points:".$resultat[1]." - Valide: ".$resultat[2];
 		////////////////////////////////////test///////////////////////////////////////////
 		?>
 		<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
