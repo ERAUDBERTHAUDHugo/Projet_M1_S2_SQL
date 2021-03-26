@@ -40,7 +40,7 @@
 		
 		include("Controller/correction.php");
 
-		/////////////////////////////////////test////////////////////////////////////////
+		////////////////////////////////////////////test correction/////////////////////////////////////////////
 		//bdd cycle_v3
 		//SELECT * FROM `type_piece`
 		$userId=$_SESSION["user"];
@@ -48,13 +48,15 @@
 		$dbname=hash("MD5",$username[0]["user_last_name"]);
 		$dbnameCorrec=$dbname."Correc";
 		//get actual question id
-		$getQuestionId=$_GET["id"];
+		$getQuestionId=$_SESSION["question"];
 		$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `question_id`= $getQuestionId")->fetchAll();
 		$Id=$questionId[0][0];
 
-		$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET["id"],$Id);
+		$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET['id'],$Id);
 		echo " Résultat: ".$resultat[0]." - Points:".$resultat[1]." - Valide: ".$resultat[2];
-		////////////////////////////////////test///////////////////////////////////////////
+		////////////////////////////////////test insertion user answer///////////////////////////////////////////
+		writeUserAnswer($resultat[0],$Id,$userId,(int)$resultat[1], (int)$resultat[2], $_GET['id']);
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		?>
 		<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
 			<button name="previous">Question précédente</button>
