@@ -6,6 +6,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://kit.fontawesome.com/e4339b56d6.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="View/styleFooter.css">
+<link rel="stylesheet" type="text/css" href="View/styleMain.css"> 
+  
+
   <title>Plateforme d'apprentissage de la BDD</title>
 </head>
 <body>

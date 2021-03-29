@@ -1,5 +1,33 @@
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- links for bootstap, jquery libraries-->	
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="styleMain.css">
+
+</head>
 <div id=main>
 
+
+
+<!-- For demo purpose -->
+<div class="container">
+    <div class="pt-5 text-white">
+        <header class="py-5 mt-5">
+            <h1 class="display-4">Header Image</h1>
+            <p class="lead mb-0">lxnsj sbcjhsb bsjbjs xabjbxja  xabjbxaj bjabxj.</p>
+            <p class="lead mb-0">Snippet by
+                <a href="https://bootstrapious.com" class="text-white">
+                    <u>Bootstrapious</u></a>
+            </p>
+        </header>
+<!--         
+    </div>
+</div> -->
 
     <div class="title-box">
         <h1>Vos exercices :</h1>
@@ -83,3 +111,18 @@
         </div>
     </div>
 </div>
+    
+</div>
+</div>
+<script>
+// $(function () {
+//     $(window).on('scroll', function () {
+//         if ( $(window).scrollTop() > 10 ) {
+//             $('.navbar').addClass('active');
+//         } else {
+//             $('.navbar').removeClass('active');
+//         }
+//     });
+// });
+
+</script>
