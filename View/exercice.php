@@ -55,7 +55,8 @@
 		$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET['id'],$Id);
 		echo " Résultat: ".$resultat[0]." - Points:".$resultat[1]." - Valide: ".$resultat[2];
 		////////////////////////////////////test insertion user answer///////////////////////////////////////////
-		writeUserAnswer($resultat[0],$Id,$userId,(int)$resultat[1], (int)$resultat[2], $_GET['id']);
+		writeUserAnswer($resultat[0],(int)$Id,(int)$userId,(int)$resultat[1], (int)$resultat[2], (int)$_GET['id']);
+
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		?>
 		<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">

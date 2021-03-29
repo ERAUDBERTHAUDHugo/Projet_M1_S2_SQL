@@ -92,9 +92,17 @@ function writeUserAnswer($userAnswerText,$questionId,$userId,$questionScore, $va
      **/
 
 ////////////////////////write data to user_answer/////////////////////////////
-$writeAnswer=BDD::get()->query("INSERT INTO  `user_answer` (`user_answer_text`, `user_answer_time`, `question_id`, `user_id`, `question_score`, `valide`, `quiz_id`)
-  VALUES ($userAnswerText, CURRENT_TIMESTAMP, $questionId, $userId, $questionScore, $valid, $quizId)"); 
-var_dump($writeAnswer);
+$writeAnswer = BDD::get()->prepare('INSERT INTO user_answer VALUES (NULL,:user_answer_text, CURRENT_TIMESTAMP, :question_id, :user_id,:question_score,:valide,:quiz_id)'); 
+
+$writeAnswer->bindParam(':user_answer_text',$userAnswerText);
+$writeAnswer->bindParam(':question_id',$questionId);
+$writeAnswer->bindParam(':user_id',$userId);
+$writeAnswer->bindParam(':question_score',$questionScore);
+$writeAnswer->bindParam(':valide',$valid);
+$writeAnswer->bindParam(':quiz_id',$quizId);
+      
+$writeAnswer->execute();
+
 //////////////////add points to user total user score//////////////////////////////////
 $writeScore=BDD::get()->query("UPDATE `users` SET `user_score` = `user_score` + $questionScore WHERE `user_id`= $userId");
 }
