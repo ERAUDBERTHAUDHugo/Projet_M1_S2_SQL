@@ -91,20 +91,33 @@ function writeUserAnswer($userAnswerText,$questionId,$userId,$questionScore, $va
      * @return 
      **/
 
-////////////////////////write data to user_answer/////////////////////////////
-$writeAnswer = BDD::get()->prepare('INSERT INTO user_answer VALUES (NULL,:user_answer_text, CURRENT_TIMESTAMP, :question_id, :user_id,:question_score,:valide,:quiz_id)'); 
+    $writeAnswer = BDD::get()->prepare('INSERT INTO user_answer VALUES (NULL,:user_answer_text, CURRENT_TIMESTAMP, :question_id, :user_id,:question_score,:valide,:quiz_id)'); 
 
-$writeAnswer->bindParam(':user_answer_text',$userAnswerText);
-$writeAnswer->bindParam(':question_id',$questionId);
-$writeAnswer->bindParam(':user_id',$userId);
-$writeAnswer->bindParam(':question_score',$questionScore);
-$writeAnswer->bindParam(':valide',$valid);
-$writeAnswer->bindParam(':quiz_id',$quizId);
-      
-$writeAnswer->execute();
+    $writeAnswer->bindParam(':user_answer_text',$userAnswerText);
+    $writeAnswer->bindParam(':question_id',$questionId);
+    $writeAnswer->bindParam(':user_id',$userId);
+    $writeAnswer->bindParam(':question_score',$questionScore);
+    $writeAnswer->bindParam(':valide',$valid);
+    $writeAnswer->bindParam(':quiz_id',$quizId);
 
-//////////////////add points to user total user score//////////////////////////////////
-$writeScore=BDD::get()->query("UPDATE `users` SET `user_score` = `user_score` + $questionScore WHERE `user_id`= $userId");
+    /////////////////////check if asnwer from this user to this question already exists///////////////////////////////
+    $checkAnswerIfExists = BDD::get()->query("SELECT `valide` FROM `user_answer` WHERE `user_id` = $userId AND `question_id` = $questionId AND `quiz_id` = $quizId")->fetchAll();
+    if(!empty($checkAnswerIfExists[0][0])) //if answer of this question/ linked to quiz exists 
+    {
+        if((int)$checkAnswerIfExists[0][0] == 1 && $valid == 1){  //if valid 
+            $updateTime=BDD::get()->query("UPDATE `user_answer` SET `user_answer_time` = CURRENT_TIMESTAMP WHERE `user_id` = $userId AND `question_id` = $questionId AND `quiz_id` = $quizId");//update timestamp
+        }else{//not valid
+            $writeAnswer->execute();   //write new user answer
+            
+        }
+
+    } else{ //if does not exists
+        if($valid == 1){//if valid
+               $writeAnswer->execute(); //write new answer answer and add score to user
+               $writeScore=BDD::get()->query("UPDATE `users` SET `user_score` = `user_score` + $questionScore WHERE `user_id`= $userId");
+        }else{//not valid
+           $writeAnswer->execute(); //write new answer
+        }
+    }
 }
-
 ?>
