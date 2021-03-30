@@ -3,10 +3,10 @@ echo"Requete à corriger : ".$_POST["reponse"];
 
 function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId){
     /**
-     * @param 
-     * @return array(réponse text(str), question score (int), valid(int))
+     * @param String $dbname (name of user database), String $dbnameCorrec (name of the correct database), String $request (input sql request by user), integer $quizId,interger $questionId
+     * @return array(): [0] String reponse text, [1] String question score (number of points), [2] String valid (validity of user request 0 no or 1 yes)
      **/
-    /////////////////////////////Apply requests////////////////////////////
+    /////////////////////////////apply requests////////////////////////////
 
     try{
         $conTest = new PDO("mysql:host=localhost;dbname=".$dbname."","root","");
@@ -87,10 +87,11 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
 
 function writeUserAnswer($userAnswerText,$questionId,$userId,$questionScore, $valid, $quizId){
     /**
-     * @param 
-     * @return 
+     * @param String $userAnswerText (request of user), interger $questionId, integer $userId (name of the correct database), integer $questionScore (number of points of question), integer $valid (validity of request 0 no 1 yes), integer $quizId,
+     * @return None (only writing info in database)
      **/
 
+    //////////////////////////////////////////////prepare request to write//////////////////////////////////////////
     $writeAnswer = BDD::get()->prepare('INSERT INTO user_answer VALUES (NULL,:user_answer_text, CURRENT_TIMESTAMP, :question_id, :user_id,:question_score,:valide,:quiz_id)'); 
 
     $writeAnswer->bindParam(':user_answer_text',$userAnswerText);
@@ -101,6 +102,7 @@ function writeUserAnswer($userAnswerText,$questionId,$userId,$questionScore, $va
     $writeAnswer->bindParam(':quiz_id',$quizId);
 
     /////////////////////check if asnwer from this user to this question already exists///////////////////////////////
+
     $checkAnswerIfExists = BDD::get()->query("SELECT `valide` FROM `user_answer` WHERE `user_id` = $userId AND `question_id` = $questionId AND `quiz_id` = $quizId")->fetchAll();
     if(!empty($checkAnswerIfExists[0][0])) //if answer of this question/ linked to quiz exists 
     {

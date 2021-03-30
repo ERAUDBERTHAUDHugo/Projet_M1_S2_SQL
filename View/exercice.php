@@ -40,22 +40,19 @@
 		
 		include("Controller/correction.php");
 
-		////////////////////////////////////////////test correction/////////////////////////////////////////////
-		//bdd cycle_v3
-		//SELECT * FROM `type_piece`
-		$userId=$_SESSION["user"];
-		$username=BDD::get()->query("SELECT `user_last_name` FROM `users` WHERE `user_id`= $userId")->fetchAll();
+		$userId=$_SESSION["user"]; //get user last name for hash
+		$username=BDD::get()->query("SELECT `user_last_name` FROM `users` WHERE `user_id`= $userId")->fetchAll(); 
 		$dbname=hash("MD5",$username[0]["user_last_name"]);
 		$dbnameCorrec=$dbname."Correc";
-		//get actual question id
-		$getQuestionId=$_SESSION["question"];
+		
+		$getQuestionId=$_SESSION["question"];//get actual question id
 		$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `question_id`= $getQuestionId")->fetchAll();
 		$Id=$questionId[0][0];
 
-		$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET['id'],$Id);
+		$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET['id'],$Id); //call function correction
 		echo " Résultat: ".$resultat[0]." - Points:".$resultat[1]." - Valide: ".$resultat[2];
 		////////////////////////////////////test insertion user answer///////////////////////////////////////////
-		writeUserAnswer($resultat[0],(int)$Id,(int)$userId,(int)$resultat[1], (int)$resultat[2], (int)$_GET['id']);
+		writeUserAnswer($resultat[0],(int)$Id,(int)$userId,(int)$resultat[1], (int)$resultat[2], (int)$_GET['id']); //write user answer in database
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		?>
@@ -71,7 +68,5 @@
 		displayQuestion();
 	}
 	?>
-	
-
 
 </body>
