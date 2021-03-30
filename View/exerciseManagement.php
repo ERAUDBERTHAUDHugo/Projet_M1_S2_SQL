@@ -1,0 +1,128 @@
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- links for bootstap, jquery libraries-->	
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="styleMain.css">
+
+</head>
+<div id=main>
+
+
+
+<!-- For demo purpose -->
+<div class="container">
+    <div class="pt-5 text-white">
+        <header class="py-5 mt-5">
+            <h1 class="display-4">Header Image</h1>
+            <p class="lead mb-0">lxnsj sbcjhsb bsjbjs xabjbxja  xabjbxaj bjabxj.</p>
+            <p class="lead mb-0">Snippet by
+                <a href="https://bootstrapious.com" class="text-white">
+                    <u>Bootstrapious</u></a>
+            </p>
+        </header>
+<!--         
+    </div>
+</div> -->
+
+    <div class="title-box">
+        <h1>Vos exercices :</h1>
+        <p>Les exercices sont la meilleure chose à faire pour apprendre</p>
+    </div>
+
+    <?php //recuperer les exercices disponibles
+        $quizAvailable=BDD::get()->query("SELECT `quiz_id`, `quiz_name`,`quiz_difficulty`, `quiz_description`, `quiz_database`, `user_id` FROM `quiz`")->fetchAll();
+    ?>
+
+    <div class="quiz-row">
+
+        <?php 
+            $index=0;
+            foreach ($quizAvailable as $quiz) {
+                if($index<=3){      //afficher 4 exercices sur la page
+                ?>
+                <a href="index.php?page=exercice&id=<?php echo($quiz["quiz_id"]); ?>">
+                <div class="quiz-box">
+
+                    <?php //recuperer le teacher qui a crée le quiz
+                    $id=(int)$quizAvailable[$index]['user_id'];
+                    $quizCreator=BDD::get()->query("SELECT `user_id`,`user_role`,`user_first_name` FROM `users` WHERE `user_id`=$id")->fetchAll();
+                    ?>
+
+                    <h4><?php echo "Par ".$quizCreator[0]['user_first_name']; ?></h4>
+                    <small><?php if($quizCreator[0]['user_role']==1){echo "Admin";} else{echo "Unknown";}?></small>
+                    <img src="View/Img/avatar.png">
+                    <div class="title-quiz-box">
+                        <p1><?php echo $quizAvailable[$index]['quiz_name']; ?></p1>
+                    </div>
+                    <p><?php echo substr($quizAvailable[$index]['quiz_description'], 0, 55)."..."; ?></p>
+                </div>
+                </a>
+                <?php  
+                }
+                $index+=1;      
+            }
+         ?>
+    </div>
+    <div class="title-box">
+        <h1>Vos cours :</h1>
+        <p>Apprenez vos cours avec Dominique Delannoy !</p>
+    </div>
+    <div class="quiz-row">
+        <div class="quiz-box">
+            <h4>D.DELANNOY</h4>
+            <small>Admin</small>
+            <img src="View/Img/avatar.png">
+            <div class="title-quiz-box">
+                <p1>Cours n°1</p1>
+            </div>
+            <p>Apprenez vos cours avec Dominique Delannoy !</p>
+        </div>
+        <div class="quiz-box">
+            <h4>D.DELANNOY</h4>
+            <small>Admin</small>
+            <img src="View/Img/avatar.png">
+            <div class="title-quiz-box">
+                <p1>Cours n°2</p1>
+            </div>
+            <p>Apprenez vos cours avec Dominique Delannoy !</p>
+        </div>
+        <div class="quiz-box">
+            <h4>D.DELANNOY</h4>
+            <small>Admin</small>
+            <img src="View/Img/avatar.png">
+            <div class="title-quiz-box">
+                <p1>Cours n°3</p1>
+            </div>
+            <p>Apprenez vos cours avec Dominique Delannoy !</p>
+        </div>
+        <div class="quiz-box">
+            <h4>D.DELANNOY</h4>
+            <small>Admin</small>
+            <img src="View/Img/avatar.png">
+            <div class="title-quiz-box">
+                <p1>Cours n°4</p1>
+            </div>
+            <p>Apprenez vos cours avec Dominique Delannoy !</p>
+        </div>
+    </div>
+</div>
+    
+</div>
+</div>
+<script>
+// $(function () {
+//     $(window).on('scroll', function () {
+//         if ( $(window).scrollTop() > 10 ) {
+//             $('.navbar').addClass('active');
+//         } else {
+//             $('.navbar').removeClass('active');
+//         }
+//     });
+// });
+
+</script>
