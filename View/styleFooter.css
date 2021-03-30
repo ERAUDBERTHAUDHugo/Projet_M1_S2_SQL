@@ -15,7 +15,11 @@ footer {
   /* min-height: 350px; */
   bottom: 0;
   width: 100%;
+<<<<<<< Updated upstream
   position: fixed;
+=======
+  position: absolute;
+>>>>>>> Stashed changes
   font-family: "Open Sans", sans-serif;
 }
 .footer-col {
@@ -64,7 +68,10 @@ footer {
   font-size: 21px;
   font-weight: 700;
   color: #d9d6d6;
+<<<<<<< Updated upstream
   margin-bottom: 22px;
+=======
+>>>>>>> Stashed changes
 }
 .post p {
   font-size: 12px;

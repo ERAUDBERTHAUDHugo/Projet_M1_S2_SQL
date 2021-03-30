@@ -9,11 +9,19 @@
 <!------ Include the above in your HEAD tag ---------->
 <!-- <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">-->
 <head>
+<<<<<<< Updated upstream
 <link rel="stylesheet" type="text/css" href="styleFooter.css"> 
 
 </head>
 <!--footer start from here-->
 <footer style="position:fixed; bottom:0; width:100%">
+=======
+<!-- <link rel="stylesheet" type="text/css" href="styleFooter.css">  -->
+
+</head>
+<!--footer start from here-->
+<footer style="position:absolute;bottom:0; width:100%">
+>>>>>>> Stashed changes
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-sm-6 footer-col">
