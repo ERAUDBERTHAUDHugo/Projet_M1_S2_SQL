@@ -52,6 +52,9 @@ else{
         case "dashboard":
             include('View/dashboard.php');
             break;
+        case "adminDashboard":
+            include("View/adminDashboard.php");
+            break;
         default:
             include('View/main.php');
         break;
@@ -59,7 +62,7 @@ else{
 }
 //include("TestFiles/transactionPDO.php");
 
-include('View/footer.php');
+//include('View/footer.php');
 
 //disconnect();
 
