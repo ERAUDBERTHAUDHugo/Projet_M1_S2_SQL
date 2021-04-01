@@ -1,5 +1,7 @@
 
 <link rel="stylesheet" type="text/css" href="View/styleAdminPages.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
 <div id=adminContent>
     <?php
     include("Controller/displayAdminPages.php");
@@ -17,8 +19,14 @@
     else{
         displayButtons("groupes","exercices");
         displayStudents(1,1);
+        displayTreeViewCheckbox();
     }
-    ?>  
+    ?>
+
+   
 </div>
+
+
+
 
 

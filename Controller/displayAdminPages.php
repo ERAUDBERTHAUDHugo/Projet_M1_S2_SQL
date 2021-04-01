@@ -208,72 +208,39 @@ function displayButtons($button1,$button2) {
 /*----------------------------------------------------- Afficher TreeView Checkbox-----------------------------------------------------------*/
 
 function displayTreeViewCheckbox(){
-
 ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script src="main.js"></script>
-    <script  src="script.js"></script>
-    <div id="page-wrap">
-    
-       <h2>Treeview with Custom Checkboxes and Indeterminate State</h2>
-        
-     <ul class="treeview">
-        <li>
-            <input type="checkbox" name="tall" id="tall">
-            <label for="tall" class="custom-unchecked">Tall Things</label>
-            
-            <ul>
-                 <li>
-                     <input type="checkbox" name="tall-1" id="tall-1">
-                     <label for="tall-1" class="custom-unchecked">Buildings</label>
-                 </li>
-                 <li>
-                     <input type="checkbox" name="tall-2" id="tall-2">
-                     <label for="tall-2" class="custom-unchecked">Giants</label>
-                     <ul>
-                         <li>
-                             <input type="checkbox" name="tall-2-1" id="tall-2-1">
-                             <label for="tall-2-1" class="custom-unchecked">Andre</label>
-                         </li>
-                         <li class="last">
-                             <input type="checkbox" name="tall-2-2" id="tall-2-2">
-                             <label for="tall-2-2" class="custom-unchecked">Paul Bunyan</label>
-                         </li>
-                     </ul>
-                 </li>
-                 <li class="last">
-                     <input type="checkbox" name="tall-3" id="tall-3">
-                     <label for="tall-3" class="custom-unchecked">Two sandwiches</label>
-                 </li>
-            </ul>
-        </li>
-        <li class="last">
-            <input type="checkbox" name="short" id="short">
-            <label for="short" class="custom-unchecked">Short Things</label>
-            
-            <ul>
-                 <li>
-                     <input type="checkbox" name="short-1" id="short-1">
-                     <label for="short-1" class="custom-unchecked">Smurfs</label>
-                 </li>
-                 <li>
-                     <input type="checkbox" name="short-2" id="short-2">
-                     <label for="short-2" class="custom-unchecked">Mushrooms</label>
-                 </li>
-                 <li class="last">
-                     <input type="checkbox" name="short-3" id="short-3">
-                     <label for="short-3" class="custom-unchecked">One Sandwich</label>
-                 </li>
-            </ul>
-        </li>
-    </ul>
-    
+<div style="height: 300px; width: 50%; float:left;">
+<form>
+  <h3>Equipes</h3>
+  <div class="tree">
+    <div>
+      <input id="n-0" type="checkbox">
+      <label for="n-0">CSI3</label>
+      <div class="sub">
+        <a href="#link">Groupe 1</span>
+        <a href="#link">Groupe 2</a>
+      </div>
     </div>
-
-
-
-  
-
+    <div>
+      <input id="n-1" type="checkbox">
+      <label for="n-1">M1</label>
+      <div class="sub">
+        <a href="#link">Module_DB</a>
+        <a href="#link">Module_SQL</a>
+      </div>
+    </div>
+    <div>
+      <input id="n-2" type="checkbox">
+      <label for="n-2">M2</label>
+      <div class="sub">
+        <a href="#link">Groupe 2</a>
+        <a href="#link">Groupe 5</a>
+      </div>
+    </div>
+  </div>
+  <input type="reset" value="Reset">
+</form>   
+</div>
 
 <?php
 }
