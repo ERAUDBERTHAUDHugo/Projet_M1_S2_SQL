@@ -137,3 +137,155 @@ function displayButtons($button1,$button2) {
 }
 /*--------------------------------------------Fin Afficher les boutons liant les 3 pages entre elles------------------------------------------------------*/
 ?>
+
+<?php
+/*--------------------------------------------Afficher les eleves equipes/groupes selectionnés------------------------------------------------------*/
+
+ function displayStudents($teamId,$groupId){ //id of groups and teams selected by admin
+
+        //fusion + unique ids from arrays 
+        $teams = array(4, 3,4);  //test
+        $groups = array(0);
+        $fusion = array_merge($teams, $groups);
+        var_dump($fusion);
+        $final=array_unique($fusion);
+        var_dump($final);
+
+        //get team-group name to display
+        $teamName=BDD::get()->query("SELECT `equipe_name`FROM `equipe` WHERE `equipe_id` = $teamId")->fetchAll();
+        $groupName=BDD::get()->query("SELECT `groupe_name` FROM `groupe` WHERE `groupe_id` = $groupId")->fetchAll();
+    ?>
+        <div style="height: 300px; width: 50%; float:left;">
+            <br>
+            <h4><?php echo "Equipe: ".$teamName[0][0]." - Groupe: ".$groupName[0][0]; ?></h4>
+            <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
+
+                <?php //CREATE FOR
+                //recuperer les users liés au groupes/teams sélectionés
+                $groupUser=BDD::get()->query("SELECT `user_id`, `user_last_name`, `user_first_name`, `user_score` FROM `users` WHERE `user_group` = $groupId ORDER BY `user_last_name` ASC")->fetchAll();
+                ?>
+             <table class="pure-table pure-table-horizontal">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Points</th>
+<!--                    <th>TP</th>  -->
+                    <th>Questions réussies</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                    <?php 
+                        $index=0;
+                        foreach ($groupUser as $user) {
+                            $idUser=$groupUser[$index]['user_id'];
+                            //get usernumber of exercise done
+                            $answeredUser=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id` = $idUser AND `valide`= 1 ")->fetchAll();
+                            ?>
+
+                            <tr>
+                                <td><?php echo $groupUser[$index]['user_last_name']; ?></td>
+                                <td><?php echo $groupUser[$index]['user_first_name']; ?></td>
+                                <td><?php echo $groupUser[$index]['user_score']; ?></td>
+<!--                                <td><?php //echo $groupUser[$index]['user_score']; ?></td>             GET TP NAME-->
+                                <td><?php echo $answeredUser[0][0]; ?></td>
+                            </tr>
+                        <?php  
+                        $index+=1;      
+                        }
+                        ?>
+                </tbody>
+            </table>
+        </div>
+        <br>
+    <?php
+    }
+/*-------------------------------------------- Fin Afficher les eleves equipes/groupes selectionnés------------------------------------------------------*/
+?>
+
+<?php
+/*----------------------------------------------------- Afficher TreeView Checkbox-----------------------------------------------------------*/
+
+function displayTreeViewCheckbox(){
+
+?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="main.js"></script>
+    <script  src="script.js"></script>
+    <div id="page-wrap">
+    
+       <h2>Treeview with Custom Checkboxes and Indeterminate State</h2>
+        
+     <ul class="treeview">
+        <li>
+            <input type="checkbox" name="tall" id="tall">
+            <label for="tall" class="custom-unchecked">Tall Things</label>
+            
+            <ul>
+                 <li>
+                     <input type="checkbox" name="tall-1" id="tall-1">
+                     <label for="tall-1" class="custom-unchecked">Buildings</label>
+                 </li>
+                 <li>
+                     <input type="checkbox" name="tall-2" id="tall-2">
+                     <label for="tall-2" class="custom-unchecked">Giants</label>
+                     <ul>
+                         <li>
+                             <input type="checkbox" name="tall-2-1" id="tall-2-1">
+                             <label for="tall-2-1" class="custom-unchecked">Andre</label>
+                         </li>
+                         <li class="last">
+                             <input type="checkbox" name="tall-2-2" id="tall-2-2">
+                             <label for="tall-2-2" class="custom-unchecked">Paul Bunyan</label>
+                         </li>
+                     </ul>
+                 </li>
+                 <li class="last">
+                     <input type="checkbox" name="tall-3" id="tall-3">
+                     <label for="tall-3" class="custom-unchecked">Two sandwiches</label>
+                 </li>
+            </ul>
+        </li>
+        <li class="last">
+            <input type="checkbox" name="short" id="short">
+            <label for="short" class="custom-unchecked">Short Things</label>
+            
+            <ul>
+                 <li>
+                     <input type="checkbox" name="short-1" id="short-1">
+                     <label for="short-1" class="custom-unchecked">Smurfs</label>
+                 </li>
+                 <li>
+                     <input type="checkbox" name="short-2" id="short-2">
+                     <label for="short-2" class="custom-unchecked">Mushrooms</label>
+                 </li>
+                 <li class="last">
+                     <input type="checkbox" name="short-3" id="short-3">
+                     <label for="short-3" class="custom-unchecked">One Sandwich</label>
+                 </li>
+            </ul>
+        </li>
+    </ul>
+    
+    </div>
+
+
+
+  
+
+
+<?php
+}
+/*----------------------------------------------------- Fin Afficher TreeView Checkbox-----------------------------------------------------------*/
+?>
+
+<?php
+/*
+function getCheckBox(){ //all $_POST['team_id'from checkbox]
+foreach ($variable as $key => $value) {
+    $array = array_push($_POST);
+}
+*/
+?>
+
