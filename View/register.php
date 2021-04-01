@@ -1,5 +1,5 @@
 <div class="loginbox">
-    <link rel="stylesheet" type="text/css" href="View/styleLogin.css">
+    <link rel="stylesheet" type="text/css" href="View/style.css">
     <img src="View/img/avatar.png" class="avatar">
         <h1>Enregistre-toi ici !</h1>
         <form action="index.php?page=login" method='POST'>

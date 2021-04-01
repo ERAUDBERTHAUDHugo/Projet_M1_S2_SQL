@@ -6,6 +6,10 @@
     color: #000080;
 }
 
+.title-box h1{
+    font-weight:600;
+}
+
 .title-box p{
     margin-top: 10px;
     line-height: 24px;
@@ -13,8 +17,8 @@
 }
 
 .quiz-box{
-    width: 250px;
-    height: 250px;
+    width: 260px;
+    height: 260px;
     background: #fff;
     border-radius: 4px;
     margin-bottom: 30px;
@@ -62,7 +66,7 @@ small{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 85%;
+    width: 90%;
     margin: auto;
 }
 
@@ -98,4 +102,304 @@ small{
 
 /*----------------------------------------------FinMainCSS---------------------------------------------------------*/
 
+/*----------------------------------------------styleHeaderCSS---------------------------------------------------------*/
+/*----------------------------------------------FinStyleHeaderCSS---------------------------------------------------------*/
 
+/*----------------------------------------------StyleFooterCSS---------------------------------------------------------*/
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+}
+li {
+  list-style-type: none;
+  color: white;
+}
+
+footer {
+  background-color: #000080;
+  /* min-height: 350px; */
+  margin-bottom: 0px;
+  width: 100%;
+  position: relative;
+  font-family: "Open Sans", sans-serif;
+}
+.footer-col {
+  margin-top: 20px;
+}
+.logofooter {
+  margin-bottom: 10px;
+  font-size: 25px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.footer-col p {
+  color: #fff;
+  font-size: 12px;
+  font-family: "Open Sans", sans-serif;
+  margin-bottom: 15px;
+}
+.footer-col p i {
+  width: 20px;
+  color: rgb(248, 245, 245);
+}
+
+.footer-ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 2px;
+}
+.footer-ul li {
+  line-height: 29px;
+  font-size: 12px;
+}
+.footer-ul li a {
+  color: #a0a3a4;
+  transition: color 0.2s linear 0s, 0.2s linear 0s;
+}
+.footer-ul i {
+  margin-right: 10px;
+}
+.footer-ul li a:hover {
+  transition: color 0.2s linear 0s, 0.2s linear 0s;
+  color: #ff670f;
+}
+
+.heading7 {
+  font-size: 21px;
+  font-weight: 700;
+  color: #d9d6d6;
+  margin-bottom: 22px;
+}
+.post p {
+  font-size: 12px;
+  color: #fff;
+  line-height: 20px;
+}
+.post p span {
+  display: block;
+  color: #8f8f8f;
+}
+.bottom_ul {
+  list-style-type: none;
+  float: right;
+  margin-bottom: 0;
+}
+.bottom_ul li {
+  float: left;
+  line-height: 40px;
+}
+.bottom_ul li:after {
+  content: "/";
+  color: #fff;
+  margin-right: 8px;
+  margin-left: 8px;
+}
+.bottom_ul li a {
+  color: #fff;
+  font-size: 12px;
+}
+/*
+.social-icon {
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+  background-color: blue;
+  color: #fff;
+  text-align: center;
+  margin-right: 10px;
+  padding-top: 7px;
+  border-radius: 50%;
+} */
+.footer-social li {
+  float: left;
+  color: white;
+}
+/* 
+.linked-in {
+  background-color: #007bb6;
+}
+.facebook {
+  background-color: #3b5998;
+}
+.twitter {
+  background-color: #1da1f2;
+}
+.google {
+  background-color: #f63e28;
+} */
+
+li {
+  color: white;
+}
+
+.email-links a {
+  color: white !important;
+}
+/*----------------------------------------------FinStyleFooterCSS---------------------------------------------------------*/
+
+/*----------------------------------------------StyleLoginCSS---------------------------------------------------------*/
+.loginbox{
+    width: 320px;
+    height: 420px;
+    background: lightgray;
+    color: #000080;
+    margin-top: 225px;
+    left:50%;
+    position: relative;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+    border-radius: 5%;
+}
+
+.avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+}
+
+.loginbox h1{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
+}
+
+.loginbox p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.loginbox input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.loginbox input[type="text"], input[type="password"]
+{
+    border: none;
+    border-bottom: 1px solid #000080;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: gray;
+    font-size: 16px;
+}
+
+.loginbox input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #000080;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+
+.loginbox input[type="submit"]:hover
+{
+    cursor: pointer;
+    background: #ffc107;
+    color: #000;
+}
+
+.loginbox a{
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgrey;
+}
+
+.loginbox a:hover
+{
+    color: #ffc107;
+}
+
+/*----------------------------------------------FinStyleLoginCSS---------------------------------------------------------*/
+
+/*----------------------------------------------StyleExcerciceCSS---------------------------------------------------------*/
+.title h1{
+    font-family:sans-serif;
+    color: #000080;
+    font-weight:600;
+    text-align: center;
+    font-size: 32px;
+}
+
+.contextbox{
+    position: relative;
+    background: lightgray;
+    height: auto;
+    border-radius: 5px;
+    color: #000080;
+    font-family: sans-serif;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 50px;
+}
+
+.contextbox img{
+    position: relative;
+    width: 100px;
+    top: 12px;
+    left: 80%;
+
+}
+
+.questionbox{
+    position: relative;
+    background: lightgray;
+    height: auto;
+    border-radius: 5px;
+    color: #000080;
+    font-family: sans-serif;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 50px;
+}
+
+.questionbox button{
+    background: #000080;
+    border: none;
+    color: #fff;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    border-radius: 2rem;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    position: relative;
+    left: 10px;
+}
+
+.questionbox button:hover{
+    background: #ffc107;
+    color: #000080;
+}
+
+
+
+.questionbox input[type="text"]{
+    background: #fff;
+    outline-color: #ffc107;
+    width: 90%;
+    color: #000080;
+    font-size: 16px;
+    left: 10px;
+    position: relative;
+    height: 25px;
+    border-radius: 5px;
+}
+/*----------------------------------------------FinStyleExcerciceCSS---------------------------------------------------------*/

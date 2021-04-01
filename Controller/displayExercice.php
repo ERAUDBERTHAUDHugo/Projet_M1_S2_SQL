@@ -9,8 +9,10 @@
 		$quizSelection=BDD::get()->query("SELECT `quiz_id`, `quiz_name`,`quiz_difficulty`, `quiz_description`, `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetchAll();
 		?>
 
-        <link rel="stylesheet" type="text/css" href="View/styleExercice.css">
-		<h1><?php echo $quizSelection[$quizId]['quiz_name']; ?></h1>
+        <link rel="stylesheet" type="text/css" href="View/style.css">
+        <div class="title">
+            <h1><?php echo $quizSelection[$quizId]['quiz_name']; ?></h1>
+        </div>
         <div class="contextbox">
             <?php echo "Difficulté: ".$quizSelection[0]['quiz_difficulty']; ?>
             <img src="View/img/avatar.png">
