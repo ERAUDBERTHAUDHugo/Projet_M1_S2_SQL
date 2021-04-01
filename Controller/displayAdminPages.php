@@ -233,8 +233,9 @@ function displayTreeViewCheckbox(){
             $index1=0;
             foreach ($groups as $group)
             {
-            ?>
-                <a href="#link"><?php echo $groups[$index1]['groupe_name'];?></a>
+            ?> 
+                <input type="checkbox" id="<?php echo $groups[$index1]['groupe_id'];?>" name="<?php echo $groups[$index1]['groupe_name'];?>">
+                <label for="<?php echo $groups[$index1]['groupe_id'];?>"><?php echo $groups[$index1]['groupe_name'];?></label>
 
                 <?php
             $index1+=1;
@@ -249,7 +250,6 @@ function displayTreeViewCheckbox(){
     $index+=1;
     }
     ?>
-
 
       </div>
       <input type="reset" value="Reset">
