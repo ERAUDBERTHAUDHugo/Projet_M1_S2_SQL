@@ -142,14 +142,13 @@ function displayButtons($button1,$button2) {
 /*--------------------------------------------Afficher les eleves equipes/groupes selectionnés------------------------------------------------------*/
 
  function displayStudents($teamId,$groupId){ //id of groups and teams selected by admin
-
         //fusion + unique ids from arrays 
         $teams = array(4, 3,4);  //test
         $groups = array(0);
         $fusion = array_merge($teams, $groups);
         var_dump($fusion);
         $final=array_unique($fusion);
-        var_dump($final);
+        var_dump($final);  
 
         //get team-group name to display
         $teamName=BDD::get()->query("SELECT `equipe_name`FROM `equipe` WHERE `equipe_id` = $teamId")->fetchAll();
@@ -208,39 +207,54 @@ function displayButtons($button1,$button2) {
 /*----------------------------------------------------- Afficher TreeView Checkbox-----------------------------------------------------------*/
 
 function displayTreeViewCheckbox(){
-?>
-<div style="height: 300px; width: 50%; float:left;">
-<form>
-  <h3>Equipes</h3>
-  <div class="tree">
-    <div>
-      <input id="n-0" type="checkbox">
-      <label for="n-0">CSI3</label>
-      <div class="sub">
-        <a href="#link">Groupe 1</span>
-        <a href="#link">Groupe 2</a>
+
+    ?>
+    <div style="height: 300px; width: 50%; float:left;">
+    <form>
+      <h3>Equipes</h3>
+      <div class="tree">
+
+    <?php
+    //get all teams, all groups name
+    $teams=BDD::get()->query("SELECT `equipe_id`, `equipe_name` FROM `equipe` ORDER BY `equipe_name` ASC")->fetchAll();
+
+    $index=0;
+    foreach ($teams as $team) {
+         $teamId=$teams[$index]['equipe_id'];
+         $groups=BDD::get()->query("SELECT `groupe_id`, `groupe_name` FROM `groupe` WHERE `equipe_id` = $teamId ORDER BY `groupe_name` ASC")->fetchAll();
+     ?>
+    
+        <div>
+          <input id="<?php echo "n-".$teams[$index]['equipe_id'];?>" type="checkbox">
+          <label for="<?php echo "n-".$teams[$index]['equipe_id'];?>"><?php echo $teams[$index]['equipe_name'];?></label>
+          <div class="sub">
+
+            <?php 
+            $index1=0;
+            foreach ($groups as $group)
+            {
+            ?>
+                <a href="#link"><?php echo $groups[$index1]['groupe_name'];?></a>
+
+                <?php
+            $index1+=1;
+            }
+            ?>
+
+          </div>
+        </div>
+
+
+    <?php
+    $index+=1;
+    }
+    ?>
+
+
       </div>
+      <input type="reset" value="Reset">
+    </form>   
     </div>
-    <div>
-      <input id="n-1" type="checkbox">
-      <label for="n-1">M1</label>
-      <div class="sub">
-        <a href="#link">Module_DB</a>
-        <a href="#link">Module_SQL</a>
-      </div>
-    </div>
-    <div>
-      <input id="n-2" type="checkbox">
-      <label for="n-2">M2</label>
-      <div class="sub">
-        <a href="#link">Groupe 2</a>
-        <a href="#link">Groupe 5</a>
-      </div>
-    </div>
-  </div>
-  <input type="reset" value="Reset">
-</form>   
-</div>
 
 <?php
 }
