@@ -17,9 +17,11 @@
         }
     }
     else{
+        displayStudents(array_keys($_POST)[0]);
         displayButtons("groupes","exercices");
-        displayStudents(1,1);
-        displayTreeViewCheckbox();
+        $GroupsInfo=displayTreeViewCheckbox();
+        echo var_dump($GroupsInfo);//arrays to displayStudents
+        echo "<pre>"; print_r(array_keys($_POST)[0]) ;  echo "</pre>";
     }
     ?>
 

@@ -141,14 +141,12 @@ function displayButtons($button1,$button2) {
 <?php
 /*--------------------------------------------Afficher les eleves equipes/groupes selectionnés------------------------------------------------------*/
 
- function displayStudents($teamId,$groupId){ //id of groups and teams selected by admin
-        //fusion + unique ids from arrays 
-        $teams = array(4, 3,4);  //test
-        $groups = array(0);
-        $fusion = array_merge($teams, $groups);
-        var_dump($fusion);
-        $final=array_unique($fusion);
-        var_dump($final);  
+ function displayStudents($PostNameGroup){ //id of groups and teams selected by admin
+
+        //get group ids checked
+        $InfoIds=BDD::get()->query("SELECT `groupe_id`, `equipe_id`FROM `groupe` WHERE `groupe_name` = '$PostNameGroup'")->fetchAll();
+        $groupId=$InfoIds[0][0];
+        $teamId=$InfoIds[0][1];
 
         //get team-group name to display
         $teamName=BDD::get()->query("SELECT `equipe_name`FROM `equipe` WHERE `equipe_id` = $teamId")->fetchAll();
@@ -159,7 +157,7 @@ function displayButtons($button1,$button2) {
             <h4><?php echo "Equipe: ".$teamName[0][0]." - Groupe: ".$groupName[0][0]; ?></h4>
             <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
 
-                <?php //CREATE FOR
+                <?php
                 //recuperer les users liés au groupes/teams sélectionés
                 $groupUser=BDD::get()->query("SELECT `user_id`, `user_last_name`, `user_first_name`, `user_score` FROM `users` WHERE `user_group` = $groupId ORDER BY `user_last_name` ASC")->fetchAll();
                 ?>
@@ -210,7 +208,7 @@ function displayTreeViewCheckbox(){
 
     ?>
     <div style="height: 300px; width: 50%; float:left;">
-    <form>
+    <form action="index.php?page=adminDashboard" method="POST">
       <h3>Equipes</h3>
       <div class="tree">
 
@@ -234,7 +232,7 @@ function displayTreeViewCheckbox(){
             foreach ($groups as $group)
             {
             ?> 
-                <input type="checkbox" id="<?php echo $groups[$index1]['groupe_id'];?>" name="<?php echo $groups[$index1]['groupe_name'];?>">
+                <input type="checkbox" id="<?php echo $groups[$index1]['groupe_id'];?>" name="<?php echo $groups[$index1]['groupe_name'];?>" onclick="this.form.submit()";>
                 <label for="<?php echo $groups[$index1]['groupe_id'];?>"><?php echo $groups[$index1]['groupe_name'];?></label>
 
                 <?php
@@ -257,16 +255,9 @@ function displayTreeViewCheckbox(){
     </div>
 
 <?php
+return array($teams, $groups);//check values
 }
 /*----------------------------------------------------- Fin Afficher TreeView Checkbox-----------------------------------------------------------*/
 ?>
 
-<?php
-/*
-function getCheckBox(){ //all $_POST['team_id'from checkbox]
-foreach ($variable as $key => $value) {
-    $array = array_push($_POST);
-}
-*/
-?>
 
