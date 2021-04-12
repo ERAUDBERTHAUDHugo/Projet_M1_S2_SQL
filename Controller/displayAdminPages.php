@@ -177,15 +177,12 @@ function displayButtons($button1,$button2) {
                         $index=0;
                         foreach ($groupUser as $user) {
                             $idUser=$groupUser[$index]['user_id'];
-                            //get usernumber of exercise done
                             $answeredUser=BDD::get()->query("SELECT COUNT(*) FROM `user_answer` WHERE `user_id` = $idUser AND `valide`= 1 ")->fetchAll();
                             ?>
-
                             <tr>
-                                <td><?php echo $groupUser[$index]['user_last_name']; ?></td>
+                                <td><a href="index.php?page=dashboard&userBoard=<?php echo $idUser; ?>"><?php echo $groupUser[$index]['user_last_name']; ?></a></td>
                                 <td><?php echo $groupUser[$index]['user_first_name']; ?></td>
                                 <td><?php echo $groupUser[$index]['user_score']; ?></td>
-<!--                                <td><?php //echo $groupUser[$index]['user_score']; ?></td>             GET TP NAME-->
                                 <td><?php echo $answeredUser[0][0]; ?></td>
                             </tr>
                         <?php  
@@ -198,7 +195,7 @@ function displayButtons($button1,$button2) {
         <br>
     <?php
     }
-/*-------------------------------------------- Fin Afficher les eleves equipes/groupes selectionnés------------------------------------------------------*/
+/*------------------------------------------- Fin Afficher les eleves equipes/groupes selectionnés------------------------------------------------------*/
 ?>
 
 <?php
@@ -232,7 +229,7 @@ function displayTreeViewCheckbox(){
             foreach ($groups as $group)
             {
             ?> 
-                <input type="checkbox" id="<?php echo $groups[$index1]['groupe_id'];?>" name="<?php echo $groups[$index1]['groupe_name'];?>" onclick="this.form.submit()";>
+                <input type="checkbox" id="<?php echo $groups[$index1]['groupe_id'];?>" name= "<?php echo $groups[$index1]['groupe_name'];?>" onclick="this.form.submit()";>
                 <label for="<?php echo $groups[$index1]['groupe_id'];?>"><?php echo $groups[$index1]['groupe_name'];?></label>
 
                 <?php
