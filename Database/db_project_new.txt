@@ -1,0 +1,71 @@
+Sub Create_Tables()
+
+DoCmd.RunSQL "CREATE TABLE quizz(" & _
+   "quizz_id INT," & _
+   "quizz_name VARCHAR(50)," & _
+   "quizz_difficulty VARCHAR(50)," & _
+   "quizz_description VARCHAR(1000)," & _
+   "PRIMARY KEY(quizz_id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE equipe(" & _
+   "equipe_id INT," & _
+   "equipe_name VARCHAR(50)," & _
+   "PRIMARY KEY(equipe_id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE tp(" & _
+   "tp_id INT," & _
+   "quizz_id INT NOT NULL," & _
+   "equipe_id INT NOT NULL," & _
+   "PRIMARY KEY(tp_id)," & _
+   "FOREIGN KEY(quizz_id) REFERENCES quizz(quizz_id)," & _
+   "FOREIGN KEY(equipe_id) REFERENCES equipe(equipe_id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE question(" & _
+   "question_id VARCHAR(50)," & _
+   "question_text VARCHAR(50)," & _
+   "question_answer VARCHAR(50)," & _
+   "quizz_id INT NOT NULL," & _
+   "PRIMARY KEY(question_id)," & _
+   "FOREIGN KEY(quizz_id) REFERENCES quizz(quizz_id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE groupe(" & _
+   "groupe_id INT," & _
+   "groupe_name VARCHAR(50)," & _
+   "equipe_id INT," & _
+   "PRIMARY KEY(groupe_id)," & _
+   "FOREIGN KEY(equipe_id) REFERENCES equipe(equipe_id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE users(" & _
+   "user_id INT," & _
+   "user_address VARCHAR(50)," & _
+   "user_lastname VARCHAR(50)," & _
+   "user_firstname VARCHAR(50)," & _
+   "user_score VARCHAR(50)," & _
+   "user_password VARCHAR(50)," & _
+   "user_role LOGICAL," & _
+   "groupe_id INT," & _
+   "PRIMARY KEY(user_id)," & _
+   "FOREIGN KEY(groupe_id) REFERENCES groupe(groupe_id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE user_answer(" & _
+   "user_answer_id INT," & _
+   "user_answer_text VARCHAR(50)," & _
+   "valid INT," & _
+   "user_answer_time DATETIME," & _
+   "tp_id INT NOT NULL," & _
+   "question_id VARCHAR(50) NOT NULL," & _
+   "user_id INT NOT NULL," & _
+   "PRIMARY KEY(user_answer_id)," & _
+   "UNIQUE(question_id)," & _
+   "FOREIGN KEY(tp_id) REFERENCES tp(tp_id)," & _
+   "FOREIGN KEY(question_id) REFERENCES question(question_id)," & _
+   "FOREIGN KEY(user_id) REFERENCES users(user_id)" & _
+");"   
+
+End Sub
