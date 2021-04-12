@@ -6,16 +6,16 @@
 		<?php //display quiz info
 		$quizId=$_GET["id"]; //L'id du quiz est à récupérer par GET selon la page sélectionée par l'utilisateur
 
-		$quizSelection=BDD::get()->query("SELECT `quiz_id`, `quiz_name`,`quiz_difficulty`, `quiz_description`, `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetchAll();
+		$quizSelection=BDD::get()->query("SELECT `quiz_id`, `quiz_name`,`quiz_difficulty`, `quiz_description`, `quiz_database`,`quiz_img` FROM `quiz` WHERE `quiz_id`= $quizId")->fetchAll();
 		?>
 
         <link rel="stylesheet" type="text/css" href="View/style.css">
         <div class="title">
-            <h1><?php echo $quizSelection[$quizId]['quiz_name']; ?></h1>
+            <h1><?php echo $quizSelection[0]['quiz_name']; ?></h1>
         </div>
         <div class="contextbox">
             <?php echo "Difficulté: ".$quizSelection[0]['quiz_difficulty']; ?>
-            <img src="View/img/avatar.png">
+            <img src="ImgExo/<?php$quizSelection[0]['quiz_img'];?>">
 		    <br> 
 		    <?php echo "Enoncé: ".$quizSelection[0]['quiz_description']; ?>
         </div>
