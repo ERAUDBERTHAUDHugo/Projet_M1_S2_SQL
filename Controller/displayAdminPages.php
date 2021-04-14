@@ -8,8 +8,8 @@ function uploadImgExercise(){
     // Constantes
     define('TARGET', 'ImgExo/');    // Repertoire cible
     define('MAX_SIZE', 100000);    // Taille max en octets du fichier
-    define('WIDTH_MAX', 800);    // Largeur max de l'image en pixels
-    define('HEIGHT_MAX', 800);    // Hauteur max de l'image en pixels
+    define('WIDTH_MAX', 1000);    // Largeur max de l'image en pixels
+    define('HEIGHT_MAX', 1000);    // Hauteur max de l'image en pixels
     
     // Tableaux de donnees
     $tabExt = array('jpg','gif','png','jpeg');    // Extensions autorisees
@@ -79,14 +79,14 @@ function uploadImgExercise(){
         $message = 'L\'extension du fichier est incorrecte !';
     }
 
-    return $nomImage;
+    return [$message,$nomImage];
 }
 
 
 
 
 function displayManageExercise(){
-    if(isset($_POST["createExercise"])){
+    //if(isset($_POST["createExercise"])){
         if(!empty($_POST["exerciseName"]) AND !empty($_POST["SQLFile"]) AND !empty($_POST["QuestionFile"])){
             
             if(!empty($_POST['BDDFile']))
@@ -94,23 +94,21 @@ function displayManageExercise(){
                 // On verifie si le champ est rempli
                 if( !empty($_FILES['ImgModelMCD']['name']))
                 {
-                    uploadImgExercise();
+                    $return=uploadImgExercise();
+                    $msg=$return[0];
+                }else{
+                    $msg="Nom du fichier d'image invalide";
                 }
-                else
-                {
-                    // Sinon on affiche une erreur pour le champ vide
-                    $msg = 'Nous n\'avez pas mis d\'image MCD de l\'exercice';
-                    echo "yes";
-                }  
             }
             else{
-                $msg="Certains champs obligatoires ne sont pas complétés !";
-                echo "yes";
+               // Sinon on affiche une erreur pour le champ vide
+               $msg = 'Vous n\'avez pas mis d\'image MCD de l\'exercice';
+               //echo "yes";
             }
             
         }
         else{
-                echo "yes";
+                $msg="Certains champs obligatoires ne sont pas complétés";
             }
 ?>
 
@@ -119,11 +117,7 @@ function displayManageExercise(){
 </div>
 <div class=container-info>
     <h3>Créer un nouvel exercice : </h3>
-<<<<<<< Updated upstream
     <form method="post" action="" name="createExerciseForm" enctype="multipart/form-data">
-=======
-    <form method="POST" action="index.php?page=adminDashboard&func=exercices" name="createExerciseForm">
->>>>>>> Stashed changes
         
         <p>Titre de l'excercice :</p>
         <input type="text" name="exerciseName" placeholder="Titre de l'excercice" value="<?php if(isset($_POST["exerciseName"])) { echo $_POST["exerciseName"]; } ?>">
@@ -131,15 +125,15 @@ function displayManageExercise(){
         <p>Description (facultatif) :</p>
         <textarea name="context" rows="10" cols="150" placeholder="Description de l'exercice"><?php if(isset($_POST["context"])) { echo $_POST["context"]; } ?></textarea><br /><br />
         
-        <p>Importer le fichier SQL :</p>
+        <p>Importer le fichier SQL : </p>
         <input type="text" name="SQLFile" id="input_SQLFile" readonly="readonly"/>
         <input type="file" accept="application/sql" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_SQLFile').value = this.value" />
         
-        <p>Importer les questions au format CSV :</p>
+        <p>Importer les questions au format CSV : </p>
         <input type="text" name="QuestionFile" id="input_QuestionFile" readonly="readonly"/>
         <input type="file" accept="text/csv" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_QuestionFile').value = this.value" />
         
-        <p>Importer l'image du modèle de la BDD :</p>
+        <p>Importer l'image du modèle de la BDD : </p>
         <input type="text" name="BDDFile" id="input_BDDFile" readonly="readonly"/>
         <input type="file" name="ImgModelMCD" accept="image/png, image/jpeg" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_BDDFile').value = this.value" /><br/><br/>
         
@@ -157,7 +151,7 @@ function displayManageExercise(){
     ?>
 </div>
 <?php 
-} 
+//} 
 }
 /*--------------------------------------------Fin Page Gérer mes exercices------------------------------------------------------*/
 ?>

@@ -63,7 +63,7 @@ else{
 }
 //include("TestFiles/transactionPDO.php");
 
-include('View/footer.php');
+//include('View/footer.php');
 
 //disconnect();
 
