@@ -14,12 +14,14 @@
             <h1><?php echo $quizSelection[0]['quiz_name']; ?></h1>
         </div>
         <div class="contextbox">
-            <?php echo "Difficulté: ".$quizSelection[0]['quiz_difficulty']; ?>
-            <img src="ImgExo/<?php$quizSelection[0]['quiz_img'];?>">
+            <?php echo "Difficulté: ".$quizSelection[0]['quiz_difficulty'];?>            
 		    <br> 
 		    <?php echo "Enoncé: ".$quizSelection[0]['quiz_description']; ?>
+            
         </div>
-		<br> 
+		<br>
+        <img src="ImgExo/<?php echo($quizSelection[0]['quiz_img']);?>"> 
+        
 		
 
 	</div>

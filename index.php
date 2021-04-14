@@ -24,12 +24,15 @@ session_start();
 
 include("Controller/bddManagement.php");
 include("Controller/PDOFactory.php");
-include('View/header.php');
 include("Controller/connectionRegisterCheck.php");
+include('View/header.php');
 include("Controller/displayExercice.php");
 
 
 //------------------------------------Redirection---------------------------------------
+if(isset($_POST["disconnect"])){
+    disconnect();
+}
 var_dump($_SESSION);
 if(!isset($_GET['page'])){
     $page=' ';
@@ -66,6 +69,7 @@ else{
 //include('View/footer.php');
 
 //disconnect();
+
 
 ?>
 
