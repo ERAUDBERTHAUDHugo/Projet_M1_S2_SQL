@@ -67,7 +67,7 @@
     function checkConnection($mail,$hash_psw){
 
         disconnect();
-        $users_names=BDD::get()->query('SELECT user_adress, user_id ,user_password FROM users;')->fetchAll();
+        $users_names=BDD::get()->query('SELECT  `user_id`,`user_adress`,`user_password` FROM `users`;')->fetchAll();
 
         foreach ($users_names as $users){           
            

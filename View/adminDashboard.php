@@ -1,9 +1,14 @@
 
 <link rel="stylesheet" type="text/css" href="View/styleAdminPages.css">
+<<<<<<< Updated upstream
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+=======
+>>>>>>> Stashed changes
 
 <div id=adminContent>
     <?php
+    var_dump($_FILES["fileToUpload"]);
+    
     include("Controller/displayAdminPages.php");
     if (isset($_GET["func"])){
         if($_GET["func"]=="groupes"){

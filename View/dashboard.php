@@ -5,11 +5,10 @@
 <div id=dashboard>
 	<div>
 		<?php
-
-		if(isset($_GET['userBoard'])){
-			$userBoard=$_GET['userBoard'];	//link from admin dashboard to check students results
-			//get user info
-	    	$userInfo=BDD::get()->query("SELECT `user_adress`, `user_last_name`, `user_first_name`, `user_score` FROM `users` WHERE `user_id`= $userBoard")->fetchAll();
+		$userBoard=$_SESSION["user"];
+		//get user info
+	
+    	$userInfo=BDD::get()->query("SELECT `user_adress`, `user_last_name`, `user_first_name`, `user_score` FROM `users` WHERE `user_id`= $userBoard")->fetchAll();
 		?>
 			<h2>Etudiant: <?php echo $userInfo[0]['user_first_name'].' '.$userInfo[0]['user_last_name'];?> !</h2> <!-- display user info-->
 		<?php

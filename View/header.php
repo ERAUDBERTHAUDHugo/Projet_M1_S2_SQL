@@ -1,7 +1,5 @@
-<!-- links for bootstap, jquery libraries-->
-
-
-<nav class="navbar navbar-expand-lg navbar-dark static-top" style="background-color: #000080;">
+<header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary static-top">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -25,7 +23,6 @@
     </span>
   </div>
 </nav>
-
 
 
 
