@@ -1,12 +1,4 @@
-﻿Equipe;Groupe;Nom;Prenom
-Equipe_1;groupe_A1;ERAUD-BERTHAUD;Hugo
-Equ_1;B2;b;l
-Equ_1;B2;e;v
-Equ_1;A1;f;f
-Equ_1;B2;f;n
-Equ_1;B1;j;j
-Equ_1;B1;q;k
-Equ_1;B2;s;b
-Equ_1;A1;t;r
-Equ_1;A2;u;y
-Equ_1;A2;y;t
+﻿titrequestion;descriptionquestion;reponse;score
+question1;descQuestion1,insert reponse question1
+question2;descQuestion2,insert reponse question2
+question3;descQuestion3,insert reponse question3

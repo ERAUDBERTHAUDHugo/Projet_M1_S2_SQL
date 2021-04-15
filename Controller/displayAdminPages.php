@@ -1,101 +1,29 @@
 
 
+
 <?php
 /*--------------------------------------------Page Gérer mes exercices------------------------------------------------------*/
-function uploadImgExercise(){
-    //Recupérer et stocker l'image MCD
-            
-    // Constantes
-    define('TARGET', 'ImgExo/');    // Repertoire cible
-    define('MAX_SIZE', 100000);    // Taille max en octets du fichier
-    define('WIDTH_MAX', 1000);    // Largeur max de l'image en pixels
-    define('HEIGHT_MAX', 1000);    // Hauteur max de l'image en pixels
-    
-    // Tableaux de donnees
-    $tabExt = array('jpg','gif','png','jpeg');    // Extensions autorisees
-    $infosImg = array();
-    
-    // Variables
-    $extension = '';
-    $message = '';
-    $nomImage = 'Img'.$_POST["exerciseName"];
-
-    /************************************************************
-     * Script d'upload
-     *************************************************************/
-    // Recuperation de l'extension du fichier
-    $extension  = pathinfo($_FILES['ImgModelMCD']['name'], PATHINFO_EXTENSION);
-                
-    // On verifie l'extension du fichier
-    if(in_array(strtolower($extension),$tabExt))
-    {
-        // On recupere les dimensions du fichier
-        $infosImg = getimagesize($_FILES['ImgModelMCD']['tmp_name']);
-
-        // On verifie le type de l'image
-        if($infosImg[2] >= 1 && $infosImg[2] <= 14)
-        {
-            // On verifie les dimensions et taille de l'image
-            if(($infosImg[0] <= WIDTH_MAX) && ($infosImg[1] <= HEIGHT_MAX) && (filesize($_FILES['ImgModelMCD']['tmp_name']) <= MAX_SIZE))
-            {
-                // Parcours du tableau d'erreurs
-                if(isset($_FILES['ImgModelMCD']['error']) 
-                    && UPLOAD_ERR_OK === $_FILES['ImgModelMCD']['error'])
-                {
-                    // On renomme le fichier avec la bonne extension
-                    $nomImage = $nomImage .'.'. $extension;
-
-                    // Si c'est OK, on teste l'upload
-                    if(move_uploaded_file($_FILES['ImgModelMCD']['tmp_name'], TARGET.$nomImage))
-                    {
-                        $message = 'Upload réussi !';
-                    }
-                    else
-                    {
-                        // Sinon on affiche une erreur systeme
-                        $message = 'Problème lors de l\'upload !';
-                    }
-                }
-                else
-                {
-                    $message = 'Une erreur interne a empêché l\'uplaod de l\'image';
-                }
-            }
-            else
-            {
-                // Sinon erreur sur les dimensions et taille de l'image
-                $message = 'Erreur dans les dimensions de l\'image !';
-            }
-        }
-        else
-        {
-            // Sinon erreur sur le type de l'image
-            $message = 'Le fichier à uploader n\'est pas une image !';
-        }
-    }
-    else
-    {
-        // Sinon on affiche une erreur pour l'extension
-        $message = 'L\'extension du fichier est incorrecte !';
-    }
-
-    return [$message,$nomImage];
-}
-
-
-
-
+include ("filesManagement.php");
 function displayManageExercise(){
-    //if(isset($_POST["createExercise"])){
-        if(!empty($_POST["exerciseName"]) AND !empty($_POST["SQLFile"]) AND !empty($_POST["QuestionFile"])){
+    if(isset($_POST["createExercise"])){
+        if(!empty($_FILES["ImgModelMCD"]) AND !empty($_FILES["SQLFile"]) AND !empty($_FILES["QuestionFile"])){
             
             if(!empty($_POST['BDDFile']))
             {
                 // On verifie si le champ est rempli
-                if( !empty($_FILES['ImgModelMCD']['name']))
+                if( !empty($_FILES["ImgModelMCD"]['name']))
                 {
-                    $return=uploadImgExercise();
-                    $msg=$return[0];
+                    $returnQuestionFile=uploadCsvQuiz();
+                    $returnSqlFile=uploadSqlFile();
+                    $returnImage=uploadImgExercise();
+                    // if all file are uploaded, then proced to create exercise : 
+                    if ($returnQuestionFile[0]==1 AND $returnSqlFile[0]==1 AND $returnImage[0]==1){
+                        addExercise($returnQuestionFile[1],$returnSqlFile[1],$returnImage[1]);
+                        $msg="L'exercice a bien été créé ! ";
+                    }else{
+                        $msg=$returnImage[1];
+                    }
+                    
                 }else{
                     $msg="Nom du fichier d'image invalide";
                 }
@@ -110,6 +38,7 @@ function displayManageExercise(){
         else{
                 $msg="Certains champs obligatoires ne sont pas complétés";
             }
+        } 
 ?>
 
 <div class="title-container">
@@ -126,16 +55,16 @@ function displayManageExercise(){
         <textarea name="context" rows="10" cols="150" placeholder="Description de l'exercice"><?php if(isset($_POST["context"])) { echo $_POST["context"]; } ?></textarea><br /><br />
         
         <p>Importer le fichier SQL : </p>
-        <input type="text" name="SQLFile" id="input_SQLFile" readonly="readonly"/>
-        <input type="file" accept="application/sql" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_SQLFile').value = this.value" />
+        <input type="text"  id="input_SQLFile" readonly="readonly"/>
+        <input type="file" name="SQLFile" accept="application/sql" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_SQLFile').value = this.value" />
         
         <p>Importer les questions au format CSV : </p>
-        <input type="text" name="QuestionFile" id="input_QuestionFile" readonly="readonly"/>
-        <input type="file" accept="text/csv" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_QuestionFile').value = this.value" />
+        <input type="text"  id="input_QuestionFile" readonly="readonly"/>
+        <input type="file" name="QuestionFile" accept="text/csv" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_QuestionFile').value = this.value" />
         
         <p>Importer l'image du modèle de la BDD : </p>
         <input type="text" name="BDDFile" id="input_BDDFile" readonly="readonly"/>
-        <input type="file" name="ImgModelMCD" accept="image/png, image/jpeg" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_BDDFile').value = this.value" /><br/><br/>
+        <input type="file" name="ImgModelMCD" name="ImgModelMCD" accept="image/png, image/jpeg" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_BDDFile').value = this.value" /><br/><br/>
         
         <input type="submit" class="button" value="Créer l'exercice" name="createExercise">
     </form>
@@ -151,7 +80,7 @@ function displayManageExercise(){
     ?>
 </div>
 <?php 
-//} 
+
 }
 /*--------------------------------------------Fin Page Gérer mes exercices------------------------------------------------------*/
 ?>
@@ -348,5 +277,3 @@ return array($teams, $groups);//check values
 }
 /*----------------------------------------------------- Fin Afficher TreeView Checkbox-----------------------------------------------------------*/
 ?>
-
-

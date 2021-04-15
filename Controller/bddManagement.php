@@ -37,7 +37,7 @@ function createBase ($dbname){
 
 function importSqlFile($dbname,$filename){
     
-    $query = file_get_contents(__DIR__."\\".$filename.".sql");
+    $query = file_get_contents("DatabaseExercice/".$filename.".sql");
     $con = new PDO("mysql:host=localhost;dbname=".$dbname."","root","");
     $stmt = $con->prepare($query);
     if($stmt->execute()){

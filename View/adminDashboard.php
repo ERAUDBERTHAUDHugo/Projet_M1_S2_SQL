@@ -3,8 +3,6 @@
 
 <div id=adminContent>
     <?php
-    //var_dump($_FILES["fileToUpload"]);
-    
     include("Controller/displayAdminPages.php");
     if (isset($_GET["func"])){
         if($_GET["func"]=="groupes"){
