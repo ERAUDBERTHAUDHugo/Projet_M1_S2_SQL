@@ -139,9 +139,3 @@ input[type="reset"]:focus {
   box-shadow: 0 0 0 4px #b9c3c9;
 }
 
-#exerciceAdded{
-  height: auto;
-  width: auto;
-  background-color: #8EFB99;  
-  color : #333333;
-}
