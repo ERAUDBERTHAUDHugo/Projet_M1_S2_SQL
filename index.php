@@ -15,12 +15,10 @@
 </head>
 <body>
 
-
 <?php
 session_start();
 
 //--------------------------------------Includes-------------------------------
-
 
 include("Controller/bddManagement.php");
 include("Controller/PDOFactory.php");
@@ -28,49 +26,49 @@ include("Controller/connectionRegisterCheck.php");
 include('View/header.php');
 include("Controller/displayExercice.php");
 
-
-//------------------------------------Redirection---------------------------------------
+//------------------------------------LogOut-------------------------------------------
 if(isset($_POST["disconnect"])){
     disconnect();
 }
+//------------------------------------Redirection---------------------------------------
+
 var_dump($_SESSION);
-if(!isset($_GET['page'])){
-    $page=' ';
-    include('View/main.php');
-}
-else{
-    $page = $_GET['page'];
-    switch ($page) {
-        case "home":
-            include('View/main.php');
-            break;
-        case "exercice":
-            include('View/exercice.php');
-            break;
-        case "login":
-            include('View/login.php');
-            break;
-        case "register":
-            include('View/register.php');
-                break;
-        case "dashboard":
-            include('View/dashboard.php');
-            break;
-        case "adminDashboard":
-            include("View/adminDashboard.php");
-            break;
-        default:
-            include('View/main.php');
-        break;
+
+if(isset($_SESSION['user'])){
+    if(!isset($_GET['page'])){
+        $page=' ';
+        include('View/main.php');
     }
+    else{
+        $page = $_GET['page'];
+        switch ($page) {
+            case "home":
+                include('View/main.php');
+                break;
+            case "exercice":
+                include('View/exercice.php');
+                break;
+            case "login":
+                include('View/login.php');
+                break;
+            case "register":
+                include('View/register.php');
+                    break;
+            case "dashboard": // faire la diff entre admin et étudiant ( if en fonction du user. A implémenter à la fin pour faciliter le developpement)
+                include('View/dashboard.php');
+                break;
+            case "adminDashboard":
+                include("View/adminDashboard.php");
+                break;
+            default:
+                include('View/main.php');
+            break;
+        }
+    }
+}else{// Acces au site seulement une fois que l'on est connecté
+    include('View/login.php');
 }
-//include("TestFiles/transactionPDO.php");
-
 //include('View/footer.php');
-
-//disconnect();
-
-
 ?>
 
 </body>

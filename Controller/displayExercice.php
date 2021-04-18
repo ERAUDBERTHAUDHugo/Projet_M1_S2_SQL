@@ -35,7 +35,6 @@
             <?php  
             $quizId=$_GET["id"]; 
             $questionSelection=BDD::get()->query("SELECT `question_id`, `question_text`,`question_answer` FROM `question` WHERE `quiz_id`= $quizId")->fetchAll();
-            
             ?>
             <div id='step'>
 

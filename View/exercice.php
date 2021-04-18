@@ -2,11 +2,10 @@
 
 	<?php
 
-	
 	if (isset($_GET["id"])){
 		if($_SESSION["question"]==-1){
 			$_SESSION["question"]=0;
-			
+			echo(checkFirstTime());
 			if(checkFirstTime()==1){// creation of the unique db file for the exercice
 				//get dbname using user lastname :
 
@@ -23,6 +22,8 @@
 
 				$quizId=$_GET["id"];
 				$quizname=BDD::get()->query("SELECT `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetchAll();
+				echo("yes");
+				var_dump($quizname);
 				$filename=$quizname[0]["quiz_database"];
 
 				importSqlFile($dbname,$filename);
@@ -47,6 +48,7 @@
 		
 		$getQuestionId=$_SESSION["question"];//get actual question id
 		$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `question_id`= $getQuestionId")->fetchAll();
+		var_dump($questionId);
 		$Id=$questionId[0][0];
 
 		$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET['id'],$Id); //call function correction

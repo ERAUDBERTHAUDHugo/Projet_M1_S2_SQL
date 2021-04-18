@@ -142,20 +142,43 @@ function uploadCsvQuiz(){
     }
 }
 
-function insertQuestionCsvQuiz($Csvfilename){// insert all question in db from a csv file for a new quizz
+function insertQuestionCsvQuiz($Csvfilename,$quizName){// insert all question in db from a csv file for a new quizz
     $row = 1;
+    $quizName=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_name`= '$quizName' ")->fetchAll(); //get in wich quiz questions will be insert
+
     if (($handle = fopen("Csvfiles/".$Csvfilename.".csv", "r")) !== FALSE) {
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {//handel=vrai ou faux//1000 caracteres max, "," séparateur
             $num = count($data);
             $row++;
             for ($c=0; $c < $num; $c++) {
                 //get data
-                echo($data[$c]);
+                $datas=explode(';',$data[$c]);
+                var_dump($datas);
+                $intitule=$datas[0];
+                $descrp=$datas[1];
+                $ans=$datas[2];
+                if(isset($datas[3])){
+                    $score=$datas[3];
+                }else{
+                    $score=1;
+                }
+                $newQuestion = BDD::get()->prepare('INSERT INTO question VALUES (NULL,:question_libele, :question_text, :quiz_answer,:quiz_id,:question_points)');  
+    
+                //$newQuiz->bindParam(':quiz_id',4);
+                $newQuestion->bindParam(':question_libele',$intitule);
+                $newQuestion->bindParam(':question_text',$descrp);
+                $newQuestion->bindParam(':quiz_answer', $ans);
+                $newQuestion->bindParam(':quiz_id',$quizName[0]['quiz_id']);
+                $newQuestion->bindParam(':question_points',$score);
+            
+                $newQuestion->execute();
+                
             }
         }
         fclose($handle);
     }
 }
+
 function addExercise($questionfile,$sqlfile,$imgfile){
     //create a new quiz : 
     $quiz_name=$_POST["exerciseName"];
@@ -164,9 +187,8 @@ function addExercise($questionfile,$sqlfile,$imgfile){
     $user_id=$_SESSION["user"];
     $quiz_database=$sqlfile;
     $Img_name=$imgfile;
- 
 
-    $newQuiz = BDD::get()->prepare('INSERT INTO quiz VALUES (NULL,:quiz_name, :quiz_difficulty, :quiz_description,:user_id,:quiz_database,:Img_name)');  
+    $newQuiz = BDD::get()->prepare('INSERT INTO quiz VALUES (NULL,:quiz_name, :quiz_difficulty, :quiz_description,:user_id,:quiz_database,:quiz_img)');  
 
     //$newQuiz->bindParam(':quiz_id',4);
     $newQuiz->bindParam(':quiz_name',$quiz_name);
@@ -174,12 +196,12 @@ function addExercise($questionfile,$sqlfile,$imgfile){
     $newQuiz->bindParam(':quiz_description',$quiz_description);
     $newQuiz->bindParam(':user_id',$user_id);
     $newQuiz->bindParam(':quiz_database',$quiz_database);
-    $newQuiz->bindParam(':Img_name',$Img_name);
+    $newQuiz->bindParam(':quiz_img',$Img_name);
   
     $newQuiz->execute();
 
     // insert question in new quiz
-    //insertQuestionCsvQuiz($questionfile);
+    insertQuestionCsvQuiz($questionfile,$quiz_name);
 
 }
 //######################################### TEAMS/GROUPS FILES MANAGEMENT#######################################################

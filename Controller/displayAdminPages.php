@@ -1,11 +1,10 @@
-
-
-
 <?php
 /*--------------------------------------------Page Gérer mes exercices------------------------------------------------------*/
 include ("filesManagement.php");
 function displayManageExercise(){
     if(isset($_POST["createExercise"])){
+        $nameAlreadyUsed=0;
+
         if(!empty($_FILES["ImgModelMCD"]) AND !empty($_FILES["SQLFile"]) AND !empty($_FILES["QuestionFile"])){
             
             if(!empty($_POST['BDDFile']))
@@ -20,6 +19,11 @@ function displayManageExercise(){
                     if ($returnQuestionFile[0]==1 AND $returnSqlFile[0]==1 AND $returnImage[0]==1){
                         addExercise($returnQuestionFile[1],$returnSqlFile[1],$returnImage[1]);
                         $msg="L'exercice a bien été créé ! ";
+                        ?>
+                        <div id="exerciceAdded">
+                            <p>Votre exercice a bien été ajouté et est disponible dès maintenant  !</p> 
+                        </div>
+                        <?php
                     }else{
                         $msg=$returnImage[1];
                     }
