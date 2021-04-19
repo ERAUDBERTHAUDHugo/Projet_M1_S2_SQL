@@ -148,7 +148,7 @@ function displayButtons($button1,$button2) {
     
 <?php
 }
-/*--------------------------------------------Fin Afficher les boutons liant les 3 pages entre elles------------------------------------------------------*/
+/*----------------------------------Fin Afficher les boutons liant les 3 pages entre elles------------------------------------------------------*/
 ?>
 
 <?php
@@ -234,7 +234,7 @@ function displayTreeViewCheckbox(){
     
         <div>
           <input id="<?php echo "n-".$teams[$index]['equipe_id'];?>" type="checkbox">
-          <label for="<?php echo "n-".$teams[$index]['equipe_id'];?>"><?php echo $teams[$index]['equipe_name'];?></label>
+          <label class="general" for="<?php echo "n-".$teams[$index]['equipe_id'];?>"><?php echo $teams[$index]['equipe_name'];?></label>
           <div class="sub">
 
             <?php 
@@ -243,7 +243,7 @@ function displayTreeViewCheckbox(){
             {
             ?> 
                 <input type="checkbox" id="<?php echo $groups[$index1]['groupe_id'];?>" name= "<?php echo $groups[$index1]['groupe_name'];?>" onclick="this.form.submit()";>
-                <label for="<?php echo $groups[$index1]['groupe_id'];?>"><?php echo $groups[$index1]['groupe_name'];?></label>
+                <label class= "general" for="<?php echo $groups[$index1]['groupe_id'];?>"><?php echo $groups[$index1]['groupe_name'];?></label>
 
                 <?php
             $index1+=1;
@@ -260,7 +260,7 @@ function displayTreeViewCheckbox(){
     ?>
 
       </div>
-      <input type="reset" value="Reset">
+      <input class="reset resetfocus" type="reset" value="Reset">
     </form>   
     </div>
 
@@ -335,5 +335,213 @@ function deleteExercice(){
 }
 /*-----------------------------------------------------FIn Afficher/supprimer les exercices-----------------------------------------------------------*/
 
+
+?>
+
+
+<?php
+/*----------------------------------------------------- Gestion TPs ----------------------------------------------------------*/
+function tpManagementDisplay(){
+?>
+    <div style="height: 300px; width: 50%;">
+        <br>
+        <h3>Gérer mes TPs</h3>
+        <form method="post" action="index.php?page=adminDashboard&func=exercices" name="manageTpForm">
+
+            <!-- Create-->
+            <label for="createSelect">Créer un TP</label>
+
+            <br>
+            <input type="text" placeholder="Nom du nouveau TP" id="createName1" name="createName1" >
+
+            <?php 
+            $exerciseSelect=BDD::get()->query("SELECT * FROM `quiz` ")->fetchAll();
+            $teamSelect=BDD::get()->query("SELECT * FROM `equipe` ")->fetchAll();
+            ?>
+
+            <select name="setExerciseSelect" id="setExerciseSelect">
+                <option value="">--Choix Exercice--</option>
+
+                <?php
+                $num = 0;
+                foreach($exerciseSelect as $exerciseAvailable){
+                ?>
+                <option value="<?php echo($exerciseSelect[$num]['quiz_id']); ?>"><?php echo($exerciseSelect[$num]['quiz_name']); ?></option>
+                <?php  
+                $num+=1;  
+                }
+                ?>
+
+            </select>
+
+            <select name="setTeamSelect" id="setTeamSelect">
+                <option value="">--Choix Equipe--</option>
+
+                <?php
+                $num = 0;
+                foreach($teamSelect as $teamAvailable){
+                ?>
+                <option value="<?php echo($teamSelect[$num]['equipe_id']); ?>"><?php echo($teamSelect[$num]['equipe_name']); ?></option>
+                <?php  
+                $num+=1;  
+                }
+                ?>
+
+            </select>
+
+            <br>
+            <!-- Modify-->
+            <label for="modifSelect">Modifier un TP</label>
+
+            <br>
+
+            <?php 
+            $tpSelectModif=BDD::get()->query("SELECT * FROM `tp` ")->fetchAll();
+            $exerciseSelectModif=BDD::get()->query("SELECT * FROM `quiz` ")->fetchAll();
+            $teamSelectModif=BDD::get()->query("SELECT * FROM `equipe` ")->fetchAll();
+            ?>
+
+            <select name="setNameSelectModif" id="setNameSelectModif">
+                <option value="">--TP à Modifier--</option>
+
+                <?php
+                $num = 0;
+                foreach($tpSelectModif as $tpAvailableModif){
+                ?>
+                <option value="<?php echo($tpSelectModif[$num]['tp_name']); ?>"><?php echo($tpSelectModif[$num]['tp_name']); ?></option>
+                <?php  
+                $num+=1;  
+                }
+                ?>
+
+            </select>
+
+            <select name="setExerciseSelectModif" id="setExerciseSelectModif">
+                <option value="">--Choix Exercice--</option>
+
+                <?php
+                $num = 0;
+                foreach($exerciseSelectModif as $exerciseAvailableModif){
+                ?>
+                <option value="<?php echo($exerciseSelectModif[$num]['quiz_id']); ?>"><?php echo($exerciseSelectModif[$num]['quiz_name']); ?></option>
+                <?php  
+                $num+=1;  
+                }
+                ?>
+
+            </select>
+
+            <select name="setTeamSelectModif" id="setTeamSelectModif">
+                <option value="">--Choix Equipe--</option>
+
+                <?php
+                $num = 0;
+                foreach($teamSelectModif as $teamAvailableModif){
+                ?>
+                <option value="<?php echo($teamSelectModif[$num]['equipe_id']); ?>"><?php echo($teamSelectModif[$num]['equipe_name']); ?></option>
+                <?php  
+                $num+=1;  
+                }
+                ?>
+
+            </select>
+
+            <br>
+            <!-- Delete-->
+            <label for="deleteSelect">Supprimer un TP</label>
+
+            <br>
+
+            <?php 
+            $tpSelectDel=BDD::get()->query("SELECT * FROM `tp` ")->fetchAll();
+            ?>
+
+            <select name="setNameSelectDel" id="setNameSelectDel">
+                <option value="">--TP à Supprimer--</option>
+
+                <?php
+                $num = 0;
+                foreach($tpSelectDel as $tpAvailableDel){
+                ?>
+                <option value="<?php echo($tpSelectDel[$num]['tp_name']); ?>"><?php echo($tpSelectDel[$num]['tp_name']); ?></option>
+                <?php  
+                $num+=1;  
+                }
+                ?>
+
+            </select>
+
+            <br><br>
+            <input type="submit" class="button" value="Appliquer les changements" name="manageTpSubmit">
+            <br><br>   
+        </form>
+    <div>
+
+<?php
+}
+    //Apply database modications 
+function tpManagement(){
+
+    //Create
+    if(isset($_POST['createName1']) && isset($_POST['setExerciseSelect']) && isset($_POST['setTeamSelect'])){
+        if(!($_POST['createName1']=='') && !($_POST['setExerciseSelect']=='') && !($_POST['setTeamSelect']=='')){
+
+            $createName = $_POST['createName1'];
+            $newExercise = (int)$_POST['setExerciseSelect'];
+            $newTeam = (int)$_POST['setTeamSelect'];  
+
+            try{
+
+                $createTp=BDD::get()->prepare("INSERT INTO tp VALUES (NULL, :tp_name, :quiz_id, :equipe_id)");
+
+                $createTp->bindParam(':tp_name',$createName);
+                $createTp->bindParam(':quiz_id',$newExercise);
+                $createTp->bindParam(':equipe_id',$newTeam);
+
+                $createTp->execute();
+
+                echo "Création réussie!";
+            }catch(Error $e){
+                echo "Erreur lors de la création!";
+            }
+        }
+    }
+
+    //Modify
+    if(isset($_POST['setNameSelectModif']) && isset($_POST['setExerciseSelectModif']) && isset($_POST['setTeamSelectModif'])){
+
+        if(!($_POST['setNameSelectModif']=='') && !($_POST['setExerciseSelectModif']=='') && !($_POST['setTeamSelectModif']=='')){
+
+            $modifyName = $_POST['setNameSelectModif'];
+            $modifyExercise = (int)$_POST['setExerciseSelectModif'];
+            $modifyTeam = (int)$_POST['setTeamSelectModif']; 
+
+            try{
+
+                $modifyTp=BDD::get()->query("UPDATE `tp` SET `quiz_id`= '$modifyExercise', `equipe_id`= '$modifyTeam' WHERE `tp_name` = '$modifyName'")->fetchAll();
+                echo "Modification réussie!";
+            }catch(Error $e){
+                echo "Erreur lors de la modification!";
+            }
+        }
+    }
+
+    //Delete
+    if(isset($_POST['setNameSelectDel'])){
+        if(!($_POST['setNameSelectDel'])==''){
+
+            $deleteName = $_POST['setNameSelectDel'];
+
+            try{
+                $deleteTp=BDD::get()->query("DELETE FROM `tp` WHERE `tp_name` = '$deleteName'")->fetchAll();
+                echo "Suppression réussie!";
+            }catch(Error $e){
+                echo "Nom de l'exercice à supprimer invalide!";
+            }
+        }
+    }  
+
+    unset($_POST); 
+}
 
 ?>

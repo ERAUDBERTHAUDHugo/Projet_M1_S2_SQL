@@ -20,6 +20,8 @@
              }
             displayManageExercise();
             tabExercice();
+            tpManagement();
+            tpManagementDisplay();
             displayButtons("groupes","page principale");
         }else{
             header('Location: index.php?page=dashboard');
