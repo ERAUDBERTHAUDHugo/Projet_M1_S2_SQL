@@ -45,10 +45,8 @@ function displayManageExercise(){
         } 
 ?>
 
-<div class="title-container">
-    Gérer les exercices
-</div>
-<div class=container-info>
+
+<div class="container-info">
     <h3>Créer un nouvel exercice : </h3>
     <form method="post" action="" name="createExerciseForm" enctype="multipart/form-data">
         
@@ -95,17 +93,13 @@ function displayManageExercise(){
 /*--------------------------------------------Page Gérer mes groupes------------------------------------------------------*/
 function displayManageGroups(){
     
-    if(isset($_POST["addTeam"])){
-        if(!empty($_POST["teamName"])){
-        
-        }
-        else{
-            $msg="Veuillez compléter le nom de votre équipe";
-        }
-    }   
     if(isset($_POST["addGroup"])){
-        if(!empty($_POST["groupName"]) AND !empty($_POST["studentListFile"])){
-        
+        if(!empty($_POST["studentListFile"])){
+            $returnCsvStudent=uploadCsvStudents();
+            if ($returnCsvStudent[0]==1){
+                echo("to");
+                dispatchStudent($returnCsvStudent[1]);
+            }
         }
         else{
             $msg="Tous les champs doivent être complétés !";
@@ -114,21 +108,15 @@ function displayManageGroups(){
 ?>
 
 <div class="title-container">
-    Gérer les groupes
+    Gérer les équipes et groupes
 </div>
 <div class="container-info">
-    <h3>Ajouter un groupe</h3>
+    <h3>Mise à jour des listes étudiants</h3>
     <form method="POST" action="index.php?page=adminDashboard&func=groupes" name="addGroupForm" enctype="multipart/form-data">
-        <p>Nom du groupe :</p>
-        <input type="text" name="groupName" placeholder="Nom du groupe" value="<?php if(isset($_POST["groupName"])) { echo $_POST["groupName"]; } ?>">
-        
-        <p>Selectionner l'équipe du groupe :</p>
-        
         <p>Importer la liste d'étudiants au format CSV :</p>
-        <input type="text" name="studentListFile" id="input_StudentListFile" readonly="readonly" value="<?php if(isset($_POST["studentListFile"])) { echo $_POST["studentListFile"]; } ?>"/>
-        <!--<input type="file" accept="text/csv" name="listFileUplaod"onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_StudentListFile').value = this.value" /><br/><br/>-->
-        <input type="file"  name="fileToUpload" id="fileToUpload">
-        <input type="submit" class="button" value="Ajouter le groupe" name="addGroup">
+        <input type="text" name="studentListFile" id="input_StudentListFile" readonly="readonly" />
+        <input type="file"  name="fileToUpload" id="fileToUpload" accept="text/csv" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_StudentListFile').value = this.value">
+        <input type="submit" class="button" value="Mettre à jour les étudiants" name="addGroup">
     </form>
     <?php
     if(isset($msg)){
@@ -280,4 +268,72 @@ function displayTreeViewCheckbox(){
 return array($teams, $groups);//check values
 }
 /*----------------------------------------------------- Fin Afficher TreeView Checkbox-----------------------------------------------------------*/
+/*----------------------------------------------------- Afficher/supprimer les exercices-----------------------------------------------------------*/
+function tabExercice(){
+    ?>
+    <form action="index.php?page=adminDashboard&func=exercices" method="post">
+        <table>
+            <thead>
+                <tr>
+                <th colspan="3">Vos exerices disponbibles en ligne</th>
+                </tr>
+                <tr>
+                <th ><?php echo("<input type='checkbox' onclick='selectAll(this)' name='selectAllExercice' /><label ></label>");?>All</th>
+                <th>Nom</th>
+                <th >Nombre de questions</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+    <?php
+    $exercices=BDD::get()->query("SELECT `quiz_name`,`quiz_id` FROM `quiz` ")->fetchAll();
+    if (!empty($exercice)){
+        foreach ($exercices as $exo){
+            $quiz_id=$exo['quiz_id'];
+            $questionsOfExo=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `quiz_id`=$quiz_id ")->fetchAll();
+            $countQuestion=0;
+            foreach ($questionsOfExo as $ques){
+                $countQuestion=$countQuestion+1;
+            }
+            ?>
+            <tr>
+                <td> <?php echo("<input type='checkbox' class='exerciceCheck'name='quiz".$quiz_id."' /><label></label>"); ?> </td>
+                <td> <?php echo($exo['quiz_name']); ?> </td>
+                <td> <?php echo($countQuestion); ?> </td>
+            </tr>
+
+            <?php
+        }
+    } else{
+        ?>
+        <td colspan="3"> Pas d'exercices à afficher pour l'instant !  </td>
+        <?php
+    }
+    ?>
+            </tbody>
+        </table>
+        <button type="submit" name="deleteExercice" onclick="deleteConfirm(this)">Supprimer les exercices séléctionnés</button>
+    </form>
+    <?php
+    //var_dump($exercices);
+}
+function deleteExercice(){
+    $exercices=BDD::get()->query("SELECT `quiz_name`,`quiz_id` FROM `quiz` ")->fetchAll();
+    foreach ($exercices as $exo){
+        $postName="quiz".$exo['quiz_id'];
+        if(isset($_POST[$postName])){
+            // delete quiz's question 
+            // delete quiz
+            $quiz_id=$exo['quiz_id'];
+            $deleteQuiz = BDD::get()->prepare('DELETE FROM quiz WHERE quiz_id=:id LIMIT 1');  
+            $deleteQuiz->bindParam(':id',$quiz_id);
+            $deleteQuiz->execute();
+            echo("on va supprimer le quiz".$exo['quiz_id']);
+        }
+    }
+    return 1;
+}
+/*-----------------------------------------------------FIn Afficher/supprimer les exercices-----------------------------------------------------------*/
+
+
 ?>

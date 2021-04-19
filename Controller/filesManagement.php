@@ -153,7 +153,7 @@ function insertQuestionCsvQuiz($Csvfilename,$quizName){// insert all question in
             for ($c=0; $c < $num; $c++) {
                 //get data
                 $datas=explode(';',$data[$c]);
-                var_dump($datas);
+    
                 $intitule=$datas[0];
                 $descrp=$datas[1];
                 $ans=$datas[2];
@@ -205,8 +205,70 @@ function addExercise($questionfile,$sqlfile,$imgfile){
 
 }
 //######################################### TEAMS/GROUPS FILES MANAGEMENT#######################################################
+function uploadCsvStudents(){
+
+    $target="Csvfiles"; 
+    $wantedExt="csv";
+    //check if exercice already exist
+    $ext=explode('.', $_FILES["fileToUpload"]["name"])[1];
+
+    if($ext==$wantedExt){
+
+        $nomFile="\\".$_FILES["fileToUpload"]["name"];
+        move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target.$nomFile);
+        $filename=explode('.', $_FILES["fileToUpload"]["name"])[0];
+        return [1,$filename];
+
+    }else
+    {
+        $message="L'extension n'est pas valide ( csv requis)";
+        return [0,$message];
+    }
+}
+
+function dispatchStudent($filename){
+    $row = 1;
+    $quizName=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_name`= '$quizName' ")->fetchAll(); //get in wich quiz questions will be insert
+    if (($handle = fopen("Csvfiles/".$Csvfilename.".csv", "r")) !== FALSE) {
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {//handel=vrai ou faux//1000 caracteres max, "," séparateur
+            $num = count($data);
+            $row++;
+            for ($c=0; $c < $num; $c++) {
+                //get data
+                $datas=explode(';',$data[$c]);
+                
+                $team=$datas[0];
+                $group=$datas[1];
+                $lastname=$datas[2];
+                $firstname=$datas[2];
+                manageCsvStudent($team,$group,$lastname,$firstname);
+                
+            }
+        }
+        fclose($handle);
+    }
+}
+
+function manageCsvStudent($team,$group,$lastname,$firstname){
+    //check if team already exist
+    $teamNames=BDD::get()->query("SELECT `equipe_id`,`equipe_name` FROM `equipe`")->fetchAll();
+    $teamExist=0
+    foreach($teamNames as $nameteam){
+        if($nameteam['equipe_name']==$team){
+            $teamExist=1;
+            break;
+        }
+    }
+    if($teamExist==0){
+        //createTeam
+    }
+    //check if the group in this team already exist
+    //check if student exist
+    //check if student is already in this group
 
 
 
+
+}
 
 ?>
