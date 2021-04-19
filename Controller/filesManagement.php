@@ -252,7 +252,7 @@ function dispatchStudent($filename){
 function manageCsvStudent($team,$group,$lastname,$firstname){
     //check if team already exist
     $teamNames=BDD::get()->query("SELECT `equipe_id`,`equipe_name` FROM `equipe`")->fetchAll();
-    $teamExist=0
+    $teamExist=0;
     foreach($teamNames as $nameteam){
         if($nameteam['equipe_name']==$team){
             $teamExist=1;

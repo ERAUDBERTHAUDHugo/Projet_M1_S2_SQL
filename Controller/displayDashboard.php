@@ -28,7 +28,7 @@
         }
         ////////////////////////////////////////////create graphs///////////////////////////////////////
         ?>
-
+        <div class="containers">
         <script>
             window.onload = function () {
              
@@ -79,12 +79,12 @@
 
         <!--------------------------------- display graphs with parameters ------------------------->
 
-        <div id="chartContainer1" style="height: 300px; width: 50%; float:left;"></div>
+        <div id="chartContainer1"></div>
         <br>
-        <div id="chartContainer2" style="height: 300px; width: 50%; float:left;"></div>
+        <div id="chartContainer2"></div>
         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
         <br>
-
+        </div>
         <?php
     }
 
@@ -92,9 +92,9 @@
 
     function displayRanking(){
     ?>
-        <div style="height: 300px; width: 50%; float:left;">
+        <div id="statistic-container">
             <br>
-            <h4>Classement</h4>
+            <h4>Votre classement</h4>
             <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
 
                 <?php 
@@ -138,9 +138,9 @@
     function displayQuestionHistory($userBoard){
 
     ?>
-    <div style="height: 300px; width: 50%; float:left;">
+    <div id="statistic-container">
         <br>
-    <h4>Mes derniers exercices</h4>
+    <h4>Vos derniers exercices</h4>
     <?php 
     //recuperer les exercices faits disponibles
         $userAnswers=BDD::get()->query("SELECT `user_id`, `user_answer_time`, `question_id`, `question_score`, `quiz_id` FROM `user_answer` WHERE `user_id`= $userBoard ORDER BY `user_answer_time` DESC")->fetchAll(); 

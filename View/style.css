@@ -2,7 +2,7 @@
 .title-box{
     text-align: center;
     font-family: sans-serif;
-    margin: 100px auto 50px;
+    margin: 0px auto 50px;
     color: #000080;
 }
 
@@ -19,7 +19,7 @@
 .quiz-box{
     width: 260px;
     height: 260px;
-    background: #fff;
+    background: 		#F5F5F5;
     border-radius: 4px;
     margin-bottom: 30px;
     box-shadow: 0 10px 10px 10px rgba(115, 193, 255, 0.1);
@@ -67,7 +67,7 @@ small{
     justify-content: space-between;
     flex-wrap: wrap;
     width: 90%;
-    margin: auto;
+    margin: 0px auto 100px;
 }
 
 .quiz-box:hover
@@ -414,3 +414,36 @@ li {
 }
 
 /*----------------------------------------------FinGérerExcerciceCSS---------------------------------------------------------*/
+/*----------------------------------------------DashboardCSS-----------------------------------------------------------------*/
+#chartContainer1{
+  position: relative;
+  height: 300px; 
+  width: 40%; 
+  float:left;
+  margin: 20px;
+}
+
+#chartContainer2{
+  height: 300px; 
+  width: 50%; 
+  float:left;
+  margin: 20px;
+}
+
+.containers{
+  display: flex;
+  position: relative;
+}
+
+#statistic-container{
+  height: auto; 
+  width: 40%; 
+  float:left;
+  margin: 40px;
+}
+
+#statistic-container h4{
+  font-family:sans-serif;
+  font-weight: bold;
+}
+

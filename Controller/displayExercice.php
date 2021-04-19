@@ -60,7 +60,7 @@
 		$user_answer=BDD::get()->query("SELECT `question_id` FROM `user_answer` WHERE `user_id`= $user")->fetchAll();
         foreach ($user_answer as $questions){
             $id_question=$questions["question_id"];
-            $quizz_id=BDD::get()->query("SELECT `quiz_id` FROM `question` WHERE `question_id`=$id_question ")->fetchAll();
+            $quizz_id=BDD::get()->query("SELECT `quiz_id` FROM `question` WHERE `question_id`='$id_question' ")->fetchAll();
             if($quizz_id[0]["quiz_id"]==$_GET["id"]){
                 return 0;
             }

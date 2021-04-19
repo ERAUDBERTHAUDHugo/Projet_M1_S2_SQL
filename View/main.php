@@ -37,48 +37,6 @@
             }
          ?>
     </div>
-    <div class="title-box">
-        <h1>Vos cours :</h1>
-        <p>Apprenez vos cours avec Dominique Delannoy !</p>
-    </div>
-    <div class="quiz-row">
-        <div class="quiz-box">
-            <h4>D.DELANNOY</h4>
-            <small>Admin</small>
-            <img src="View/Img/avatar.png">
-            <div class="title-quiz-box">
-                <p1>Cours n°1</p1>
-            </div>
-            <p>Apprenez vos cours avec Dominique Delannoy !</p>
-        </div>
-        <div class="quiz-box">
-            <h4>D.DELANNOY</h4>
-            <small>Admin</small>
-            <img src="View/Img/avatar.png">
-            <div class="title-quiz-box">
-                <p1>Cours n°2</p1>
-            </div>
-            <p>Apprenez vos cours avec Dominique Delannoy !</p>
-        </div>
-        <div class="quiz-box">
-            <h4>D.DELANNOY</h4>
-            <small>Admin</small>
-            <img src="View/Img/avatar.png">
-            <div class="title-quiz-box">
-                <p1>Cours n°3</p1>
-            </div>
-            <p>Apprenez vos cours avec Dominique Delannoy !</p>
-        </div>
-        <div class="quiz-box">
-            <h4>D.DELANNOY</h4>
-            <small>Admin</small>
-            <img src="View/Img/avatar.png">
-            <div class="title-quiz-box">
-                <p1>Cours n°4</p1>
-            </div>
-            <p>Apprenez vos cours avec Dominique Delannoy !</p>
-        </div>
-    </div>
 </div>
     
 </div>

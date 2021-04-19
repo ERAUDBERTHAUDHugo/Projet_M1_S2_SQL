@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" type="text/css" href="View/styleDashboard.css">
+<link rel="stylesheet" type="text/css" href="View/style.css">
 
 <div id=dashboard>
     <div>
@@ -23,18 +23,21 @@
             //get user info
             $userInfo=BDD::get()->query("SELECT user_adress, user_last_name, user_first_name, user_score FROM users WHERE user_id= $userBoard")->fetchAll();
         ?>
-            <h1>Tableau de bord</h1>
-            <h2>Bonjour <?php echo $userInfo[0]['user_first_name'].' '.$userInfo[0]['user_last_name'];?> !</h2> <!-- display user info-->
-
+        <div class="title-box">
+            <h1>Votre tableau de bord</h1>
+            <p>Bonjour <?php echo $userInfo[0]['user_first_name'].' '.$userInfo[0]['user_last_name'];?> !</p> <!-- display user info-->
+        </div>
         <?php
             include("Controller/displayDashboard.php");
 
-            displayGraphs($userBoard); //display diagrams
+            displayGraphs($userBoard); //display diagrams ?>
+            <div class="containers">
+            <?php
             displayRanking(); //display global ranking
-            displayQuestionHistory($userBoard); //display questions done by user
-        }
+            displayQuestionHistory($userBoard); //display questions done by user ?>
+            </div>
+        <?php }
         ?>
-
     </div>
     <br>
 

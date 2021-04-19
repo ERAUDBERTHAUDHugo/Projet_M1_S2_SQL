@@ -68,7 +68,7 @@ if(isset($_SESSION['connected'])){
 }else{// Acces au site seulement une fois que l'on est connecté
     include('View/login.php');
 }
-//include('View/footer.php');
+include('View/footer.php');
 ?>
 
 </body>
