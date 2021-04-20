@@ -171,11 +171,7 @@ function displayButtons($button1,$button2) {
 
                 <?php
                 //recuperer les users liés au groupes/teams sélectionés
-                //$groupUser=BDD::get()->query("SELECT u.user_id, u.user_last_name, u.user_first_name, u.user_score FROM users AS u INNER JOIN part_of AS p ON p.user_id = u.user_id WHERE p.groupe_id = $groupId ORDER BY u.user_last_name ASC")->fetchAll();
-                $test=BDD::get()->query("SELECT user_id FROM part_of WHERE groupe_id = $groupId")->fetchAll();              
-                var_dump($test);
                 $groupUser=BDD::get()->query("SELECT user_id, user_last_name, user_first_name, user_score FROM users WHERE user_id IN (SELECT user_id FROM part_of WHERE groupe_id = $groupId GROUP BY user_id) ORDER BY user_last_name ASC")->fetchAll();              
-                var_dump($groupUser);
                 ?>
              <table class="pure-table pure-table-horizontal">
                 <thead>
