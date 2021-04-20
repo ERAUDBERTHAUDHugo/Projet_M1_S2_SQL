@@ -97,7 +97,6 @@ function displayManageGroups(){
         if(!empty($_POST["studentListFile"])){
             $returnCsvStudent=uploadCsvStudents();
             if ($returnCsvStudent[0]==1){
-                echo("to");
                 dispatchStudent($returnCsvStudent[1]);
             }
         }
@@ -211,63 +210,8 @@ function displayButtons($button1,$button2) {
 /*------------------------------------------- Fin Afficher les eleves equipes/groupes selectionnés------------------------------------------------------*/
 ?>
 
-<?php
-/*----------------------------------------------------- Afficher TreeView Checkbox-----------------------------------------------------------*/
-
-function displayTreeViewCheckbox(){
-
-    ?>
-    <div style="height: 300px; width: 50%; float:left;">
-    <form action="index.php?page=adminDashboard" method="POST">
-      <h3>Equipes</h3>
-      <div class="tree">
-
-    <?php
-    //get all teams, all groups name
-    $teams=BDD::get()->query("SELECT `equipe_id`, `equipe_name` FROM `equipe` ORDER BY `equipe_name` ASC")->fetchAll();
-
-    $index=0;
-    foreach ($teams as $team) {
-         $teamId=$teams[$index]['equipe_id'];
-         $groups=BDD::get()->query("SELECT `groupe_id`, `groupe_name` FROM `groupe` WHERE `equipe_id` = $teamId ORDER BY `groupe_name` ASC")->fetchAll();
-     ?>
-    
-        <div>
-          <input id="<?php echo "n-".$teams[$index]['equipe_id'];?>" type="checkbox">
-          <label class="general" for="<?php echo "n-".$teams[$index]['equipe_id'];?>"><?php echo $teams[$index]['equipe_name'];?></label>
-          <div class="sub">
-
-            <?php 
-            $index1=0;
-            foreach ($groups as $group)
-            {
-            ?> 
-                <input type="checkbox" id="<?php echo $groups[$index1]['groupe_id'];?>" name= "<?php echo $groups[$index1]['groupe_name'];?>" onclick="this.form.submit()";>
-                <label class= "general" for="<?php echo $groups[$index1]['groupe_id'];?>"><?php echo $groups[$index1]['groupe_name'];?></label>
-
-                <?php
-            $index1+=1;
-            }
-            ?>
-
-          </div>
-        </div>
-
-
-    <?php
-    $index+=1;
-    }
-    ?>
-
-      </div>
-      <input class="reset resetfocus" type="reset" value="Reset">
-    </form>   
-    </div>
 
 <?php
-return array($teams, $groups);//check values
-}
-/*----------------------------------------------------- Fin Afficher TreeView Checkbox-----------------------------------------------------------*/
 /*----------------------------------------------------- Afficher/supprimer les exercices-----------------------------------------------------------*/
 function tabExercice(){
     ?>
@@ -287,7 +231,7 @@ function tabExercice(){
         
     <?php
     $exercices=BDD::get()->query("SELECT `quiz_name`,`quiz_id` FROM `quiz` ")->fetchAll();
-    if (!empty($exercice)){
+    if (isset($exercices[0])){
         foreach ($exercices as $exo){
             $quiz_id=$exo['quiz_id'];
             $questionsOfExo=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `quiz_id`=$quiz_id ")->fetchAll();
@@ -323,6 +267,9 @@ function deleteExercice(){
         $postName="quiz".$exo['quiz_id'];
         if(isset($_POST[$postName])){
             // delete quiz's question 
+
+
+
             // delete quiz
             $quiz_id=$exo['quiz_id'];
             $deleteQuiz = BDD::get()->prepare('DELETE FROM quiz WHERE quiz_id=:id LIMIT 1');  
@@ -333,13 +280,40 @@ function deleteExercice(){
     }
     return 1;
 }
-/*-----------------------------------------------------FIn Afficher/supprimer les exercices-----------------------------------------------------------*/
-
-
 ?>
-
-
 <?php
+/*-----------------------------------------------------FIn Afficher/supprimer les exercices-----------------------------------------------------------*/
+/*----------------------------------------------------- Afficher/supprimer les equipes/groupes-----------------------------------------------------------*/
+
+function tabTeams(){
+    ?>
+    <div style="height: 300px; width: 50%;">
+    <br>
+        <form method="post" action="index.php?page=adminDashboard&func=groupes" name="manageEquipesForm">
+            <?php
+            $allTeams=BDD::get()->query("SELECT * FROM `equipe` ")->fetchAll();
+            ?>
+
+            <select name="setExerciseSelect" id="setExerciseSelect">
+                <option value="">--Selctionner l'equipe à supprimer--</option>
+
+                <?php
+                $num = 0;
+                foreach($allTemas as $team){
+                ?>
+                <option value="<?php echo($team[$num]['equipe_id']); ?>"><?php echo($exerciseSelect[$num]['equipe_name']); ?></option>
+                <?php  
+                $num+=1;  
+                }
+                ?>
+
+            </select>
+            <button name ="deleteTeam"> Supprimer une équipe</button>
+        </form>
+    </div>
+    <?php
+}
+
 /*----------------------------------------------------- Gestion TPs ----------------------------------------------------------*/
 function tpManagementDisplay(){
 ?>

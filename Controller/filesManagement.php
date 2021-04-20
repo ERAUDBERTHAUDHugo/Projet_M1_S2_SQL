@@ -226,9 +226,8 @@ function uploadCsvStudents(){
     }
 }
 
-function dispatchStudent($filename){
+function dispatchStudent($Csvfilename){
     $row = 1;
-    $quizName=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_name`= '$quizName' ")->fetchAll(); //get in wich quiz questions will be insert
     if (($handle = fopen("Csvfiles/".$Csvfilename.".csv", "r")) !== FALSE) {
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {//handel=vrai ou faux//1000 caracteres max, "," séparateur
             $num = count($data);
@@ -237,10 +236,10 @@ function dispatchStudent($filename){
                 //get data
                 $datas=explode(';',$data[$c]);
                 
-                $team=$datas[0];
-                $group=$datas[1];
-                $lastname=$datas[2];
-                $firstname=$datas[2];
+                $team=strtolower($datas[0]);
+                $group=strtolower($datas[1]);
+                $lastname=strtolower($datas[2]);
+                $firstname=strtolower($datas[3]);
                 manageCsvStudent($team,$group,$lastname,$firstname);
                 
             }
@@ -252,22 +251,102 @@ function dispatchStudent($filename){
 function manageCsvStudent($team,$group,$lastname,$firstname){
     //check if team already exist
     $teamNames=BDD::get()->query("SELECT `equipe_id`,`equipe_name` FROM `equipe`")->fetchAll();
+    var_dump($teamNames);
     $teamExist=0;
     foreach($teamNames as $nameteam){
-        if($nameteam['equipe_name']==$team){
+        echo("-----------------");
+        echo($nameteam['equipe_name']);
+        echo($team);
+        echo("-----------------");
+        if(strcmp($nameteam['equipe_name'],$team)==0){
+            echo("on est dans l equipe exsite deja");
             $teamExist=1;
             break;
         }
     }
-    if($teamExist==0){
-        //createTeam
+
+    $groupExist=0;// 0 means group doesn't exist, 1 it does
+    if($teamExist==0){ //create new team
+        echo("on est dans la creation equipe");
+        //new team 
+        $newTeam = BDD::get()->prepare('INSERT INTO equipe VALUES (NULL,:equipe_name)'); 
+        $newTeam->bindParam(':equipe_name',$team);
+        $newTeam->execute();
+
+    }else{ //if team already exists check if the group in this team already exist
+        
+        $groupNames=BDD::get()->query("SELECT `groupe_id`,`groupe_name`,'equipe_id' FROM `groupe`")->fetchAll();
+        $teamIdRequest=BDD::get()->query("SELECT `equipe_id` FROM `equipe` WHERE `equipe_name`='$team'")->fetchAll();
+        $team_id=$teamIdRequest[0]['equipe_id'];
+
+        foreach($groupNames as $namegroup){
+            if($namegroup['groupe_name']==$group AND  $namegroup['equipe_id']==$team_id){
+                $groupExist=1;
+                break;
+            }
+        }
+    }   
+
+    if ($groupExist==0){// create new group
+        $teamIdRequest=BDD::get()->query("SELECT `equipe_id` FROM `equipe` WHERE `equipe_name`='$team'")->fetchAll();
+        $team_id=$teamIdRequest[0]['equipe_id'];
+        $newGroup = BDD::get()->prepare('INSERT INTO groupe VALUES (NULL,:groupe_name,:equipe_id)');  
+        $newGroup->bindParam(':groupe_name',$group);
+        $newGroup->bindParam(':equipe_id',$team_id);
+        $newGroup->execute();
     }
-    //check if the group in this team already exist
-    //check if student exist
-    //check if student is already in this group
+    // student exist, if yes(, does he belongs to group ? no add it, yes do nothing )else create a new user and add him to the group
+    
+    //check if student exist (with his ISEN mail adress => firstname.lastname@student.junia.fr)
+    $allUsers=BDD::get()->query("SELECT `user_adress` FROM `users`")->fetchAll();
+    $studentExist=0;
+    $adress=$firstname.".".$lastname."@student.junia.com";
+    
+    foreach($allUsers as $all){
+        if($all['user_adress']==$adress){
+            
+            $studentExist=1;
+            break;
+        }
+    }
+    
+    //usefull variable
+    $alreadyInGroup=0;
+    
+    $groupIdRequest=BDD::get()->query("SELECT `groupe_id` FROM `groupe` WHERE `groupe_name`='$group'")->fetchAll();// 
+    $group_id=$groupIdRequest[0]['groupe_id'];
 
+    $getPartOf=BDD::get()->query("SELECT `user_id` FROM `part_of` WHERE `groupe_id`='$group_id'")->fetchAll();
 
+    // check if he alreay belongs to the group
+    if($studentExist==1){
+        
+        $userIdRequest=BDD::get()->query("SELECT `user_id` FROM `users` WHERE `user_adress`='$adress'")->fetchAll();
+        $user_id=$groupIdRequest[0][0];
+      
+        foreach ($getPartOf as $partof){
+            if($partof["user_id"]==$user_id){
+                $alreadyInGroup=1;
+            }
+        }
+    }else{
+        $role=1;//0 is admin, 1 student
+        $score=0;
+        $password="default";
+        insertNewUser($adress,$lastname,$firstname,$password,$role,$score);
+    }
+    $userId=BDD::get()->query("SELECT `user_id`,`user_adress` FROM `users`")->fetchAll();
+    //add user to group
+    if($alreadyInGroup==0){
+        $userIdRequest=BDD::get()->query("SELECT `user_id` FROM `users` WHERE `user_adress`='$adress'")->fetchAll();
+        $user_id=$groupIdRequest[0][0];
 
+        $linkUserGroup = BDD::get()->prepare('INSERT INTO `part_of` VALUES (:user_id,:groupe_id)'); 
+        $linkUserGroup->bindParam(':user_id', $user_id);
+        $linkUserGroup->bindParam(':groupe_id',$group_id);
+        $linkUserGroup->execute();
+        
+    }
 
 }
 

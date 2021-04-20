@@ -2,15 +2,16 @@
 
     //--------------------------------REGISTER FUNCTIONS---------------------------------------------
 
-    function insertNewUser($mail,$lastName,$firstName,$password,$role){
+    function insertNewUser($mail,$lastName,$firstName,$password,$role,$score){
 
-        $PDOuser = BDD::get()->prepare('INSERT INTO users VALUES (NULL,:mail, :lastName, :firstName, :password,:role)');  
+        $PDOuser = BDD::get()->prepare('INSERT INTO users VALUES (NULL,:mail, :lastName, :firstName, :password,:role,:score)');  
 
         $PDOuser->bindParam(':mail',$mail);
         $PDOuser->bindParam(':lastName',$lastName);
         $PDOuser->bindParam(':firstName',$firstName);
         $PDOuser->bindParam(':password',$password);
         $PDOuser->bindParam(':role',$role);
+        $PDOuser->bindParam(':score',$score);
       
         $PDOuser->execute();
 
@@ -49,8 +50,7 @@
 
             if (mailUnique($mail)){
 
-                echo("yes");
-                insertNewUser($mail,$lastname,$firstname,$psw,0);
+                insertNewUser($mail,$lastname,$firstname,$psw,1);
                 return("Inscription effectuée ! Connectez-vous. ");
 
             }else{
