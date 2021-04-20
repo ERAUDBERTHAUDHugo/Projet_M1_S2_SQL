@@ -26,7 +26,7 @@ include("Controller/PDOFactory.php");
 include("Controller/connectionRegisterCheck.php");
 include('View/header.php');
 include("Controller/displayExercice.php");
-
+//exportDatabaseV2('localhost','root','','db_project','DatabaseBackup\mydata.sql');
 //------------------------------------LogOut-------------------------------------------
 if(isset($_POST["disconnect"])){
     disconnect();

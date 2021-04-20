@@ -5,9 +5,17 @@
 
     if (isset($_GET["func"])){
         if($_GET["func"]=="groupes"){
+            ?>
+            <div class="title-container">
+            Gérer les équipes et les groupes
+             </div>
+             <?php
+            if(!empty($_POST["groupSelectedId"])){
+                deleteTeamsGroup();
+            }
             displayButtons("exercices","page principale");
             displayManageGroups();
-            tabTeams();
+            tabTeamsGroup();
         }elseif($_GET["func"]=="exercices"){
              ?>
              <div class="title-container">

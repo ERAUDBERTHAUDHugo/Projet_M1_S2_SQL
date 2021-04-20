@@ -53,10 +53,56 @@ function getTables($dbname){
     unset($db);
     return $tables;
 }
-
-function exportDatabase($host, $user, $password, $database, $targetFilePath){
+function exportDatabaseV2($host, $user, $password, $database, $targetFilePath){
+    $output = null;
+    $output=shell_exec('D:\\programme\\wamp\\bin\\mysql\\mysql5.7.31\\bin\\mysqldump.exe -u root --password="" db_project > DatabaseBackup\mydata.sql');//'mysqldump --host localhost --user root --password "" db_project --result-file=DatabaseBackup\mydata.sql'
+    var_dump($output);
+}
+function exportDatabase($host, $user, $password, $database, $filename){
     //returns true iff successfull
-    return exec('mysqldump --host '. $host .' --user '. $user .' --password '. $password .' '. $database .' --result-file='.$targetFilePath) === 0;
+     $filename= 'Databasebackup\mydata.sql';
+
+    /**
+     * MySQL connection configuration
+     */
+    $database	= 'db_project';
+    $user		= 'root';
+    $password	= '';
+
+    /**
+     * usually it's ok to leave the MySQL host as 'localhost'
+     * if your hosting provider instructed you differently, edit the next one as needed
+     */
+    $host = 'localhost';
+
+    /**
+     * DO NOT EDIT BELOW THIS LINE
+     */
+    $fp = @fopen( $filename, 'w+' );
+    if( !$fp ) {
+
+        echo 'Impossible to create <b>'. $filename .'</b>, please manually create one and assign it full write privileges: <b>777</b>';
+        exit;
+    }
+    fclose( $fp );
+
+    $command = 'mysqldump --opt -h '. $host .' -u '. $user .' -p'. $password .' '. $database .' > '. $filename;
+    $output = array();
+    exec( $command, $output, $worked );
+
+    switch( $worked ) {
+
+        case 0:
+
+            echo 'Database <b>'. $database .'</b> successfully exported to <b>'. $filename .'</b>';
+            break;
+
+        case 1:
+
+            echo 'There was a warning during the export of <b>'. $database .'</b> to <b>'. $filename .'</b>';
+            break;
+    }
+    return 1;//exec('mysqldump --host '. $host .' --user '. $user .' --password '. $password .' '. $database .' --result-file='.$targetFilePath)
 }
 
 //-----------------------------------------DELETE DATABASE--------------------------- 

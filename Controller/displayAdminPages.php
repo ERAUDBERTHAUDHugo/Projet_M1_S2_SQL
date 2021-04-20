@@ -267,9 +267,14 @@ function deleteExercice(){
         $postName="quiz".$exo['quiz_id'];
         if(isset($_POST[$postName])){
             // delete quiz's question 
-
-
-
+            $quiz_id=$exo['quiz_id'];
+            $questionToDelete=BDD::get()->query("SELECT `question_id` FROM `question` WHERE quiz_id=$quiz_id")->fetchAll();
+            foreach ($questionToDelete as $questions ){
+                $question_id=$questions["question_id"];
+                $deleteQuestion = BDD::get()->prepare('DELETE FROM question WHERE question_id=:question_id LIMIT 1');  
+                $deleteQuestion->bindParam(':question_id',$question_id);
+                $deleteQuestion->execute();
+            }
             // delete quiz
             $quiz_id=$exo['quiz_id'];
             $deleteQuiz = BDD::get()->prepare('DELETE FROM quiz WHERE quiz_id=:id LIMIT 1');  
@@ -285,35 +290,105 @@ function deleteExercice(){
 /*-----------------------------------------------------FIn Afficher/supprimer les exercices-----------------------------------------------------------*/
 /*----------------------------------------------------- Afficher/supprimer les equipes/groupes-----------------------------------------------------------*/
 
-function tabTeams(){
+function tabTeamsGroup(){
+    var_dump($_POST);
     ?>
-    <div style="height: 300px; width: 50%;">
+    <div style="height: 5%; width: 50%;">
+    <h3>Supprimer une équipe</h3>
     <br>
         <form method="post" action="index.php?page=adminDashboard&func=groupes" name="manageEquipesForm">
             <?php
             $allTeams=BDD::get()->query("SELECT * FROM `equipe` ")->fetchAll();
             ?>
 
-            <select name="setExerciseSelect" id="setExerciseSelect">
-                <option value="">--Selctionner l'equipe à supprimer--</option>
+            <select name="equipeSelectedId" id="equipeSelectedId">
+            <?php
+            if(!empty($_POST["equipeSelectedId"])){
+                $equipe_id=$_POST["equipeSelectedId"];
+                $teamSelected=BDD::get()->query("SELECT * FROM `equipe` WHERE `equipe_id`=$equipe_id")->fetchAll();
+                ?>
+                
+                <option value="<?php echo($teamSelected[0]['equipe_id']); ?>"><?php echo($teamSelected[0]['equipe_name']); ?></option>
 
                 <?php
-                $num = 0;
-                foreach($allTemas as $team){
+            }else{
                 ?>
-                <option value="<?php echo($team[$num]['equipe_id']); ?>"><?php echo($exerciseSelect[$num]['equipe_name']); ?></option>
+                <option value="">--Selctionner l'equipe à supprimer--</option>
+            <?php
+            }
+                
+                foreach($allTeams as $team){
+                ?>
+                <option value="<?php echo($team['equipe_id']); ?>"><?php echo($team['equipe_name']); ?></option>
                 <?php  
-                $num+=1;  
                 }
                 ?>
 
             </select>
-            <button name ="deleteTeam"> Supprimer une équipe</button>
+            <button name ="SelectTeam"> Selectionner une équipe</button>
         </form>
     </div>
+    
     <?php
+    if(!empty($_POST["equipeSelectedId"])){
+    ?>
+    <div style="height: 5%; width: 50%;">
+    <h3>Supprimer des groupes</h3>
+    <br>
+        <form method="post" action="index.php?page=adminDashboard&func=groupes" name="manageEquipesForm">
+            <?php
+            $equipe_id=$_POST["equipeSelectedId"];
+            $allGroups=BDD::get()->query("SELECT * FROM `groupe` WHERE `equipe_id` = $equipe_id")->fetchAll();
+            ?>
+
+            <select name="groupSelectedId" id="groupSelectedId">
+                <option value="">--Selectionner le groupe à supprimer--</option>
+                <option value="<?php echo($_POST["equipeSelectedId"]); ?>;allTeam">Supprimer toute l'équipe</option>
+                <?php
+                
+                foreach($allGroups as $group){
+                ?>
+                <option value="<?php echo($_POST["equipeSelectedId"]); ?>;<?php echo($group['groupe_id']); ?>"><?php echo($group['groupe_name']); ?></option>
+                <?php  
+                }
+                ?>
+
+            </select>
+            <button name ="deleteTeam"> Supprimer</button>
+        </form>
+    </div>
+
+
+    <?php
+    }
+    
 }
 
+function deleteTeamsGroup(){
+    $resultPost=$_POST["groupSelectedId"];
+    $equipeSelected=explode(";",$resultPost)[0];
+    $groupSelected=explode(";",$resultPost)[1];
+    // delete entire team
+    if($groupSelected=="allTeam"){
+        //delete all groups from team
+        $groupsFromTeam=BDD::get()->query("SELECT `groupe_id` FROM `groupe` WHERE equipe_id=$equipeSelected")->fetchAll();
+            foreach ($groupsFromTeam as $group ){
+                $group_id=$group["groupe_id"];
+                $deleteGroups = BDD::get()->prepare('DELETE FROM groupe WHERE groupe_id=:groupe_id LIMIT 1');  
+                $deleteGroups->bindParam(':groupe_id',$group_id);
+                $deleteGroups->execute();
+            }
+        //delete team
+        $deleteTeam = BDD::get()->prepare('DELETE FROM equipe WHERE equipe_id=:equipe_id LIMIT 1');  
+        $deleteTeam->bindParam(':equipe_id',$equipeSelected);
+        $deleteTeam->execute();
+    }else{
+        $deleteGroup = BDD::get()->prepare('DELETE FROM groupe WHERE groupe_id=:groupe_id LIMIT 1');  
+        $deleteGroup->bindParam(':groupe_id',$groupSelected);
+        $deleteGroup->execute();
+    }
+    //delete only one group
+}
 /*----------------------------------------------------- Gestion TPs ----------------------------------------------------------*/
 function tpManagementDisplay(){
 ?>

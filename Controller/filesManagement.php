@@ -227,22 +227,16 @@ function uploadCsvStudents(){
 }
 
 function dispatchStudent($Csvfilename){
-    $row = 1;
     if (($handle = fopen("Csvfiles/".$Csvfilename.".csv", "r")) !== FALSE) {
-        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {//handel=vrai ou faux//1000 caracteres max, "," séparateur
-            $num = count($data);
-            $row++;
-            for ($c=0; $c < $num; $c++) {
-                //get data
-                $datas=explode(';',$data[$c]);
-                
-                $team=strtolower($datas[0]);
-                $group=strtolower($datas[1]);
-                $lastname=strtolower($datas[2]);
-                $firstname=strtolower($datas[3]);
-                manageCsvStudent($team,$group,$lastname,$firstname);
-                
-            }
+        $equipes = array();
+        while (($data = fgetcsv($handle,1000, ";")) !== FALSE) {//handel=vrai ou faux//1000 caracteres max, "," séparateur
+            //get data
+            $team=strtolower($data[0]);
+            $group=strtolower($data[1]);
+            $lastname=strtolower($data[2]);
+            $firstname=strtolower($data[3]);
+            manageCsvStudent($team,$group,$lastname,$firstname);
+            
         }
         fclose($handle);
     }
@@ -251,15 +245,9 @@ function dispatchStudent($Csvfilename){
 function manageCsvStudent($team,$group,$lastname,$firstname){
     //check if team already exist
     $teamNames=BDD::get()->query("SELECT `equipe_id`,`equipe_name` FROM `equipe`")->fetchAll();
-    var_dump($teamNames);
     $teamExist=0;
     foreach($teamNames as $nameteam){
-        echo("-----------------");
-        echo($nameteam['equipe_name']);
-        echo($team);
-        echo("-----------------");
-        if(strcmp($nameteam['equipe_name'],$team)==0){
-            echo("on est dans l equipe exsite deja");
+        if($nameteam['equipe_name']==$team){
             $teamExist=1;
             break;
         }
@@ -267,7 +255,6 @@ function manageCsvStudent($team,$group,$lastname,$firstname){
 
     $groupExist=0;// 0 means group doesn't exist, 1 it does
     if($teamExist==0){ //create new team
-        echo("on est dans la creation equipe");
         //new team 
         $newTeam = BDD::get()->prepare('INSERT INTO equipe VALUES (NULL,:equipe_name)'); 
         $newTeam->bindParam(':equipe_name',$team);
@@ -339,7 +326,7 @@ function manageCsvStudent($team,$group,$lastname,$firstname){
     //add user to group
     if($alreadyInGroup==0){
         $userIdRequest=BDD::get()->query("SELECT `user_id` FROM `users` WHERE `user_adress`='$adress'")->fetchAll();
-        $user_id=$groupIdRequest[0][0];
+        $user_id=$userIdRequest[0][0];
 
         $linkUserGroup = BDD::get()->prepare('INSERT INTO `part_of` VALUES (:user_id,:groupe_id)'); 
         $linkUserGroup->bindParam(':user_id', $user_id);
