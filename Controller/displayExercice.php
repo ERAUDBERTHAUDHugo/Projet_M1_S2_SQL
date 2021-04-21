@@ -81,20 +81,20 @@
     function displayQuestionHistory1($user, $question, $quiz){
 
     ?>
-    <div id="statistic-container">
+
+    <div id="statistic-container" class="table-wrapper-scroll-y my-custom-scrollbar">
     <br>
-    <p>Mes dernières réponses<p>
     <?php 
     //recuperer les exercices faits disponibles
         $userAnswers=BDD::get()->query("SELECT `user_answer_query`,`user_answer_time`, `user_answer_text`,`valide` FROM `user_answer` WHERE `user_id`= $user AND  `question_id`= $question AND `quiz_id`= $quiz ORDER BY `user_answer_time` DESC")->fetchAll(); 
     ?>
-         <table class="pure-table pure-table-horizontal">
+        <h4>Mes dernières réponses</h4>
+         <table class="table table-bordered table-striped mb-0">
             <thead>
             <tr>
                 <th>Date</th>
                 <th>Requête</th>
                 <th>Résultat</th>
-
             </tr>
             </thead>
             <tbody>
@@ -107,7 +107,6 @@
                             <td><?php echo $userAnswers[$index]['user_answer_time']; ?></td>
                             <td><?php echo $userAnswers[$index]['user_answer_query']; ?></td>
                             <td><?php if($userAnswers[$index]['valide']=='0'){echo '<font color="red">'.$userAnswers[$index]['user_answer_text'].'</font>';}else{echo '<font color="green">'.$userAnswers[$index]['user_answer_text'].'</font>';}?></td>
-                            <
                         </tr>
                     <?php  
                     $index+=1;      
