@@ -161,11 +161,13 @@
                     foreach ($userAnswers as $question) {
                         if($index<=9){      //afficher les 10 derniers exercices faits
                         $quizId=(int)$userAnswers[$index]['quiz_id'];
+                        $questionId=(int)$userAnswers[$index]['question_id'];
                         $userQuiz=BDD::get()->query("SELECT `quiz_name` FROM `quiz` WHERE `quiz_id`=$quizId")->fetchAll();
+                        $userQuestion=BDD::get()->query("SELECT `question_intitule` FROM `question` WHERE `question_id`=$questionId")->fetchAll();
                         ?>
                         <tr>
                             <td><?php echo $userQuiz[0]['quiz_name']; ?></td>
-                            <td><?php echo $userAnswers[$index]['question_id']; ?></td>
+                            <td><?php echo $userQuestion[0]['question_intitule']; ?></td>
                             <td><?php echo $userAnswers[$index]['user_answer_time']; ?></td>
                             <td><?php echo $userAnswers[$index]['question_score']; ?></td>
                         </tr>
