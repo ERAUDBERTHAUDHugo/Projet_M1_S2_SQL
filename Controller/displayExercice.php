@@ -33,16 +33,17 @@
 
     function displayQuestion(){
         ?>
-        <div class="questionbox">
-            <h3>Voici la question : </h3>
-            <?php  
+        <?php  
             $quizId=$_GET["id"]; 
-            $questionSelection=BDD::get()->query("SELECT `question_id`, `question_text`,`question_answer` FROM `question` WHERE `quiz_id`= $quizId")->fetchAll();
+            $questionSelection=BDD::get()->query("SELECT `question_id`,`question_intitule` ,`question_text`,`question_answer` FROM `question` WHERE `quiz_id`= $quizId")->fetchAll();
+            $curentQuestion=$_SESSION["question"];
+            if(!empty($questionSelection)){
             ?>
+        <div class="questionbox">
+            <h3><?php echo($questionSelection[ $curentQuestion]['question_intitule']);?></h3>
+            
             <div id='step'>
                 <?php
-                if(!empty($questionSelection)){
-                
                 $curentQuestion=$_SESSION["question"];
                 $questionText=$questionSelection[$curentQuestion]['question_text'];
                 echo $questionText;
@@ -55,13 +56,18 @@
                 </form>
                 <br>
                 
-                <?php
-                }
+                <?ph
                 ?>
             </div>
         </div>
     <?php
-
+            }else{
+                ?>
+                <div class="questionbox">
+                <h3>Cet exercice n'as pas de question</h3>
+                </div>
+                <?php
+            }
 
     }
     function checkFirstTime(){
@@ -137,4 +143,76 @@
     <?php
     }
 
+
+
+function backupReplacement(){//replace exercice db with backup
+    // create db names
+    $userId=$_SESSION["user"];
+    $currentExerciceId=$_GET["id"];
+    $username=BDD::get()->query("SELECT `user_adress` FROM `users` WHERE `user_id`= $userId")->fetchAll();
+    $exoname=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_id`= $currentExerciceId")->fetchAll();
+    $dbname=hash("MD5",$username[0]["user_adress"]).$exoname[0]['quiz_id'];
+    $dbnameCorrec=$dbname."Correc";
+
+    //get storage files name
+    $pathFileBackUp="DatabaseBackup\\".$dbname."backup";
+    $quizId=$_GET['id'];
+    $quizname=BDD::get()->query("SELECT `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetchAll();
+    $filename=$quizname[0]["quiz_database"];
+    $pathFileRecup="DataBaseBackup\\".$filename;
+    $filenameSql=$pathFileRecup.".sql";
+
+    //suppression des bases  de données de test :
+    deleteBase($dbname);
+    deleteBase($dbnameCorrec);
+    
+    if(file_exists($filenameSql)){
+        createBase ($dbname);
+        createBase ($dbnameCorrec);
+        importSqlFile($dbname,$pathFileRecup);
+        importSqlFile($dbnameCorrec,$pathFileRecup);
+    }else{
+        createBase ($dbname);
+        createBase ($dbnameCorrec);
+        importSqlFile($dbname,$pathFileRecup);
+        importSqlFile($dbnameCorrec,$pathFileRecup);
+    }
+}    
+
+
+
+function newBackup(){//replace or create backup
+    $userId=$_SESSION["user"];
+    $currentExerciceId=$_GET["id"];
+    $username=BDD::get()->query("SELECT `user_adress` FROM `users` WHERE `user_id`= $userId")->fetchAll();
+    $exoname=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_id`= $currentExerciceId")->fetchAll();
+    $dbname=hash("MD5",$username[0]["user_adress"]).$exoname[0]['quiz_id'];
+    $dbnameCorrec=$dbname."Correc";
+
+    //get storage files name
+    $pathFileBackUp="DatabaseBackup\\".$dbname."backup";
+    $quizId=$_GET['id'];
+    $quizname=BDD::get()->query("SELECT `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetchAll();
+    $filename=$quizname[0]["quiz_database"];
+    $pathFileRecup="DataBaseBackup\\".$filename;
+    $filenameSql=$pathFileRecup.".sql";
+    
+    if(file_exists($filenameSql)){
+        unlink($filenameSql);
+    }
+    exportDatabase($dbname, $filenameSql);
+}
+
+
+
+function backupManagement(){
+    if (isset($_POST["saveDb"])){
+        newBackup();
+        return("<div id='backupMessage'> La base de donnée a bien été sauvegardée !</div>");
+    }
+    if (isset($_POST["replaceDb"])){
+        backupReplacement();
+        return("<div id='backupMessage'> La base de donnée a bien été remplacé par la dernière sauvegardée !</div>");
+    }
+}
 ?>

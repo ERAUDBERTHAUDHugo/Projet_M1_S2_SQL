@@ -3,6 +3,7 @@
 	<?php
 
 	if (isset($_GET["id"])){
+		$messagebackup=backupManagement();
 		if($_SESSION["question"]==-1){
 			$_SESSION["question"]=0;
 			echo(checkFirstTime());
@@ -46,9 +47,10 @@
 			$dbname=hash("MD5",$username[0]['user_adress']).$exoname[0]['quiz_id'];
 			$dbnameCorrec=$dbname."Correc";
 			
-			$getQuestionId=$_SESSION["question"];//get actual question id
-			$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `question_id`= $getQuestionId")->fetchAll();
-			$Id=$questionId[0][0];
+			$getQuizzId=$_GET["id"];//get actual question id
+			$indexQuestion=$_SESSION["question"];
+			$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `quiz_id`= $getQuizzId")->fetchAll();
+			$Id=$questionId[$indexQuestion]['question_id'];
 
 			$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET['id'],$Id); //call function correction
 			?>
@@ -71,7 +73,16 @@
 				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
 					<button class="button" name="next">Question suivante</button>
 				</form>
+				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+					<button class="button" name="saveDb">Sauvergarder la base de donnée</button>
+				</form>
+				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+					<button class="button" name="replaceDb">Remplacer par la dernière sauvergarde</button>
+				</form>
 			</div>
+			<?php
+			echo($messagebackup);
+			?>
 
 	<?php
 		}else{
@@ -81,10 +92,28 @@
 
 				$quiz=$_GET['id'];
 				$user=$_SESSION['user'];
-				$getQuestionId=$_SESSION["question"];//get actual question id
-				$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `question_id`= $getQuestionId")->fetchAll();
-				$question=$questionId[0][0];
+				$getQuizzId=$_GET["id"];//get actual question id
+				$indexQuestion=$_SESSION["question"];
+				$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `quiz_id`= $getQuizzId")->fetchAll();
+				$question=$questionId[$indexQuestion]['question_id'];
 				displayQuestion();?>
+				<div id="bouton-question-exercice">
+				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+					<button class="button" name="previous">Question précédente</button>
+				</form>
+				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+					<button class="button" name="next">Question suivante</button>
+				</form>
+				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+					<button class="button" name="saveDb">Sauvergarder la base de donnée</button>
+				</form>
+				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+					<button class="button" name="replaceDb">Remplacer par la dernière sauvergarde</button>
+				</form>
+			</div>
+			<?php
+			echo($messagebackup);
+			?>
 				<div class="containers">
 				<?php
 				displayQuestionHistory1($user, $question, $quiz);?>

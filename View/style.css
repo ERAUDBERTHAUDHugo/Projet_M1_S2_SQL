@@ -303,7 +303,14 @@ li {
 {
     color: #ffc107;
 }
-
+#badLogMessage{
+  height: auto;
+  width: auto;
+  margin : 1rem;
+  font-weight: bold;
+  background-color: #FFFCBB;
+  color : #fc0000;
+}
 /*----------------------------------------------FinStyleLoginCSS---------------------------------------------------------*/
 
 /*----------------------------------------------StyleExcerciceCSS---------------------------------------------------------*/
@@ -390,7 +397,13 @@ li {
   display: flex;
   margin:20px;
 }
-
+#backupMessage{
+  height: auto;
+  width: auto;
+  margin : 1rem;
+  background-color: #FFFCBB;
+  color : #008000;
+}
 /*----------------------------------------------FinStyleExcerciceCSS---------------------------------------------------------*/
 /*----------------------------------------------DebutGérerExerciceCSS---------------------------------------------------------*/
 

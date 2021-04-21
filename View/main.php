@@ -1,7 +1,5 @@
 <?php 
     if(isset($_POST['redirectMain'])){
-        var_dump($_GET["dbname"]);
-        var_dump($_GET["dbnameCorrec"]);
         $_SESSION['question'] = -1;
         deleteBase($_GET["dbname"]);
         deleteBase($_GET["dbnameCorrec"]);

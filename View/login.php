@@ -4,13 +4,16 @@
         <h1>Connecte-toi ici !</h1>
         <form action="index.php?page=login" method='POST'>
             <p>
+            <div id="badLogMessage">
             <?php
+            
             if (isset($_COOKIE["returnConnection"])){
                 if($_COOKIE["returnConnection"]=="Adresse ou mot de passe incorrect"){
                     echo($_COOKIE["returnConnection"]);
                 }
             }
             ?>
+            </div>
             </p>
             <p>Email</p>
             <input type="text" name="email" placeholder="Entre ton pseudo">

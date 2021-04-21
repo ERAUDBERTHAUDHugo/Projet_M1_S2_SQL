@@ -52,7 +52,7 @@ function getTables($dbname){
     return $tables;
 }
 
-function exportDatabaseV2($database, $targetFilePath){
+function exportDatabase($database, $targetFilePath){
     $output = null;
     $output=shell_exec('D:\\programme\\wamp\\bin\\mysql\\mysql5.7.31\\bin\\mysqldump.exe -u root --password="" '.$database.' > '.$targetFilePath);//'mysqldump --host localhost --user root --password "" db_project --result-file=DatabaseBackup\mydata.sql'
     return $output;
@@ -75,54 +75,8 @@ function deleteBase($dbname){
 }
 
 
-function backupReplacement(){
-    // create db names
-    $userId=$_SESSION["user"];
-    $currentExerciceId=$_GET["id"];
-    $username=BDD::get()->query("SELECT `user_adress` FROM `users` WHERE `user_id`= $userId")->fetchAll();
-    $exoname=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_id`= $currentExerciceId")->fetchAll();
-    $dbname=hash("MD5",$username[0]["user_adress"]).$exoname[0]['quiz_id'];
-    $dbnameCorrec=$dbname.$exoname."Correc";
 
-    //get storage files name
-    $pathFileBackUp="DatabaseBackup\\".$dbname."backup";
-    $quizname=BDD::get()->query("SELECT `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetchAll();
-    $filename=$quizname[0]["quiz_database"];
-    $pathFileRecup="DataBaseExercice\\".$filename;
-    $filenameSql=$pathfile."sql";
 
-    //suppression des bases  de données de test :
-    deleteBase($dbname);
-    deleteBase($dbnameCorrec);
-    
-    if(file_exists($filenameSql)){//
-        createBase ($dbname);
-        createBase ($dbnameCorrec);
-        importSqlFile($dbname,$pathfile);
-        importSqlFile($dbnameCorrec,$pathfile);
-    }else{
-        createBase ($dbname);
-        createBase ($dbnameCorrec);
-        importSqlFile($dbname,$pathFileRecup);
-        importSqlFile($dbnameCorrec,$pathFileRecup);
-    }
-}
-function newBackup(){
-    $userId=$_SESSION["user"];
-    $currentExerciceId=$_GET["id"];
-    $username=BDD::get()->query("SELECT `user_adress` FROM `users` WHERE `user_id`= $userId")->fetchAll();
-    $exoname=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_id`= $currentExerciceId")->fetchAll();
-    $dbname=hash("MD5",$username[0]["user_adress"]).$exoname[0]['quiz_id'];
-    $dbnameCorrec=$dbname.$exoname."Correc";
-
-    //get storage files name
-    $pathFileBackUp="DatabaseBackup\\".$dbname."backup";
-    $quizname=BDD::get()->query("SELECT `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetchAll();
-    $filename=$quizname[0]["quiz_database"];
-    $pathFileRecup="DataBaseExercice\\".$filename;
-    $filenameSql=$pathfile."sql";
-    exportDatabaseV2($database, $targetFilePath);
-}
     //createBase("cycle_v3");
     //importSqlFile("cycle_v3","cycle_v3");
     //getTables("demo");
