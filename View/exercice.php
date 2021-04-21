@@ -66,7 +66,15 @@
 
 	<?php
 		}else{
-			displayQuestion();
+			$quiz=$_GET['id'];
+			$limit=BDD::get()->query("SELECT COUNT(*) FROM `question` WHERE `quiz_id`= $quiz")->fetchAll();
+			if($_SESSION['question']<=((int)$limit)){
+				displayQuestion();
+			}else{
+				echo "Plus de questions!"; //delete db - redirect acceuil - session question -1
+
+			}
+			
 		}
 	}else{
 	?>
@@ -79,7 +87,7 @@
 
         $exerciseInfos=BDD::get()->query("SELECT quiz_id, quiz_name,quiz_difficulty, quiz_description, user_id FROM quiz WHERE quiz_id IN (SELECT quiz_id FROM tp WHERE equipe_id IN (SELECT equipe_id FROM groupe WHERE groupe_id IN (SELECT groupe_id FROM part_of WHERE user_id=$userId1)))")->fetchAll();
     ?>
-    <h1>Sélectionnez un exercice</h1>
+    <h1>Sélectionnez un exercice</>
     <div class="quiz-row">
         <?php 
             $index=0;
