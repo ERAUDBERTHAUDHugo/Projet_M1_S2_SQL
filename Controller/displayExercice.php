@@ -86,7 +86,7 @@
 
     ?>
 
-    <div id="statistic-container" class="table-wrapper-scroll-y my-custom-scrollbar">
+    <div id="statistic-container" class="my-custom-scrollbar1">
     <br>
     <?php 
     //recuperer les exercices faits disponibles
