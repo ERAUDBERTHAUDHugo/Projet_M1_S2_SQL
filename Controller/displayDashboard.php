@@ -159,7 +159,6 @@
                 <?php 
                     $index=0;
                     foreach ($userAnswers as $question) {
-                        if($index<=9){      //afficher les 10 derniers exercices faits
                         $quizId=(int)$userAnswers[$index]['quiz_id'];
                         $questionId=(int)$userAnswers[$index]['question_id'];
                         $userQuiz=BDD::get()->query("SELECT `quiz_name` FROM `quiz` WHERE `quiz_id`=$quizId")->fetchAll();
@@ -172,7 +171,6 @@
                             <td><?php echo $userAnswers[$index]['question_score']; ?></td>
                         </tr>
                     <?php  
-                        }
                     $index+=1;      
                     }
                     ?>

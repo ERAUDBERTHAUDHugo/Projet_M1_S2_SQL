@@ -14,10 +14,6 @@
 			    $exoname=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_id`= $currentExerciceId")->fetchAll();
 			    $dbname=hash("MD5",$username[0]['user_adress']).$exoname[0]['quiz_id'];
 			    $dbnameCorrec=$dbname."Correc";
-				/*$userId=$_SESSION["user"];
-           		$username=BDD::get()->query("SELECT `user_last_name` FROM `users` WHERE `user_id`= $userId")->fetchAll();
-				$dbname=hash("MD5",$username[0]["user_last_name"]);
-				$dbnameCorrec=$dbname."Correc";*/
 
 				createBase($dbname);// creation db etudiant
 				createBase($dbnameCorrec);//création db correction
@@ -60,7 +56,7 @@
 			$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET['id'],$Id); //call function correction
 			echo " Résultat: ".$resultat[0]." - Points:".$resultat[1]." - Valide: ".$resultat[2];
 			////////////////////////////////////test insertion user answer///////////////////////////////////////////
-			writeUserAnswer($resultat[0],(int)$Id,(int)$userId,(int)$resultat[1], (int)$resultat[2], (int)$_GET['id']); //write user answer in database
+			writeUserAnswer($_POST["reponse"],$resultat[0],(int)$Id,(int)$userId,(int)$resultat[1], (int)$resultat[2], (int)$_GET['id']); //write user answer in database
 
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////
 			?>
@@ -76,7 +72,15 @@
 			$quiz=$_GET['id'];
 			$limit=BDD::get()->query("SELECT COUNT(*) FROM `question` WHERE `quiz_id`= $quiz")->fetchAll();
 			if($_SESSION['question']<=((int)$limit)){
+
+				$quiz=$_GET['id'];
+				$user=$_SESSION['user'];
+				$getQuestionId=$_SESSION["question"];//get actual question id
+				$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `question_id`= $getQuestionId")->fetchAll();
+				$question=$questionId[0][0];
 				displayQuestion();
+				displayQuestionHistory1($user, $question, $quiz);
+
 			}else{
 
 				$userId=$_SESSION["user"];

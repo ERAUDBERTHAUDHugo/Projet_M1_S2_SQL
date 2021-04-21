@@ -53,7 +53,9 @@
                 
             </div>
         </div>
-<?php
+    <?php
+
+
     }
     function checkFirstTime(){
 
@@ -74,35 +76,48 @@
                    return 1;
                 }
 
-                /*if(empty($exists1)&&empty($exists2)){
-                    return 1;
-                }else{
-                    return 0;
-                }*/
+    }
 
+    function displayQuestionHistory1($user, $question, $quiz){
 
+    ?>
+    <div id="statistic-container">
+    <br>
+    <p>Mes dernières réponses<p>
+    <?php 
+    //recuperer les exercices faits disponibles
+        $userAnswers=BDD::get()->query("SELECT `user_answer_query`,`user_answer_time`, `user_answer_text`,`valide` FROM `user_answer` WHERE `user_id`= $user AND  `question_id`= $question AND `quiz_id`= $quiz ORDER BY `user_answer_time` DESC")->fetchAll(); 
+    ?>
+         <table class="pure-table pure-table-horizontal">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Requête</th>
+                <th>Résultat</th>
 
-        //si vide return 1
-        //si pas vide return 0
-        /*
-        $user_answer=BDD::get()->query("SELECT `question_id` FROM `user_answer` WHERE `user_id`= $user")->fetchAll();
-        foreach ($user_answer as $questions){
-            $id_question=$questions["question_id"];
-            $quizz_id=BDD::get()->query("SELECT `quiz_id` FROM `question` WHERE `question_id`='$id_question' ")->fetchAll();
-            if($quizz_id[0]["quiz_id"]==$_GET["id"]){
-                return 0;
-            }
-        }*/
+            </tr>
+            </thead>
+            <tbody>
 
-        /*$user=$_SESSION["user"];
-		$user_answer=BDD::get()->query("SELECT `question_id` FROM `user_answer` WHERE `user_id`= $user")->fetchAll();
-        foreach ($user_answer as $questions){
-            $id_question=$questions["question_id"];
-            $quizz_id=BDD::get()->query("SELECT `quiz_id` FROM `question` WHERE `question_id`='$id_question' ")->fetchAll();
-            if($quizz_id[0]["quiz_id"]==$_GET["id"]){
-                return 0;
-            }
-        }*/
+                <?php 
+                    $index=0;
+                    foreach ($userAnswers as $question){
+                        ?>
+                        <tr>
+                            <td><?php echo $userAnswers[$index]['user_answer_time']; ?></td>
+                            <td><?php echo $userAnswers[$index]['user_answer_query']; ?></td>
+                            <td><?php if($userAnswers[$index]['valide']=='0'){echo '<font color="red">'.$userAnswers[$index]['user_answer_text'].'</font>';}else{echo '<font color="green">'.$userAnswers[$index]['user_answer_text'].'</font>';}?></td>
+                            <
+                        </tr>
+                    <?php  
+                    $index+=1;      
+                    }
+                    ?>
+            </tbody>
+        </table>
+    </div>
+
+    <?php
     }
 
 ?>

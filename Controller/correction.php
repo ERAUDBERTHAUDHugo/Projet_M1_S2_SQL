@@ -1,5 +1,5 @@
 <?php
-echo"Requete à corriger : ".$_POST["reponse"];
+echo"Votre requête : ".$_POST["reponse"];
 
 function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId){
     /**
@@ -69,7 +69,7 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
                             if ($dataCorrec[$key][$field] != $value) {
                                 return array("Pas mêmes valeurs", 0, 0);
                             } else {
-                                return array("Bonne réponse!", $points, 1);
+                                return array("Requête valide", $points, 1);
                             }
                         } else{
                             return array("Pas mêmes valeurs", 0, 0);
@@ -85,15 +85,17 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
 
 }
 
-function writeUserAnswer($userAnswerText,$questionId,$userId,$questionScore, $valid, $quizId){
+function writeUserAnswer($query,$userAnswerText,$questionId,$userId,$questionScore, $valid, $quizId){
     /**
      * @param String $userAnswerText (request of user), interger $questionId, integer $userId (name of the correct database), integer $questionScore (number of points of question), integer $valid (validity of request 0 no 1 yes), integer $quizId,
      * @return None (only writing info in database)
      **/
 
     //////////////////////////////////////////////prepare request to write//////////////////////////////////////////
-    $writeAnswer = BDD::get()->prepare('INSERT INTO user_answer VALUES (NULL,:user_answer_text, CURRENT_TIMESTAMP, :question_id, :user_id,:question_score,:valide,:quiz_id)'); 
+    var_dump($query);
+    $writeAnswer = BDD::get()->prepare('INSERT INTO user_answer VALUES (NULL,:user_answer_query,:user_answer_text, CURRENT_TIMESTAMP, :question_id, :user_id,:question_score,:valide,:quiz_id)'); 
 
+    $writeAnswer->bindParam(':user_answer_query',$query);
     $writeAnswer->bindParam(':user_answer_text',$userAnswerText);
     $writeAnswer->bindParam(':question_id',$questionId);
     $writeAnswer->bindParam(':user_id',$userId);
