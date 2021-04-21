@@ -50,11 +50,17 @@
 			
 			$getQuestionId=$_SESSION["question"];//get actual question id
 			$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `question_id`= $getQuestionId")->fetchAll();
-			var_dump($questionId);
 			$Id=$questionId[0][0];
 
 			$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET['id'],$Id); //call function correction
-			echo " Résultat: ".$resultat[0]." - Points:".$resultat[1]." - Valide: ".$resultat[2];
+			?>
+			<div class="title-box">
+
+				<p><?php echo "   Votre requête : ".$_POST["reponse"]; ?></p>
+				<p><?php echo " Résultat: ".$resultat[0]." - Points: ".$resultat[1];?></p>
+
+		    </div>
+			<?php
 			////////////////////////////////////test insertion user answer///////////////////////////////////////////
 			writeUserAnswer($_POST["reponse"],$resultat[0],(int)$Id,(int)$userId,(int)$resultat[1], (int)$resultat[2], (int)$_GET['id']); //write user answer in database
 

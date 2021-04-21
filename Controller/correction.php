@@ -1,5 +1,4 @@
 <?php
-echo"Votre requête : ".$_POST["reponse"];
 
 function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId){
     /**
@@ -92,7 +91,6 @@ function writeUserAnswer($query,$userAnswerText,$questionId,$userId,$questionSco
      **/
 
     //////////////////////////////////////////////prepare request to write//////////////////////////////////////////
-    var_dump($query);
     $writeAnswer = BDD::get()->prepare('INSERT INTO user_answer VALUES (NULL,:user_answer_query,:user_answer_text, CURRENT_TIMESTAMP, :question_id, :user_id,:question_score,:valide,:quiz_id)'); 
 
     $writeAnswer->bindParam(':user_answer_query',$query);
