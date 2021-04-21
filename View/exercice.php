@@ -112,9 +112,9 @@
 
 			$userId1 = $_SESSION['user'];
 
-	        $tpNames=BDD::get()->query("SELECT tp_name FROM tp WHERE equipe_id IN (SELECT equipe_id FROM groupe WHERE groupe_id IN (SELECT groupe_id FROM part_of WHERE user_id=$userId1))")->fetchAll();
+	        $tpNames=BDD::get()->query("SELECT tp_name FROM tp WHERE equipe_id IN (SELECT equipe_id FROM groupe WHERE groupe_id IN (SELECT groupe_id FROM part_of WHERE user_id=$userId1) ORDER BY equipe_id ASC )")->fetchAll();
 
-	        $exerciseInfos=BDD::get()->query("SELECT quiz_id, quiz_name,quiz_difficulty, quiz_description, user_id FROM quiz WHERE quiz_id IN (SELECT quiz_id FROM tp WHERE equipe_id IN (SELECT equipe_id FROM groupe WHERE groupe_id IN (SELECT groupe_id FROM part_of WHERE user_id=$userId1)))")->fetchAll();
+	        $exerciseInfos=BDD::get()->query("SELECT quiz_id, quiz_name,quiz_difficulty, quiz_description, user_id FROM quiz WHERE quiz_id IN (SELECT quiz_id FROM tp WHERE equipe_id IN (SELECT equipe_id FROM groupe WHERE groupe_id IN (SELECT groupe_id FROM part_of WHERE user_id=$userId1)ORDER BY equipe_id ASC))")->fetchAll();
 	    ?>
 	    <h1>Sélectionnez un exercice</h1>
 	    <div class="quiz-row">
