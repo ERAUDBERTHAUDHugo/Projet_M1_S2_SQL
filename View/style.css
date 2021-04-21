@@ -436,8 +436,8 @@ li {
 }
 
 #statistic-container{
-  height: auto; 
-  width: 40%; 
+  height: 400px; 
+  width: 90%; 
   float:left;
   margin: 40px;
 }
@@ -447,13 +447,19 @@ li {
   font-weight: bold;
 }
 
-.my-custom-scrollbar {
-position: relative;
-height: 200px;
+.my-custom-scrollbar1 {
 overflow: auto;
 }
-.table-wrapper-scroll-y {
-display: block;
+
+#statistic-container1{
+  height: 400px; 
+  width: 40%; 
+  float:left;
+  margin: 40px;
+}
+
+.my-custom-scrollbar2 {
+overflow: auto;
 }
 
 /*----------------------------------------------AdminDashboardCSS-----------------------------------------------------------------*/
@@ -552,7 +558,6 @@ display: block;
 }
 
 table {
- border:3px solid #556677;
  border-color:darkgray;
  width:50%;
  justify-content: center;
