@@ -161,10 +161,9 @@ function displayButtons($button1,$button2) {
         $teamName=BDD::get()->query("SELECT `equipe_name`FROM `equipe` WHERE `equipe_id` = $teamId")->fetchAll();
         $groupName=BDD::get()->query("SELECT `groupe_name` FROM `groupe` WHERE `groupe_id` = $groupId")->fetchAll();
     ?>
-        <div style="height: 300px; width: 50%; float:left;">
+        <div id="statistic-container3" class="my-custom-scrollbar2">
             <br>
             <h4><?php echo "Equipe: ".$teamName[0][0]." - Groupe: ".$groupName[0][0]; ?></h4>
-            <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
 
                 <?php
                 //recuperer les users liés au groupes/teams sélectionés

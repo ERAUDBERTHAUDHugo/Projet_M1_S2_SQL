@@ -458,6 +458,12 @@ overflow: auto;
   margin: 40px;
 }
 
+#statistic-container3{
+  height: 400px; 
+  width: 50%; 
+  float:left;
+  margin: 40px;
+}
 .my-custom-scrollbar2 {
 overflow: auto;
 }
