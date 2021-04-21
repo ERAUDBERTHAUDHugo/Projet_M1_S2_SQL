@@ -31,14 +31,18 @@ include("Controller/displayExercice.php");
 if(isset($_POST["disconnect"])){
     disconnect();
 }
-
-if($_GET["page"]!="exercice"){
-    $_SESSION["question"]=-1;
+if(isset($_GET["page"])){
+    if($_GET["page"]!="exercice"){
+        $_SESSION["question"]=-1;
+    }
 }
+
 //var_dump($_SESSION);
 //------------------------------------Redirection---------------------------------------
 
-
+?>
+<div id="content">
+<?php
 if(isset($_SESSION['connected'])){
     if(!isset($_GET['page'])){
         $page=' ';
@@ -73,6 +77,9 @@ if(isset($_SESSION['connected'])){
 }else{// Acces au site seulement une fois que l'on est connecté
     include('View/login.php');
 }
+?>
+</div>
+<?php
 include('View/footer.php');
 ?>
 

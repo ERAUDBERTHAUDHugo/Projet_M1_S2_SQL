@@ -1,3 +1,9 @@
+
+/*Content General*/
+#content{
+  height: auto;
+  overflow-y: auto;
+}
 /*---------------------------------------------MainCSS-----------------------------------------------------------*/
 .title-box{
     text-align: center;
@@ -120,9 +126,7 @@ li {
 footer {
   background-color: #000080;
   /* min-height: 350px; */
-  margin-bottom: 0px;
   width: 100%;
-  position: relative;
   font-family: "Open Sans", sans-serif;
 }
 .footer-col {
@@ -201,35 +205,12 @@ footer {
   color: #fff;
   font-size: 12px;
 }
-/*
-.social-icon {
-  width: 30px;
-  height: 30px;
-  font-size: 15px;
-  background-color: blue;
-  color: #fff;
-  text-align: center;
-  margin-right: 10px;
-  padding-top: 7px;
-  border-radius: 50%;
-} */
+
 .footer-social li {
   float: left;
   color: white;
 }
-/* 
-.linked-in {
-  background-color: #007bb6;
-}
-.facebook {
-  background-color: #3b5998;
-}
-.twitter {
-  background-color: #1da1f2;
-}
-.google {
-  background-color: #f63e28;
-} */
+
 
 li {
   color: white;

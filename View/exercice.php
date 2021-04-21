@@ -23,8 +23,6 @@
 
 				$quizId=$_GET["id"];
 				$quizname=BDD::get()->query("SELECT `quiz_database` FROM `quiz` WHERE `quiz_id`= $quizId")->fetchAll();
-				echo("yes");
-				var_dump($quizname);
 				$filename="DatabaseExercice\\".$quizname[0]["quiz_database"];
 
 				importSqlFile($dbname,$filename);
@@ -119,7 +117,6 @@
 	}else{
 	?>
 	<div class="title-box">
-		<p>Aucun exercice en cours</p>
 		<?php
 
 			$userId1 = $_SESSION['user'];
@@ -134,31 +131,31 @@
 					$tp_id=$tp["tp_id"];
 					$getQuizId=BDD::get()->query("SELECT `quiz_id` FROM `tp` WHERE `tp_id`='$tp_id'")->fetchall();
 					if(!empty($getQuizId)){
-					$quiz_id=$getQuizId[0]["quiz_id"];
-					$exerciseInfos=BDD::get()->query("SELECT `quiz_name`,`quiz_description`,`user_id` FROM `quiz` WHERE `quiz_id`='$quiz_id'")->fetchall();
-	                ?>
-	                <a href="index.php?page=exercice&id=<?php echo($quiz_id); ?>">
-	                <div class="quiz-box">
-
-	                    <?php //recuperer le teacher qui a crée le quiz
-	                    $id=(int)$exerciseInfos[0]['user_id'];
-	                    $quizCreator=BDD::get()->query("SELECT `user_id`,`user_last_name`,`user_first_name` FROM `users` WHERE `user_id`=$id")->fetchAll();
-	                    ?>
-
-	                    <h4><?php echo $tp['tp_name']; ?></h4>
-	                    <small><?php echo "Par ".$quizCreator[0]['user_first_name']." ".$quizCreator[0]['user_last_name'];?></small>
-	                    <img src="View/Img/avatar.png">
-	                    <div class="title-quiz-box">
-	                        <p1><?php echo $exerciseInfos[0]['quiz_name']; ?></p1>
-	                    </div>
-	                    <p><?php echo substr($exerciseInfos[0]['quiz_description'], 0, 55)."..."; ?></p>
-	                </div>
-	                </a>
-	                <?php  
-					}else{
+						$quiz_id=$getQuizId[0]["quiz_id"];
+						$exerciseInfos=BDD::get()->query("SELECT `quiz_name`,`quiz_description`,`user_id` FROM `quiz` WHERE `quiz_id`='$quiz_id'")->fetchall();
 						?>
-						<p> Pas d'exercice à afficher pour l'instant !</p>
-						<?php
+						<a href="index.php?page=exercice&id=<?php echo($quiz_id); ?>">
+						<div class="quiz-box">
+
+							<?php //recuperer le teacher qui a crée le quiz
+							$id=(int)$exerciseInfos[0]['user_id'];
+							$quizCreator=BDD::get()->query("SELECT `user_id`,`user_last_name`,`user_first_name` FROM `users` WHERE `user_id`=$id")->fetchAll();
+							?>
+
+							<h4><?php echo $tp['tp_name']; ?></h4>
+							<small><?php echo "Par ".$quizCreator[0]['user_first_name']." ".$quizCreator[0]['user_last_name'];?></small>
+							<img src="View/Img/avatar.png">
+							<div class="title-quiz-box">
+								<p1><?php echo $exerciseInfos[0]['quiz_name']; ?></p1>
+							</div>
+							<p><?php echo substr($exerciseInfos[0]['quiz_description'], 0, 55)."..."; ?></p>
+						</div>
+						</a>
+						<?php  
+						}else{
+							?>
+							<p> Pas d'exercice à afficher pour l'instant !</p>
+							<?php
 					}     
 	            }
 	         ?>

@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="style.css"> 
 
-<footer style="bottom:0; width:100%">
+<footer style=" width:100%">
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-sm-6 footer-col">
