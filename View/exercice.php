@@ -8,11 +8,16 @@
 			echo(checkFirstTime());
 			if(checkFirstTime()==1){// creation of the unique db file for the exercice
 				//get dbname using user lastname :
-
 				$userId=$_SESSION["user"];
+			    $currentExerciceId=$_GET["id"];
+			    $username=BDD::get()->query("SELECT `user_adress` FROM `users` WHERE `user_id`= $userId")->fetchAll();
+			    $exoname=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_id`= $currentExerciceId")->fetchAll();
+			    $dbname=hash("MD5",$username[0]['user_adress']).$exoname[0]['quiz_id'];
+			    $dbnameCorrec=$dbname."Correc";
+				/*$userId=$_SESSION["user"];
            		$username=BDD::get()->query("SELECT `user_last_name` FROM `users` WHERE `user_id`= $userId")->fetchAll();
 				$dbname=hash("MD5",$username[0]["user_last_name"]);
-				$dbnameCorrec=$dbname."Correc";
+				$dbnameCorrec=$dbname."Correc";*/
 
 				createBase($dbname);// creation db etudiant
 				createBase($dbnameCorrec);//création db correction
@@ -40,10 +45,12 @@
 			
 			include("Controller/correction.php");
 
-			$userId=$_SESSION["user"]; //get user last name for hash
-			$username=BDD::get()->query("SELECT `user_last_name` FROM `users` WHERE `user_id`= $userId")->fetchAll(); 
-			$dbname=hash("MD5",$username[0]["user_last_name"]);
-			$dbnameCorrec=$dbname."Correc";
+				$userId=$_SESSION["user"];
+			    $currentExerciceId=$_GET["id"];
+			    $username=BDD::get()->query("SELECT `user_adress` FROM `users` WHERE `user_id`= $userId")->fetchAll();
+			    $exoname=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_id`= $currentExerciceId")->fetchAll();
+			    $dbname=hash("MD5",$username[0]['user_adress']).$exoname[0]['quiz_id'];
+			    $dbnameCorrec=$dbname."Correc";
 			
 			$getQuestionId=$_SESSION["question"];//get actual question id
 			$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `question_id`= $getQuestionId")->fetchAll();
@@ -66,8 +73,33 @@
 
 	<?php
 		}else{
-			displayQuestion();
+			$quiz=$_GET['id'];
+			$limit=BDD::get()->query("SELECT COUNT(*) FROM `question` WHERE `quiz_id`= $quiz")->fetchAll();
+			if($_SESSION['question']<=((int)$limit)){
+				displayQuestion();
+			}else{
+
+				$userId=$_SESSION["user"];
+			    $currentExerciceId=$_GET["id"];
+			    $username=BDD::get()->query("SELECT `user_adress` FROM `users` WHERE `user_id`= $userId")->fetchAll();
+			    $exoname=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_id`= $currentExerciceId")->fetchAll();
+			    $dbname=hash("MD5",$username[0]['user_adress']).$exoname[0]['quiz_id'];
+			    $dbnameCorrec=$dbname."Correc";
+			?>
+				<h1>Vous avez fini l'exercice</h1>
+				<p>Consultez vos résultats sur le tableau de bord</p>
+
+				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+					<button name="previous">Question précédente</button>
+				</form>
+				<form action="index.php?page=main&dbname=<?php echo($dbname);?>&dbnameCorrec=<?php echo($dbnameCorrec);?>" method="POST">
+					<button name="redirectMain">Quitter l'exercice</button>
+				</form>
+
+			<?php
+			}		
 		}
+			 
 	}else{
 	?>
 	<p>Aucun exercice en cours</p>
@@ -79,7 +111,7 @@
 
         $exerciseInfos=BDD::get()->query("SELECT quiz_id, quiz_name,quiz_difficulty, quiz_description, user_id FROM quiz WHERE quiz_id IN (SELECT quiz_id FROM tp WHERE equipe_id IN (SELECT equipe_id FROM groupe WHERE groupe_id IN (SELECT groupe_id FROM part_of WHERE user_id=$userId1)))")->fetchAll();
     ?>
-    <h1>Sélectionnez un exercice</h1>
+    <h1>Sélectionnez un exercice</>
     <div class="quiz-row">
         <?php 
             $index=0;
