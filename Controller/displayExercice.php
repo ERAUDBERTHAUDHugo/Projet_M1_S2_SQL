@@ -56,17 +56,35 @@
 <?php
     }
     function checkFirstTime(){
-        /*
-        $userId=$_SESSION["user"];
-        $currentExerciceId=$_GET["id"];
-        $username=BDD::get()->query("SELECT user_adress FROM users WHERE user_id= $userId")->fetchAll();
-        $exoname=BDD::get()->query("SELECT quiz_name FROM quiz WHERE quiz_id= $currentExerciceId")->fetchAll();
-        $dbname=hash("MD5",$username[0]["user_adress"]).$exoname;
-        $dbnameCorrec=$dbname."Correc";
+
+                $userId=$_SESSION["user"];
+                $currentExerciceId=$_GET["id"];
+                $username=BDD::get()->query("SELECT `user_adress` FROM `users` WHERE `user_id`= $userId")->fetchAll();
+                $exoname=BDD::get()->query("SELECT `quiz_id` FROM `quiz` WHERE `quiz_id`= $currentExerciceId")->fetchAll();
+                $dbname=hash("MD5",$username[0]['user_adress']).$exoname[0]['quiz_id'];
+                $dbnameCorrec=$dbname."Correc";
+
+
+                try{
+                    $exists1= new PDO("mysql:host=localhost;dbname=".$dbname."","root","");
+                    $exists2= new PDO("mysql:host=localhost;dbname=".$dbnameCorrec."","root","");
+                    return 0;
+            
+                }catch (PDOException $e) {
+                   return 1;
+                }
+
+                /*if(empty($exists1)&&empty($exists2)){
+                    return 1;
+                }else{
+                    return 0;
+                }*/
+
+
 
         //si vide return 1
         //si pas vide return 0
-
+        /*
         $user_answer=BDD::get()->query("SELECT `question_id` FROM `user_answer` WHERE `user_id`= $user")->fetchAll();
         foreach ($user_answer as $questions){
             $id_question=$questions["question_id"];
@@ -85,7 +103,6 @@
                 return 0;
             }
         }*/
-        return 1;
     }
 
 ?>
