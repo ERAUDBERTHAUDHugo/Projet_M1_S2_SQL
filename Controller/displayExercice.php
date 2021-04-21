@@ -92,9 +92,9 @@
          <table class="table table-bordered table-striped mb-0">
             <thead>
             <tr>
-                <th>Date</th>
-                <th>Requête</th>
-                <th>Résultat</th>
+                <th scope="col">Date</th>
+                <th scope="col">Requête</th>
+                <th scope="col">Résultat</th>
             </tr>
             </thead>
             <tbody>
@@ -104,9 +104,9 @@
                     foreach ($userAnswers as $question){
                         ?>
                         <tr>
-                            <td><?php echo $userAnswers[$index]['user_answer_time']; ?></td>
-                            <td><?php echo $userAnswers[$index]['user_answer_query']; ?></td>
-                            <td><?php if($userAnswers[$index]['valide']=='0'){echo '<font color="red">'.$userAnswers[$index]['user_answer_text'].'</font>';}else{echo '<font color="green">'.$userAnswers[$index]['user_answer_text'].'</font>';}?></td>
+                            <td scope="row"><?php echo $userAnswers[$index]['user_answer_time']; ?></td>
+                            <td scope="row"><?php echo $userAnswers[$index]['user_answer_query']; ?></td>
+                            <td scrope ="row"><?php if($userAnswers[$index]['valide']=='0'){echo '<font color="red">'.$userAnswers[$index]['user_answer_text'].'</font>';}else{echo '<font color="green">'.$userAnswers[$index]['user_answer_text'].'</font>';}?></td>
                         </tr>
                     <?php  
                     $index+=1;      
