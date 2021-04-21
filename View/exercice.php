@@ -71,11 +71,28 @@
 			if($_SESSION['question']<=((int)$limit)){
 				displayQuestion();
 			}else{
-				echo "Plus de questions!"; //delete db - redirect acceuil - session question -1
+				
+				$userId=$_SESSION["user"];
+           		$username=BDD::get()->query("SELECT `user_last_name` FROM `users` WHERE `user_id`= $userId")->fetchAll();
+				$dbname=hash("MD5",$username[0]["user_last_name"]);
+				$dbnameCorrec=$dbname."Correc";
+				var_dump($dbname);
+				var_dump($dbnameCorrec);
+			?>
+				<h1>Vous avez fini l'exercice</h1>
+				<p>Consultez vos résultats sur le tableau de bord</p>
 
-			}
-			
+				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+					<button name="previous">Question précédente</button>
+				</form>
+				<form action="index.php?page=main&dbname=<?php echo($dbname);?>&dbnameCorrec=<?php echo($dbnameCorrec);?>" method="POST">
+					<button name="redirectMain">Quitter l'exercice</button>
+				</form>
+
+			<?php
+			}		
 		}
+			 
 	}else{
 	?>
 	<p>Aucun exercice en cours</p>

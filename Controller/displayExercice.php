@@ -56,7 +56,27 @@
 <?php
     }
     function checkFirstTime(){
-        $user=$_SESSION["user"];
+        /*
+        $userId=$_SESSION["user"];
+        $currentExerciceId=$_GET["id"];
+        $username=BDD::get()->query("SELECT user_adress FROM users WHERE user_id= $userId")->fetchAll();
+        $exoname=BDD::get()->query("SELECT quiz_name FROM quiz WHERE quiz_id= $currentExerciceId")->fetchAll();
+        $dbname=hash("MD5",$username[0]["user_adress"]).$exoname;
+        $dbnameCorrec=$dbname."Correc";
+
+        //si vide return 1
+        //si pas vide return 0
+
+        $user_answer=BDD::get()->query("SELECT `question_id` FROM `user_answer` WHERE `user_id`= $user")->fetchAll();
+        foreach ($user_answer as $questions){
+            $id_question=$questions["question_id"];
+            $quizz_id=BDD::get()->query("SELECT `quiz_id` FROM `question` WHERE `question_id`='$id_question' ")->fetchAll();
+            if($quizz_id[0]["quiz_id"]==$_GET["id"]){
+                return 0;
+            }
+        }*/
+
+        /*$user=$_SESSION["user"];
 		$user_answer=BDD::get()->query("SELECT `question_id` FROM `user_answer` WHERE `user_id`= $user")->fetchAll();
         foreach ($user_answer as $questions){
             $id_question=$questions["question_id"];
@@ -64,7 +84,7 @@
             if($quizz_id[0]["quiz_id"]==$_GET["id"]){
                 return 0;
             }
-        }
+        }*/
         return 1;
     }
 

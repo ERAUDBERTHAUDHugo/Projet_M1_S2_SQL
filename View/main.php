@@ -1,3 +1,14 @@
+<?php 
+    if(isset($_POST['redirectMain'])){
+        var_dump($_GET["dbname"]);
+        var_dump($_GET["dbnameCorrec"]);
+        $_SESSION['question'] = -1;
+        deleteBase($_GET["dbname"]);
+        deleteBase($_GET["dbnameCorrec"]);
+    }
+
+?>
+
 <div class="title-box">
         <h1>Vos exercices :</h1>
         <p>Les exercices sont la meilleure chose à faire pour apprendre</p>
