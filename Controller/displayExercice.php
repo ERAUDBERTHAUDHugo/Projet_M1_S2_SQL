@@ -37,8 +37,9 @@
             $questionSelection=BDD::get()->query("SELECT `question_id`, `question_text`,`question_answer` FROM `question` WHERE `quiz_id`= $quizId")->fetchAll();
             ?>
             <div id='step'>
-
                 <?php
+                if(!empty($questionSelection)){
+                
                 $curentQuestion=$_SESSION["question"];
                 $questionText=$questionSelection[$curentQuestion]['question_text'];
                 echo $questionText;
@@ -51,6 +52,9 @@
                 </form>
                 <br>
                 
+                <?php
+                }
+                ?>
             </div>
         </div>
     <?php

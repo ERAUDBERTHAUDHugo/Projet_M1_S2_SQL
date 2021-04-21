@@ -31,8 +31,13 @@ include("Controller/displayExercice.php");
 if(isset($_POST["disconnect"])){
     disconnect();
 }
-//------------------------------------Redirection---------------------------------------
+
+if($_GET["page"]!="exercice"){
+    $_SESSION["question"]=-1;
+}
 var_dump($_SESSION);
+//------------------------------------Redirection---------------------------------------
+
 
 if(isset($_SESSION['connected'])){
     if(!isset($_GET['page'])){
