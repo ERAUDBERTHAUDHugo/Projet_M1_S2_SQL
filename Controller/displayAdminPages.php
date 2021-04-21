@@ -179,8 +179,17 @@ function displayButtons($button1,$button2) {
                 </tr>
                 </thead>
                 <tbody>
-
-                    <?php 
+                    <?php
+                    if(empty($groupUser)){
+                    ?>
+                            <tr>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                    <?php
+                    }else{
                         $index=0;
                         foreach ($groupUser as $user) {
                             $idUser=$groupUser[$index]['user_id'];
@@ -194,8 +203,9 @@ function displayButtons($button1,$button2) {
                             </tr>
                         <?php  
                         $index+=1;      
-                        }
-                        ?>
+                        }                        
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>

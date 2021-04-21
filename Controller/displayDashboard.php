@@ -110,8 +110,16 @@
                 </tr>
                 </thead>
                 <tbody>
-
-                    <?php 
+                <?php
+                if(empty($userRanking)){
+                ?>
+                            <tr>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                <?php
+                }else{
                         $index=0;
                         foreach ($userRanking as $rankedUser) {
                             if($index<=9){      //afficher le top 10
@@ -125,7 +133,8 @@
                             }
                         $index+=1;      
                         }
-                        ?>
+                }
+                ?>
                 </tbody>
             </table>
         </div>
@@ -155,8 +164,15 @@
             </tr>
             </thead>
             <tbody>
-
-                <?php 
+            <?php
+                if(empty($userAnswers)){
+            ?>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+            <?php
+            }else{
                     $index=0;
                     foreach ($userAnswers as $question) {
                         $quizId=(int)$userAnswers[$index]['quiz_id'];
@@ -173,7 +189,8 @@
                     <?php  
                     $index+=1;      
                     }
-                    ?>
+            }
+            ?>
             </tbody>
         </table>
     </div>

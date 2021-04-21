@@ -104,6 +104,16 @@
             <tbody>
 
                 <?php 
+                if(empty($userAnswers)){
+                    ?>
+                        <tr>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    <?php
+                }else{
+                
                     $index=0;
                     foreach ($userAnswers as $question){
                         ?>
@@ -115,6 +125,7 @@
                     <?php  
                     $index+=1;      
                     }
+                }
                     ?>
             </tbody>
         </table>
