@@ -564,7 +564,7 @@ table {
  text-align: center;
  }
 
-th {  
+.titre-colonne-table {  
   background-color: #000080;
   color: white;
   border-width:1px;
@@ -572,18 +572,18 @@ th {
   border-color:black;
 }
  
- td {  
+.data-colonne-table {  
  background-color: white;
  border-width:1px;
  border-style:solid; 
  border-color:black;
  }
 
-tbody tr:nth-child(odd) {
+.body-table tr:nth-child(odd) {
   background-color: white;
 }
 
-tbody tr:nth-child(even) {
+.body-table tr:nth-child(even) {
   background-color: black;
   color: white;
 }

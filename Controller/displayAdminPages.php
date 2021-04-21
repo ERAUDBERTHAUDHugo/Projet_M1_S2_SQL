@@ -214,14 +214,14 @@ function tabExercice(){
     ?>
     <form class="container-info" action ="index.php?page=adminDashboard&func=exercices" method="post">
     <h3>Vos exercices disponbibles en ligne</h3>
-        <table>
+        <table class="table-exercice">
             <thead>
-                <th><?php echo("<input type='checkbox' onclick='selectAll(this)' name='selectAllExercice' /><label ></label>");?> All</th>
-                <th> Nom</th>
-                <th> Nombre de questions</th>
+                <th class="titre-colonne-table"><?php echo("<input type='checkbox' onclick='selectAll(this)' name='selectAllExercice' /><label ></label>");?> All</th>
+                <th class="titre-colonne-table"> Nom</th>
+                <th class="titre-colonne-table"> Nombre de questions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="body-table">
         
     <?php
     $exercices=BDD::get()->query("SELECT `quiz_name`,`quiz_id` FROM `quiz` ")->fetchAll();
@@ -235,9 +235,9 @@ function tabExercice(){
             }
             ?>
             <tr>
-                <td> <?php echo("<input type='checkbox' class='exerciceCheck'name='quiz".$quiz_id."' /><label></label>"); ?> </td>
-                <td> <?php echo($exo['quiz_name']); ?> </td>
-                <td> <?php echo($countQuestion); ?> </td>
+                <td class="data-colonne-table"> <?php echo("<input type='checkbox' class='exerciceCheck'name='quiz".$quiz_id."' /><label></label>"); ?> </td>
+                <td class="data-colonne-table"> <?php echo($exo['quiz_name']); ?> </td>
+                <td class="data-colonne-table"> <?php echo($countQuestion); ?> </td>
             </tr>
 
             <?php

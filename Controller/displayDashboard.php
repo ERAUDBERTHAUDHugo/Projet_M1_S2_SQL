@@ -104,12 +104,12 @@
              <table class="pure-table pure-table-horizontal">
                 <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Nom</th>
-                    <th>Score Total</th>
+                    <th class="titre-colonne-table">#</th>
+                    <th class="titre-colonne-table">Nom</th>
+                    <th class="titre-colonne-table">Score Total</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="body-table">
 
                     <?php 
                         $index=0;
@@ -117,9 +117,9 @@
                             if($index<=9){      //afficher le top 10
                             ?>
                             <tr>
-                                <td><?php echo $index+1; ?></td>
-                                <td><?php echo $userRanking[$index]['user_first_name']; ?></td>
-                                <td><?php echo $userRanking[$index]['user_score']; ?></td>
+                                <td class="data-colonne-table"><?php echo $index+1; ?></td>
+                                <td class="data-colonne-table"><?php echo $userRanking[$index]['user_first_name']; ?></td>
+                                <td class="data-colonne-table"><?php echo $userRanking[$index]['user_score']; ?></td>
                             </tr>
                         <?php  
                             }
@@ -148,13 +148,13 @@
          <table class="pure-table pure-table-horizontal">
             <thead>
             <tr>
-                <th>Exercice</th>
-                <th>Question</th>
-                <th>Date</th>
-                <th>Score</th>
+                <th class="titre-colonne-table">Exercice</th>
+                <th class="titre-colonne-table">Question</th>
+                <th class="titre-colonne-table">Date</th>
+                <th class="titre-colonne-table">Score</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="body-table">
 
                 <?php 
                     $index=0;
@@ -165,10 +165,10 @@
                         $userQuestion=BDD::get()->query("SELECT `question_intitule` FROM `question` WHERE `question_id`=$questionId")->fetchAll();
                         ?>
                         <tr>
-                            <td><?php echo $userQuiz[0]['quiz_name']; ?></td>
-                            <td><?php echo $userQuestion[0]['question_intitule']; ?></td>
-                            <td><?php echo $userAnswers[$index]['user_answer_time']; ?></td>
-                            <td><?php echo $userAnswers[$index]['question_score']; ?></td>
+                            <td class="data-colonne-table"><?php echo $userQuiz[0]['quiz_name']; ?></td>
+                            <td class="data-colonne-table"><?php echo $userQuestion[0]['question_intitule']; ?></td>
+                            <td class="data-colonne-table"><?php echo $userAnswers[$index]['user_answer_time']; ?></td>
+                            <td class="data-colonne-table"><?php echo $userAnswers[$index]['question_score']; ?></td>
                         </tr>
                     <?php  
                     $index+=1;      
