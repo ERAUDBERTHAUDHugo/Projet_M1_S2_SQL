@@ -332,6 +332,8 @@ li {
     font-weight:600;
     text-align: center;
     font-size: 32px;
+    margin: 25px auto 50px;
+    
 }
 
 .contextbox{
@@ -401,6 +403,11 @@ li {
     position: relative;
     height: 25px;
     border-radius: 5px;
+}
+
+#bouton-question-exercice{
+  display: flex;
+  margin:20px;
 }
 
 /*----------------------------------------------FinStyleExcerciceCSS---------------------------------------------------------*/

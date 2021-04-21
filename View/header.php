@@ -9,20 +9,16 @@
           <a class="nav-link" href="index.php?page=main">Accueil <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.php?page=exercice">Exercice en cours</a>
+          <a class="nav-link" href="index.php?page=exercice">Mes exercices</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.php?page=dashboard">Tableau d'exercices</a>
+          <a class="nav-link" href="index.php?page=dashboard">Tableau de bord</a>
         </li>
       </ul>
       <span class="navbar-text">
-    <!-- <a class="navbar-brand" href="index.php?page=login"> -->
     <form method="POST" action="index.php?page=login">
-      <button type="submit" class="btn btn-light" name="disconnect">Log out</button> 
+      <button type="submit" class="btn btn-light" name="disconnect">Se déconnecter</button> 
     </form>
-    
-          <!-- </a> -->
-
       </span>
     </div>
   </nav>

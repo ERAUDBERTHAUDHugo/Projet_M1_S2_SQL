@@ -59,8 +59,15 @@ if(isset($_SESSION['connected'])){
             case "register":
                 include('View/register.php');
                     break;
-            case "dashboard": // faire la diff entre admin et étudiant ( if en fonction du user. A implémenter à la fin pour faciliter le developpement)
-                include('View/dashboard.php');
+            case "dashboard":
+                $userId=$_SESSION["user"];
+                $userRole=BDD::get()->query("SELECT `user_role` FROM `users` WHERE `user_id`= $userId")->fetchAll();
+                if($userRole[0]["user_role"]==0){
+                    include("View/adminDashboard.php");
+                }
+                else{
+                    include('View/dashboard.php');
+                }
                 break;
             case "adminDashboard":
                 include("View/adminDashboard.php");
@@ -73,7 +80,7 @@ if(isset($_SESSION['connected'])){
 }else{// Acces au site seulement une fois que l'on est connecté
     include('View/login.php');
 }
-//include('View/footer.php');
+include('View/footer.php');
 ?>
 
 </body>

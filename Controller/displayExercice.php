@@ -20,7 +20,10 @@
             
         </div>
 		<br>
-        <img src="ImgExo/<?php echo($quizSelection[0]['quiz_img']);?>"> 
+        <div style="text-align:center;"> 
+        <img style="height: 500px; margin:20px;" src="ImgExo/<?php echo($quizSelection[0]['quiz_img']);?>"> 
+        </div>
+        
         
 		
 

@@ -60,12 +60,14 @@
 
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////
 			?>
-			<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
-				<button name="previous">Question précédente</button>
-			</form>
-			<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
-				<button name="next">Question suivante</button>
-			</form>
+			<div id="bouton-question-exercice">
+				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+					<button class="button" name="previous">Question précédente</button>
+				</form>
+				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+					<button class="button" name="next">Question suivante</button>
+				</form>
+			</div>
 
 	<?php
 		}else{
@@ -78,8 +80,12 @@
 				$getQuestionId=$_SESSION["question"];//get actual question id
 				$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `question_id`= $getQuestionId")->fetchAll();
 				$question=$questionId[0][0];
-				displayQuestion();
-				displayQuestionHistory1($user, $question, $quiz);
+				displayQuestion();?>
+				<div class="containers">
+				<?php
+				displayQuestionHistory1($user, $question, $quiz);?>
+				</div>
+				<?php
 
 			}else{
 
