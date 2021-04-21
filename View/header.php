@@ -11,9 +11,28 @@
         <li class="nav-item">
           <a class="nav-link" href="index.php?page=exercice">Mes exercices</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index.php?page=dashboard">Tableau de bord</a>
-        </li>
+        <?php
+        
+         if(isset($_SESSION["connected"])){
+          $userId=$_SESSION["user"];
+          $userRole=BDD::get()->query("SELECT `user_role` FROM `users` WHERE `user_id`= $userId")->fetchAll();
+           
+          if($userRole[0]["user_role"]==0){
+              ?>
+              <li class="nav-item">
+                <a class="nav-link" href="index.php?page=adminDashboard">Gestion Administrateur</a>
+              </li>
+              <?php
+          }else{
+            ?>
+              <li class="nav-item">
+                <a class="nav-link" href="index.php?page=dashboard">Tableau de bord</a>
+              </li>
+              <?php
+          }
+        }
+        ?>
+       
       </ul>
       <span class="navbar-text">
     <form method="POST" action="index.php?page=login">

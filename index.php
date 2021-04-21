@@ -60,14 +60,7 @@ if(isset($_SESSION['connected'])){
                 include('View/register.php');
                     break;
             case "dashboard":
-                $userId=$_SESSION["user"];
-                $userRole=BDD::get()->query("SELECT `user_role` FROM `users` WHERE `user_id`= $userId")->fetchAll();
-                if($userRole[0]["user_role"]==0){
-                    include("View/adminDashboard.php");
-                }
-                else{
-                    include('View/dashboard.php');
-                }
+                include('View/dashboard.php');
                 break;
             case "adminDashboard":
                 include("View/adminDashboard.php");
