@@ -170,14 +170,13 @@ function displayButtons($button1,$button2) {
                 //recuperer les users liés au groupes/teams sélectionés
                 $groupUser=BDD::get()->query("SELECT user_id, user_last_name, user_first_name, user_score FROM users WHERE user_id IN (SELECT user_id FROM part_of WHERE groupe_id = $groupId GROUP BY user_id) ORDER BY user_last_name ASC")->fetchAll();              
                 ?>
-             <table class="pure-table pure-table-horizontal">
+             <table class="table table-bordered table-striped mb-0">
                 <thead>
                 <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Points</th>
-<!--                    <th>TP</th>  -->
-                    <th>Questions réussies</th>
+                    <th class="titre-colonne-table">Nom</th>
+                    <th class="titre-colonne-table">Prénom</th>
+                    <th class="titre-colonne-table">Points</th>
+                    <th class="titre-colonne-table">Questions réussies</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -221,7 +220,7 @@ function tabExercice(){
                 <th class="titre-colonne-table"> Nombre de questions</th>
                 </tr>
             </thead>
-            <tbody id="body-table">
+            <tbody class="body-table">
         
     <?php
     $exercices=BDD::get()->query("SELECT `quiz_name`,`quiz_id` FROM `quiz` ")->fetchAll();

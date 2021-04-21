@@ -453,7 +453,7 @@ overflow: auto;
 
 #statistic-container1{
   height: 400px; 
-  width: 40%; 
+  width: 50%; 
   float:left;
   margin: 40px;
 }
@@ -557,7 +557,8 @@ overflow: auto;
   border:3px solid #556677;
 }
 
-table {
+.table-exercice {
+ border:3px solid #556677;
  border-color:darkgray;
  width:50%;
  justify-content: center;
@@ -579,12 +580,4 @@ table {
  border-color:black;
  }
 
-.body-table tr:nth-child(odd) {
-  background-color: white;
-}
-
-.body-table tr:nth-child(even) {
-  background-color: black;
-  color: white;
-}
 /*----------------------------------------------FinAdminDashboardCSS-----------------------------------------------------------------*/

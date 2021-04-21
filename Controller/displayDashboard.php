@@ -92,7 +92,7 @@
 
     function displayRanking(){
     ?>
-        <div id="statistic-container">
+        <div id="statistic-container1" class="my-custom-scrollbar2">
             <br>
             <h4>Votre classement</h4>
             <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
@@ -101,7 +101,7 @@
             //recuperer les ranking disponibles
                 $userRanking=BDD::get()->query("SELECT `user_first_name`, `user_score` FROM `users` ORDER BY `user_score` DESC")->fetchAll();
                 ?>
-             <table class="pure-table pure-table-horizontal">
+             <table class="table table-bordered table-striped mb-0">
                 <thead>
                 <tr>
                     <th class="titre-colonne-table">#</th>
@@ -109,7 +109,7 @@
                     <th class="titre-colonne-table">Score Total</th>
                 </tr>
                 </thead>
-                <tbody class="body-table">
+                <tbody>
 
                     <?php 
                         $index=0;
@@ -117,9 +117,9 @@
                             if($index<=9){      //afficher le top 10
                             ?>
                             <tr>
-                                <td class="data-colonne-table"><?php echo $index+1; ?></td>
-                                <td class="data-colonne-table"><?php echo $userRanking[$index]['user_first_name']; ?></td>
-                                <td class="data-colonne-table"><?php echo $userRanking[$index]['user_score']; ?></td>
+                                <td><?php echo $index+1; ?></td>
+                                <td><?php echo $userRanking[$index]['user_first_name']; ?></td>
+                                <td><?php echo $userRanking[$index]['user_score']; ?></td>
                             </tr>
                         <?php  
                             }
@@ -138,14 +138,14 @@
     function displayQuestionHistory($userBoard){
 
     ?>
-    <div id="statistic-container">
+    <div id="statistic-container1" class="my-custom-scrollbar2">
         <br>
     <h4>Vos derniers exercices</h4>
     <?php 
     //recuperer les exercices faits disponibles
         $userAnswers=BDD::get()->query("SELECT `user_id`, `user_answer_time`, `question_id`, `question_score`, `quiz_id` FROM `user_answer` WHERE `user_id`= $userBoard ORDER BY `user_answer_time` DESC")->fetchAll(); 
     ?>
-         <table class="pure-table pure-table-horizontal">
+         <table class="table table-bordered table-striped mb-0">
             <thead>
             <tr>
                 <th class="titre-colonne-table">Exercice</th>
@@ -154,7 +154,7 @@
                 <th class="titre-colonne-table">Score</th>
             </tr>
             </thead>
-            <tbody class="body-table">
+            <tbody>
 
                 <?php 
                     $index=0;
@@ -165,10 +165,10 @@
                         $userQuestion=BDD::get()->query("SELECT `question_intitule` FROM `question` WHERE `question_id`=$questionId")->fetchAll();
                         ?>
                         <tr>
-                            <td class="data-colonne-table"><?php echo $userQuiz[0]['quiz_name']; ?></td>
-                            <td class="data-colonne-table"><?php echo $userQuestion[0]['question_intitule']; ?></td>
-                            <td class="data-colonne-table"><?php echo $userAnswers[$index]['user_answer_time']; ?></td>
-                            <td class="data-colonne-table"><?php echo $userAnswers[$index]['question_score']; ?></td>
+                            <td><?php echo $userQuiz[0]['quiz_name']; ?></td>
+                            <td><?php echo $userQuestion[0]['question_intitule']; ?></td>
+                            <td><?php echo $userAnswers[$index]['user_answer_time']; ?></td>
+                            <td><?php echo $userAnswers[$index]['question_score']; ?></td>
                         </tr>
                     <?php  
                     $index+=1;      
