@@ -23,7 +23,7 @@ input[type="checkbox"] {
 
 label, a {
   display: block;
-  float: left;
+  
   clear: left;
   position: relative;
   margin-left: 25px;
@@ -88,3 +88,9 @@ input[type="reset"]:focus {
   box-shadow: 0 0 0 4px #b9c3c9;
 }
 
+#team-container{
+  height: auto; 
+  width: 40%; 
+  float:left;
+  margin: 40px;
+}

@@ -216,9 +216,9 @@ function tabExercice(){
     <h3>Vos exercices disponbibles en ligne</h3>
         <table>
             <thead>
-                <th  ><?php echo("<input type='checkbox' onclick='selectAll(this)' name='selectAllExercice' /><label ></label>");?> All</th>
+                <th><?php echo("<input type='checkbox' onclick='selectAll(this)' name='selectAllExercice' /><label ></label>");?> All</th>
                 <th> Nom</th>
-                <th > Nombre de questions</th>
+                <th> Nombre de questions</th>
                 </tr>
             </thead>
             <tbody>

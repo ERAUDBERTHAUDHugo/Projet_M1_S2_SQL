@@ -4,7 +4,7 @@
 function displayTreeViewCheckbox(){
 
     ?>
-    <div style="height: 300px; width: 50%; float:left;">
+    <div id="team-container" style="height: 300px; width: 50%; float:left;">
     <form action="index.php?page=adminDashboard" method="POST">
       <h3>Equipes</h3>
       <div class="tree">

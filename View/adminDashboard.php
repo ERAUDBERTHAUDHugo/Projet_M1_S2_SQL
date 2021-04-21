@@ -37,12 +37,16 @@
         }
     }
     else{
-        include("Controller/treeAdmin.php");
         displayButtons("groupes","exercices");
+        include("Controller/treeAdmin.php");?>
+        <div class="containers">
+            <?php
         $GroupsInfo=displayTreeViewCheckbox();
         if (isset(array_keys($_POST)[0])){
             displayStudents(array_keys($_POST)[0]);
-        }
+        }?>
+        </div>
+        <?php
     }
     ?>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 20 avr. 2021 à 17:17
+-- Généré le : mer. 21 avr. 2021 à 14:46
 -- Version du serveur :  8.0.21
 -- Version de PHP : 7.3.21
 
@@ -98,6 +98,7 @@ INSERT INTO `part_of` (`user_id`, `groupe_id`) VALUES
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
   `question_id` int NOT NULL,
+  `question_intitule` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `question_text` varchar(1000) DEFAULT NULL,
   `question_answer` varchar(1000) DEFAULT NULL,
   `quiz_id` int NOT NULL,
@@ -110,9 +111,9 @@ CREATE TABLE IF NOT EXISTS `question` (
 -- Déchargement des données de la table `question`
 --
 
-INSERT INTO `question` (`question_id`, `question_text`, `question_answer`, `quiz_id`, `question_points`) VALUES
-(0, 'Affichez les informations sur les fournisseurs', 'SELECT * FROM `fournisseur` ', 0, 5),
-(1, 'Afficher les pièces', 'SELECT * FROM `piece`', 0, 3);
+INSERT INTO `question` (`question_id`, `question_intitule`, `question_text`, `question_answer`, `quiz_id`, `question_points`) VALUES
+(0, 'question 1', 'Affichez les informations sur les fournisseurs', 'SELECT * FROM `fournisseur` ', 0, 5),
+(1, 'question 2', 'Afficher les pièces', 'SELECT * FROM `piece`', 0, 3);
 
 -- --------------------------------------------------------
 
@@ -194,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_adress`, `user_last_name`, `user_first_name`, `user_password`, `user_role`, `user_score`, `user_group`) VALUES
-(0, 'kjekdjezkdjeez', 'Goedert', 'Thibault', 'motdepasse', 0, 152, 0),
+(0, 'kjekdjezkdjeez', 'Goedert', 'Thibault', 'motdepasse', 0, 178, 0),
 (1, 'hafdf', 'Choukhi', 'Imane', '12345', 0, 54, 1),
 (2, 'adresse', 'Lala', 'Nono', '0000', 1, 0, 1),
 (3, 'adresse', 'Hello', 'Name ', '12345', 1, 0, 1);
@@ -208,6 +209,7 @@ INSERT INTO `users` (`user_id`, `user_adress`, `user_last_name`, `user_first_nam
 DROP TABLE IF EXISTS `user_answer`;
 CREATE TABLE IF NOT EXISTS `user_answer` (
   `user_answer_id` int NOT NULL AUTO_INCREMENT,
+  `user_answer_query` varchar(1000) NOT NULL,
   `user_answer_text` varchar(50) DEFAULT NULL,
   `user_answer_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `question_id` int DEFAULT NULL,
@@ -216,17 +218,24 @@ CREATE TABLE IF NOT EXISTS `user_answer` (
   `valide` int DEFAULT NULL,
   `quiz_id` int DEFAULT NULL,
   PRIMARY KEY (`user_answer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user_answer`
 --
 
-INSERT INTO `user_answer` (`user_answer_id`, `user_answer_text`, `user_answer_time`, `question_id`, `user_id`, `question_score`, `valide`, `quiz_id`) VALUES
-(4, 'Bonne réponse!', '2021-03-29 11:49:23', 0, 0, 5, 1, 0),
-(5, 'Bonne réponse!', '2021-03-29 11:50:12', 0, 0, 5, 1, 0),
-(6, 'Requête invalide', '2021-03-29 11:50:43', 0, 0, 0, 0, 0),
-(7, 'Requête invalide', '2021-04-02 18:41:34', 0, 0, 0, 0, 0);
+INSERT INTO `user_answer` (`user_answer_id`, `user_answer_query`, `user_answer_text`, `user_answer_time`, `question_id`, `user_id`, `question_score`, `valide`, `quiz_id`) VALUES
+(82, 'xczzzzzzzzzzz', 'Requête invalide', '2021-04-21 16:43:58', 0, 0, 0, 0, 0),
+(81, 'SELECT `user_last_name` FROM `users` WHERE `user_id`= 0', 'Requête invalide', '2021-04-21 16:34:18', 1, 0, 0, 0, 0),
+(80, 'th', 'Requête invalide', '2021-04-21 16:34:11', 0, 0, 0, 0, 0),
+(79, '', 'Requête invalide', '2021-04-21 16:29:42', 1, 0, 0, 0, 0),
+(78, '', 'Requête invalide', '2021-04-21 16:29:26', 0, 0, 0, 0, 0),
+(77, '', 'Requête invalide', '2021-04-21 16:27:29', 1, 0, 0, 0, 0),
+(76, 'SELECT * FROM `type_piece`', 'Requête valide', '2021-04-21 16:27:01', 0, 0, 5, 1, 0),
+(75, 'SELECT * FROM `type_piece`', 'Requête valide', '2021-04-21 16:26:49', 1, 0, 3, 1, 0),
+(74, '', 'Requête invalide', '2021-04-21 16:22:34', 0, 0, 0, 0, 0),
+(73, 'nonnnnnnnnnnnn', 'Requête invalide', '2021-04-21 16:22:23', 1, 0, 0, 0, 0),
+(72, 'ouiiiiiiiiiiii', 'Requête invalide', '2021-04-21 16:22:13', 0, 0, 0, 0, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

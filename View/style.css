@@ -468,7 +468,7 @@ display: block;
   color: #fff;
   font-family: sans-serif;
   text-align: center;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .container-info{
@@ -480,22 +480,24 @@ display: block;
   padding-left: 5px;
   padding-top: 5px;
   padding-bottom: 5px;
-  margin-top: 50px;
+  margin-top: 30px;
   margin-left: 20px;
   margin-right: 20px;
+  margin-bottom: 30px;
 }
 
 .container-button{
   position: relative;
   background: lightgray;
   color: #000080;
+  font-family: sans-serif;
   border-radius: 1rem;
-  margin-top: 20px;
-  right: 20px;
-  padding-bottom: 20px;
-  padding-right: 20px;
-  padding-left: 50px;
-  padding-top: 20px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .button{
@@ -546,20 +548,30 @@ display: block;
   margin: auto;
   display: auto;
   border-radius:5px;
-  border:6px solid #556677;
+  border:3px solid #556677;
 }
 
 table {
  border:3px solid #556677;
  border-color:darkgray;
  width:50%;
+ justify-content: center;
+ text-align: center;
  }
-td {  
+
+th {  
+  background-color: #000080;
+  color: white;
+  border-width:1px;
+  border-style:solid; 
+  border-color:black;
+}
+ 
+ td {  
  background-color: white;
  border-width:1px;
  border-style:solid; 
  border-color:black;
- width:50%;
  }
 
 tbody tr:nth-child(odd) {
@@ -570,3 +582,7 @@ tbody tr:nth-child(even) {
   background-color: black;
   color: white;
 }
+/*----------------------------------------------FinAdminDashboardCSS-----------------------------------------------------------------*/
+/*----------------------------------------------TreeViewAdminDashboardCSS-----------------------------------------------------------------*/
+
+/*----------------------------------------------FinTreeViewAdminDashboardCSS-----------------------------------------------------------------*/
