@@ -356,7 +356,7 @@ function tabTeamsGroup(){
     <?php
     }
     
-Z}
+}
 
 function deleteTeamsGroup(){
     $resultPost=$_POST["groupSelectedId"];

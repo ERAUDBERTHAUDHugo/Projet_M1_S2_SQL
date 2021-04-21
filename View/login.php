@@ -17,8 +17,6 @@
             <p>Mot de passe</p>
             <input type="password" name="psw" placeholder="Entre ton mot de passe">
             <input type="submit" name="login" value="Se connecter">
-            <a href="#">Lost your password ?</a><br>
-            <a href="index.php?page=register">Don't have an account ?</a>
         </form>
 </div>
 

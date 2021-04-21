@@ -35,7 +35,7 @@ if(isset($_POST["disconnect"])){
 if($_GET["page"]!="exercice"){
     $_SESSION["question"]=-1;
 }
-var_dump($_SESSION);
+//var_dump($_SESSION);
 //------------------------------------Redirection---------------------------------------
 
 
