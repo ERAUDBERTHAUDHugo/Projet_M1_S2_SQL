@@ -19,7 +19,7 @@
 .quiz-box{
     width: 260px;
     height: 260px;
-    background: 		#F5F5F5;
+    background:         #F5F5F5;
     border-radius: 4px;
     margin-bottom: 30px;
     box-shadow: 0 10px 10px 10px rgba(115, 193, 255, 0.1);
@@ -449,16 +449,17 @@ li {
 
 /*----------------------------------------------AdminDashboardCSS-----------------------------------------------------------------*/
 .title-container{
-  position: relative;
-  width: 200px;
-  height: fit-content;
-  background: #000080;
+  position: relative;  
+  word-wrap: break-word;
+  width: 90%;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 70px;
+  background: gray;
   color: #fff;
-  left: 50%;
   font-family: sans-serif;
-  display: flex;
-  justify-content:center;
-  font-size: 22px;
+  text-align: center;
+  font-size: 3rem;
 }
 
 .container-info{
@@ -476,7 +477,7 @@ li {
 }
 
 .container-button{
-  position: absolute;
+  position: relative;
   background: lightgray;
   color: #000080;
   border-radius: 1rem;
@@ -484,7 +485,7 @@ li {
   right: 20px;
   padding-bottom: 20px;
   padding-right: 20px;
-  padding-left: 20px;
+  padding-left: 50px;
   padding-top: 20px;
 }
 
@@ -501,3 +502,62 @@ li {
   color: #000080;
 }
 
+.manageEquipesForm{
+  border-radius: 25px;
+}
+
+.studentListFile{
+  border-radius: 25px;
+
+}
+
+
+.fileToUpload{
+  background-color:black;
+  color : white;
+  border-radius: 25px;
+
+}
+
+.setExerciseSelect{ 
+  border-radius: 25px;
+  background-color:lightgrey;
+}
+
+.deleteTeam{
+  background-color: #000080;
+  color : white;
+  border-radius: 25px;
+}
+
+.textarea{  
+  padding:10px;
+  width:60%;
+  font-size:14px;
+  margin: auto;
+  display: auto;
+  border-radius:5px;
+  border:6px solid #556677;
+}
+
+table {
+ border:3px solid #556677;
+ border-color:darkgray;
+ width:50%;
+ }
+td {  
+ background-color: white;
+ border-width:1px;
+ border-style:solid; 
+ border-color:black;
+ width:50%;
+ }
+
+tbody tr:nth-child(odd) {
+  background-color: white;
+}
+
+tbody tr:nth-child(even) {
+  background-color: black;
+  color: white;
+}

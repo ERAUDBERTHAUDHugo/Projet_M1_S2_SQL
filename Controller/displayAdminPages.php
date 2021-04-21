@@ -50,23 +50,23 @@ function displayManageExercise(){
     <h3>Créer un nouvel exercice : </h3>
     <form method="post" action="" name="createExerciseForm" enctype="multipart/form-data">
         
-        <p>Titre de l'excercice :</p>
-        <input type="text" name="exerciseName" placeholder="Titre de l'excercice" value="<?php if(isset($_POST["exerciseName"])) { echo $_POST["exerciseName"]; } ?>">
+        <p>Titre de l'exercice :</p>
+        <input type="text" name="exerciseName" placeholder="Titre de l'exercice" value="<?php if(isset($_POST["exerciseName"])) { echo $_POST["exerciseName"]; } ?>">
         
         <p>Description (facultatif) :</p>
-        <textarea name="context" rows="10" cols="150" placeholder="Description de l'exercice"><?php if(isset($_POST["context"])) { echo $_POST["context"]; } ?></textarea><br /><br />
+        <textarea name="context" class="textarea" placeholder="Description de l'exercice"><?php if(isset($_POST["context"])) { echo $_POST["context"]; } ?></textarea><br /><br />
         
         <p>Importer le fichier SQL : </p>
         <input type="text"  id="input_SQLFile" readonly="readonly"/>
-        <input type="file" name="SQLFile" accept="application/sql" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_SQLFile').value = this.value" />
+        <input type="file" class="fileToUpload"  name="SQLFile" accept="application/sql" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_SQLFile').value = this.value" />
         
         <p>Importer les questions au format CSV : </p>
         <input type="text"  id="input_QuestionFile" readonly="readonly"/>
-        <input type="file" name="QuestionFile" accept="text/csv" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_QuestionFile').value = this.value" />
+        <input type="file" class="fileToUpload" name="QuestionFile" accept="text/csv" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_QuestionFile').value = this.value" />
         
         <p>Importer l'image du modèle de la BDD : </p>
         <input type="text" name="BDDFile" id="input_BDDFile" readonly="readonly"/>
-        <input type="file" name="ImgModelMCD" name="ImgModelMCD" accept="image/png, image/jpeg" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_BDDFile').value = this.value" /><br/><br/>
+        <input type="file" class="fileToUpload" name="ImgModelMCD" name="ImgModelMCD" accept="image/png, image/jpeg" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_BDDFile').value = this.value" /><br/><br/>
         
         <input type="submit" class="button" value="Créer l'exercice" name="createExercise">
     </form>
@@ -106,15 +106,12 @@ function displayManageGroups(){
     }
 ?>
 
-<div class="title-container">
-    Gérer les équipes et groupes
-</div>
 <div class="container-info">
     <h3>Mise à jour des listes étudiants</h3>
     <form method="POST" action="index.php?page=adminDashboard&func=groupes" name="addGroupForm" enctype="multipart/form-data">
         <p>Importer la liste d'étudiants au format CSV :</p>
-        <input type="text" name="studentListFile" id="input_StudentListFile" readonly="readonly" />
-        <input type="file"  name="fileToUpload" id="fileToUpload" accept="text/csv" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_StudentListFile').value = this.value">
+        <input type="text" class="studentListFile" name="studentListFile" id="input_StudentListFile" readonly="readonly" />
+        <input type="file" class = "fileToUpload"  name="fileToUpload" id="fileToUpload" accept="text/csv" onmousedown="return false" onkeydown="return false" onchange="document.getElementById('input_StudentListFile').value = this.value">
         <input type="submit" class="button" value="Mettre à jour les étudiants" name="addGroup">
     </form>
     <?php
@@ -215,16 +212,13 @@ function displayButtons($button1,$button2) {
 /*----------------------------------------------------- Afficher/supprimer les exercices-----------------------------------------------------------*/
 function tabExercice(){
     ?>
-    <form action="index.php?page=adminDashboard&func=exercices" method="post">
+    <form class="container-info" action ="index.php?page=adminDashboard&func=exercices" method="post">
+    <h3>Vos exercices disponbibles en ligne</h3>
         <table>
             <thead>
-                <tr>
-                <th colspan="3">Vos exerices disponbibles en ligne</th>
-                </tr>
-                <tr>
-                <th ><?php echo("<input type='checkbox' onclick='selectAll(this)' name='selectAllExercice' /><label ></label>");?>All</th>
-                <th>Nom</th>
-                <th >Nombre de questions</th>
+                <th  ><?php echo("<input type='checkbox' onclick='selectAll(this)' name='selectAllExercice' /><label ></label>");?> All</th>
+                <th> Nom</th>
+                <th > Nombre de questions</th>
                 </tr>
             </thead>
             <tbody>
@@ -256,7 +250,8 @@ function tabExercice(){
     ?>
             </tbody>
         </table>
-        <button type="submit" name="deleteExercice" onclick="deleteConfirm(this)">Supprimer les exercices séléctionnés</button>
+        <br> <br>
+        <button type="submit" class="button" name="deleteExercice" onclick="deleteConfirm(this)">Supprimer les exercices séléctionnés</button>
     </form>
     <?php
     //var_dump($exercices);
@@ -291,12 +286,11 @@ function deleteExercice(){
 /*----------------------------------------------------- Afficher/supprimer les equipes/groupes-----------------------------------------------------------*/
 
 function tabTeamsGroup(){
-    var_dump($_POST);
     ?>
-    <div style="height: 5%; width: 50%;">
-    <h3>Supprimer une équipe</h3>
+    <div class="container-info" style="height: 5%; width: 50%;">
+    <h3 >Supprimer une équipe</h3>
     <br>
-        <form method="post" action="index.php?page=adminDashboard&func=groupes" name="manageEquipesForm">
+        <form method="post" action="index.php?page=adminDashboard&func=groupes" class="manageEquipesForm" name="manageEquipesForm">
             <?php
             $allTeams=BDD::get()->query("SELECT * FROM `equipe` ")->fetchAll();
             ?>
@@ -313,7 +307,7 @@ function tabTeamsGroup(){
                 <?php
             }else{
                 ?>
-                <option value="">--Selctionner l'equipe à supprimer--</option>
+                <option value="" class="setExerciseSelect">--Sélectionner l'équipe à supprimer--</option>
             <?php
             }
                 
@@ -325,7 +319,7 @@ function tabTeamsGroup(){
                 ?>
 
             </select>
-            <button name ="SelectTeam"> Selectionner une équipe</button>
+            <button class="deleteTeam" name ="SelectTeam"> Sélectionner une équipe</button>
         </form>
     </div>
     
@@ -392,7 +386,7 @@ function deleteTeamsGroup(){
 /*----------------------------------------------------- Gestion TPs ----------------------------------------------------------*/
 function tpManagementDisplay(){
 ?>
-    <div style="height: 300px; width: 50%;">
+<div class="container-info">
         <br>
         <h3>Gérer mes TPs</h3>
         <form method="post" action="index.php?page=adminDashboard&func=exercices" name="manageTpForm">
@@ -520,10 +514,10 @@ function tpManagementDisplay(){
 
             </select>
 
-            <br><br>
+            <br></br>
             <input type="submit" class="button" value="Appliquer les changements" name="manageTpSubmit">
-            <br><br>   
         </form>
+    </div>
     <div>
 
 <?php
