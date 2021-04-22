@@ -144,7 +144,7 @@
     }
 
 
-
+//gestion des back_up des bases de données de test des exercices
 function backupReplacement(){//replace exercice db with backup
     // create db names
     $userId=$_SESSION["user"];
@@ -214,5 +214,61 @@ function backupManagement(){
         backupReplacement();
         return("<div id='backupMessage'> La base de donnée a bien été remplacé par la dernière sauvegardée !</div>");
     }
+}
+
+//display des résultats des requetes, affiché lors de la correction d'un question
+function displayRequete($requeteUser,$requeteCorrec){
+    ?>
+    <h3>Vos résulats :</h3>
+    <table id="resulUser">
+            <thead>
+                <th >Index</th>
+                <th > Données</th>
+                </tr>
+            </thead>
+            <?php
+            $index=0;
+            foreach ($requeteUser as $user){
+                ?>
+                <tr>
+                    <td > <?php echo($index); ?> </td>
+                    <td > <?php 
+                        echo($user[0]."<br>".$user[1]);
+                    
+                    ?> 
+                    </td>
+                </tr>
+
+            <?php
+            $index=$index+1;
+        }
+        ?>
+    </table>
+    <h3>Les résulats attendus :</h3>
+    <table id="resultCorrec">
+        <thead>
+                <th >Index</th>
+                <th > Données</th>
+                </tr>
+            </thead>
+            <?php
+            $index=0;
+            foreach ($requeteCorrec as $correc){
+                ?>
+                <tr>
+                    <td > <?php echo($index); ?> </td>
+                    <td > <?php 
+                        echo($correc[0]."<br>".$correc[1]);
+                    
+                    ?> 
+                    </td>
+                </tr>
+
+            <?php
+            $index=$index+1;
+        }
+        ?>
+    </table>
+    <?php
 }
 ?>

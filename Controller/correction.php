@@ -66,11 +66,18 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
                     foreach ($fields as $field => $value) {
                         if (isset($dataCorrec[$key][$field])) {
                             if ($dataCorrec[$key][$field] != $value) {
+                                unset($conTest);
+                                unset($conGetRequest);
                                 return array("Pas mêmes valeurs", 0, 0);
+                                
                             } else {
+                                unset($conTest);
+                                unset($conGetRequest);
                                 return array("Requête valide", $points, 1);
                             }
                         } else{
+                            unset($conTest);
+                            unset($conGetRequest);
                             return array("Pas mêmes valeurs", 0, 0);
                         }
                     }
@@ -82,6 +89,67 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
     
     }
 
+}
+function compareRequeteCorrection($dbname,$dbnameCorrec,$requete,$question_id,$quiz_id){// if we execute this function, the request is supposed to be correct (tes in dataBaseComparision(), ligne 1)
+    try{
+        $conTestUser = new PDO("mysql:host=localhost;dbname=".$dbname."","root","");
+        
+    } catch(PDOException $e){
+        die(" ERREUR: Impossible de se connecter à la bbd test: " . $e->getMessage());
+    }
+    $conGetRequest = BDD::get()->query("SELECT `question_answer`, `question_points` FROM `question` WHERE`quiz_id`=$quiz_id AND `question_id`=$question_id")->fetchAll();
+    $trueRequest=$conGetRequest[0][0];
+    $points=$conGetRequest[0][1];
+    try{
+        $conTestCorrec = new PDO("mysql:host=localhost;dbname=".$dbnameCorrec."","root","");
+       
+    } catch(PDOException $e){
+        die(" ERREUR: Impossible de se connecter à la bbd test: " . $e->getMessage());
+    }
+    $requetUser=$_POST["reponse"];
+    $requestTestUser=$conTestUser ->query($requetUser);
+    $requestTestCorrec=$conTestCorrec->query($trueRequest);
+   
+    if($requestTestUser==False AND $requestTestCorrec!=False){
+        return array("Requête invalide", 0, 0);
+    }else{
+        $requestTestUser=$requestTestUser->fetchAll();
+        $requestTestCorrec=$requestTestCorrec->fetchAll();
+
+    }
+    displayRequete($requestTestUser,$requestTestCorrec);
+    //verification du nombre de résulat
+    $compUser=0;
+    $compCorrec=0;
+    foreach( $requestTestUser as $user){
+        $compUser=$compUser+1;
+    }
+    foreach($requestTestCorrec as $correc){
+        $compCorrec=$compCorrec+1;
+    }
+    if($compUser==$compCorrec){
+        array("Requête valide", 0, 0);
+    }
+    //verification du contenu
+    $goodLines=0;
+    foreach( $requestTestUser as $user){
+        foreach($requestTestCorrec as $correc){
+            if($user==$correc){
+                $goodLines=1;
+                break;
+            }
+        }
+        if($goodLines==0){
+            return array("Requête invalide", 0, 0);
+        }else{
+            $goodLines=0;
+        }
+    }
+    
+    //comparaison des requetes :
+    unset( $conTestUser);
+    unset($conTestCorrec);
+    return array("Requête valide",0,1);
 }
 
 function writeUserAnswer($query,$userAnswerText,$questionId,$userId,$questionScore, $valid, $quizId){

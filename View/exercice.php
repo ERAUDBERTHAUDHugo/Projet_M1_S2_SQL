@@ -39,7 +39,7 @@
 		if (isset($_POST["reponse"])){
 			
 			include("Controller/correction.php");
-
+			
 			$userId=$_SESSION["user"];
 			$currentExerciceId=$_GET["id"];
 			$username=BDD::get()->query("SELECT `user_adress` FROM `users` WHERE `user_id`= $userId")->fetchAll();
@@ -51,7 +51,7 @@
 			$indexQuestion=$_SESSION["question"];
 			$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `quiz_id`= $getQuizzId")->fetchAll();
 			$Id=$questionId[$indexQuestion]['question_id'];
-
+			var_dump(compareRequeteCorrection($dbname,$dbnameCorrec,$_POST["reponse"],$Id,$_GET['id']));
 			$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET['id'],$Id); //call function correction
 			?>
 			<div class="title-box">
