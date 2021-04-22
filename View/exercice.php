@@ -129,15 +129,19 @@
 			    $dbname=hash("MD5",$username[0]['user_adress']).$exoname[0]['quiz_id'];
 			    $dbnameCorrec=$dbname."Correc";
 			?>
-				<h1>Vous avez fini l'exercice</h1>
-				<p>Consultez vos résultats sur le tableau de bord</p>
+				<div class="title-box">
+					<h1>Vous avez fini l'exercice</h1>
+					<p>Consultez vos résultats sur le tableau de bord</p>
+				</div>
 
-				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
-					<button name="previous">Question précédente</button>
-				</form>
-				<form action="index.php?page=main&dbname=<?php echo($dbname);?>&dbnameCorrec=<?php echo($dbnameCorrec);?>" method="POST">
-					<button name="redirectMain">Quitter l'exercice</button>
-				</form>
+				<div id="bouton-question-exercice">
+					<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+						<button name="previous" class="button">Question précédente</button>
+					</form>
+					<form action="index.php?page=main&dbname=<?php echo($dbname);?>&dbnameCorrec=<?php echo($dbnameCorrec);?>" method="POST">
+						<button name="redirectMain" class="button">Quitter l'exercice</button>
+					</form>
+				</div>
 
 			<?php
 			}		
