@@ -129,15 +129,19 @@
 			    $dbname=hash("MD5",$username[0]['user_adress']).$exoname[0]['quiz_id'];
 			    $dbnameCorrec=$dbname."Correc";
 			?>
-				<h1>Vous avez fini l'exercice</h1>
-				<p>Consultez vos résultats sur le tableau de bord</p>
+				<div class="title-box">
+					<h1>Vous avez fini l'exercice</h1>
+					<p>Consultez vos résultats sur le tableau de bord</p>
+				</div>
 
-				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
-					<button name="previous">Question précédente</button>
-				</form>
-				<form action="index.php?page=main&dbname=<?php echo($dbname);?>&dbnameCorrec=<?php echo($dbnameCorrec);?>" method="POST">
-					<button name="redirectMain">Quitter l'exercice</button>
-				</form>
+				<div id="bouton-question-exercice">
+					<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
+						<button name="previous" class="button">Question précédente</button>
+					</form>
+					<form action="index.php?page=main&dbname=<?php echo($dbname);?>&dbnameCorrec=<?php echo($dbnameCorrec);?>" method="POST">
+						<button name="redirectMain" class="button">Quitter l'exercice</button>
+					</form>
+				</div>
 
 			<?php
 			}		
@@ -154,6 +158,7 @@
 	        //$exerciseInfos=BDD::get()->query("SELECT quiz_id, quiz_name,quiz_difficulty, quiz_description, user_id FROM quiz WHERE quiz_id IN (SELECT quiz_id FROM tp WHERE equipe_id IN (SELECT equipe_id FROM groupe WHERE groupe_id IN (SELECT groupe_id FROM part_of WHERE user_id=$userId1)ORDER BY equipe_id ASC))")->fetchAll();
 	    ?>
 	    <h1>Sélectionnez un exercice</h1>
+	   	</div>
 	    <div class="quiz-row">
 	        <?php
 	            foreach ($tpNames as $tp) { //afficher tous les exercices disponibles
@@ -189,7 +194,7 @@
 	            }
 	         ?>
 	    </div>
-	</div>
+
 
     <?php
 	}

@@ -221,7 +221,7 @@ function displayButtons($button1,$button2) {
 function tabExercice(){
     ?>
     <form class="container-info" action ="index.php?page=adminDashboard&func=exercices" method="post">
-    <h3>Vos exercices disponbibles en ligne</h3>
+    <h3>Vos exercices disponibles en ligne</h3>
         <table class="table-exercice">
             <thead>
                 <th class="titre-colonne-table"><?php echo("<input type='checkbox' onclick='selectAll(this)' name='selectAllExercice' /><label ></label>");?> All</th>
