@@ -334,7 +334,7 @@ function tabTeamsGroup(){
     <?php
     if(!empty($_POST["equipeSelectedId"])){
     ?>
-    <div style="height: 5%; width: 50%;">
+    <div class="container-info" style="height: 5%; width: 50%;">
     <h3>Supprimer des groupes</h3>
     <br>
         <form method="post" action="index.php?page=adminDashboard&func=groupes" name="manageEquipesForm">
@@ -356,7 +356,7 @@ function tabTeamsGroup(){
                 ?>
 
             </select>
-            <button name ="deleteTeam"> Supprimer</button>
+            <button class="deleteTeam" name ="deleteTeam"> Supprimer</button>
         </form>
     </div>
 

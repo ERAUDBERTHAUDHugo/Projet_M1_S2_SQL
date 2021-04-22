@@ -306,10 +306,9 @@ li {
 #badLogMessage{
   height: auto;
   width: auto;
-  margin : 1rem;
   font-weight: bold;
-  background-color: #FFFCBB;
   color : #fc0000;
+  text-align: center;
 }
 /*----------------------------------------------FinStyleLoginCSS---------------------------------------------------------*/
 
