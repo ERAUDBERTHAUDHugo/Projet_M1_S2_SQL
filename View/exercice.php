@@ -158,6 +158,7 @@
 	        //$exerciseInfos=BDD::get()->query("SELECT quiz_id, quiz_name,quiz_difficulty, quiz_description, user_id FROM quiz WHERE quiz_id IN (SELECT quiz_id FROM tp WHERE equipe_id IN (SELECT equipe_id FROM groupe WHERE groupe_id IN (SELECT groupe_id FROM part_of WHERE user_id=$userId1)ORDER BY equipe_id ASC))")->fetchAll();
 	    ?>
 	    <h1>Sélectionnez un exercice</h1>
+	   	</div>
 	    <div class="quiz-row">
 	        <?php
 	            foreach ($tpNames as $tp) { //afficher tous les exercices disponibles
@@ -193,7 +194,7 @@
 	            }
 	         ?>
 	    </div>
-	</div>
+
 
     <?php
 	}
