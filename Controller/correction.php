@@ -73,7 +73,7 @@ function dataBaseComparision($dbname,$dbnameCorrec,$request,$quizId,$questionId)
                             } else {
                                 unset($conTest);
                                 unset($conGetRequest);
-                                return array("Requête valide", $points, 1);
+                                return array("Requête valide", 0, 1);
                             }
                         } else{
                             unset($conTest);
@@ -127,8 +127,10 @@ function compareRequeteCorrection($dbname,$dbnameCorrec,$requete,$question_id,$q
     foreach($requestTestCorrec as $correc){
         $compCorrec=$compCorrec+1;
     }
-    if($compUser==$compCorrec){
-        array("Requête valide", 0, 0);
+    if($compUser!=$compCorrec){
+        unset( $conTestUser);
+        unset($conTestCorrec);
+        return array("Requête invalide, nombre d'élements reçu incorrects", 0, 0);
     }
     //verification du contenu
     $goodLines=0;
@@ -140,6 +142,8 @@ function compareRequeteCorrection($dbname,$dbnameCorrec,$requete,$question_id,$q
             }
         }
         if($goodLines==0){
+            unset( $conTestUser);
+            unset($conTestCorrec);
             return array("Requête invalide", 0, 0);
         }else{
             $goodLines=0;
@@ -149,7 +153,7 @@ function compareRequeteCorrection($dbname,$dbnameCorrec,$requete,$question_id,$q
     //comparaison des requetes :
     unset( $conTestUser);
     unset($conTestCorrec);
-    return array("Requête valide",0,1);
+    return array("Requête valide", $conGetRequest[0]['question_points'],1);
 }
 
 function writeUserAnswer($query,$userAnswerText,$questionId,$userId,$questionScore, $valid, $quizId){

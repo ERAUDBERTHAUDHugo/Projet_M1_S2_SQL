@@ -51,8 +51,12 @@
 			$indexQuestion=$_SESSION["question"];
 			$questionId=BDD::get()->query("SELECT `question_id` FROM `question` WHERE `quiz_id`= $getQuizzId")->fetchAll();
 			$Id=$questionId[$indexQuestion]['question_id'];
-			var_dump(compareRequeteCorrection($dbname,$dbnameCorrec,$_POST["reponse"],$Id,$_GET['id']));
-			$resultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET['id'],$Id); //call function correction
+			$testResultat=dataBaseComparision($dbname,$dbnameCorrec,$_POST["reponse"],$_GET['id'],$Id); //call function correction
+			if($testResultat[2]==1){
+				$resultat=compareRequeteCorrection($dbname,$dbnameCorrec,$_POST["reponse"],$Id,$_GET['id']);
+			}else{
+				$resultat=$testResultat;
+			}
 			?>
 			<div class="title-box">
 

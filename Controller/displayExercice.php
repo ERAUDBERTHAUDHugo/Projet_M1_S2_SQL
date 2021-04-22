@@ -233,7 +233,12 @@ function displayRequete($requeteUser,$requeteCorrec){
                 <tr>
                     <td > <?php echo($index); ?> </td>
                     <td > <?php 
-                        echo($user[0]."<br>".$user[1]);
+                        $countUser=count(array_count_values($user));
+                        $i=0;
+                        while ($i<$countUser) { 
+                            echo($user[$i]."<br>");
+                            $i=$i+1;
+                        }
                     
                     ?> 
                     </td>
@@ -258,7 +263,13 @@ function displayRequete($requeteUser,$requeteCorrec){
                 <tr>
                     <td > <?php echo($index); ?> </td>
                     <td > <?php 
-                        echo($correc[0]."<br>".$correc[1]);
+                        $countUser=count(array_count_values($correc));
+                        
+                        $i=0;
+                    while ($i<$countUser) { 
+                            echo($correc[$i]."<br>");
+                            $i=$i+1;
+                        }
                     
                     ?> 
                     </td>
