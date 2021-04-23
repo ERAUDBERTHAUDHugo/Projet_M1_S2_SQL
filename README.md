@@ -26,8 +26,8 @@ As an admin, you will maybe need to add exercice or team/groups :
 To add an exercice 3 files needed :
 -An image of the database model.
 -A SQL file of the database of th exercice.
--A CSV file, each line containing : [Question_Name];[Question_text];[Question_Answer].
+-A CSV file, each line containing : [Question_Name];[Question_text];[Question_Answer];;[Optional : score];
 
 To add a student/group/team (1file needed) :
 
--A CSV file, each line containing : [team];[group];[lastname];[firstname] ( if the team, group or student dosen't exist it will be added,if not everything will just be updated).
+-A CSV file, each line containing : [team];[group];[lastname];[firstname;[Optional : role] - role : 0 =admin, 1= student( if the team, group or student dosen't exist it will be added,if not everything will just be updated).
