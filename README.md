@@ -31,3 +31,4 @@ To add an exercice 3 files needed :
 To add a student/group/team (1file needed) :
 
 -A CSV file, each line containing : [team];[group];[lastname];[firstname;[Optional : role] - role : 0 =admin, 1= student( if the team, group or student dosen't exist it will be added,if not everything will just be updated).
+  Password for each student is set to "default" and his login to his "junia.student.com" mail adress.
