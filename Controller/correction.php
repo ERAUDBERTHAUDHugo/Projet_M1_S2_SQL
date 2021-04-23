@@ -113,11 +113,13 @@ function compareRequeteCorrection($dbname,$dbnameCorrec,$requete,$question_id,$q
     if($requestTestUser==False AND $requestTestCorrec!=False){
         return array("Requête invalide", 0, 0);
     }else{
+        $fieldsUser = array_keys($requestTestUser->fetch(PDO::FETCH_ASSOC));
+        $fieldsCorrec = array_keys($requestTestCorrec->fetch(PDO::FETCH_ASSOC));
         $requestTestUser=$requestTestUser->fetchAll();
         $requestTestCorrec=$requestTestCorrec->fetchAll();
 
     }
-    displayRequete($requestTestUser,$requestTestCorrec);
+    displayRequete($requestTestUser,$requestTestCorrec,$fieldsUser,$fieldsCorrec);
     //verification du nombre de résulat
     $compUser=0;
     $compCorrec=0;

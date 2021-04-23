@@ -322,6 +322,11 @@ li {
     margin: 25px auto 50px;
     
 }
+.result{
+
+    position: absolute;
+    
+}
 
 .contextbox{
     position: relative;

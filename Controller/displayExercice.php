@@ -217,13 +217,22 @@ function backupManagement(){
 }
 
 //display des résultats des requetes, affiché lors de la correction d'un question
-function displayRequete($requeteUser,$requeteCorrec){
+function displayRequete($requeteUser,$requeteCorrec,$fieldsUser,$fieldsCorrec){
     ?>
+    <div id="statistic-container3" class="my-custom-scrollbar2">
     <h3>Vos résulats :</h3>
-    <table id="resulUser">
+    <table class="table table-bordered table-striped mb-0">
             <thead>
-                <th >Index</th>
-                <th > Données</th>
+                <tr>
+                <?php
+                foreach ($fieldsUser as $fields) {
+                    ?>
+
+                    <?php
+                }
+                ?>
+                <th class="titre-colonne-table">Index</th>
+                <th class="titre-colonne-table">Données</th>
                 </tr>
             </thead>
             <?php
@@ -249,11 +258,13 @@ function displayRequete($requeteUser,$requeteCorrec){
         }
         ?>
     </table>
+</div>
+<div id="statistic-container3" class="my-custom-scrollbar2">
     <h3>Les résulats attendus :</h3>
-    <table id="resultCorrec">
+    <table class="table table-bordered table-striped mb-0">
         <thead>
-                <th >Index</th>
-                <th > Données</th>
+                <th class="titre-colonne-table">Index</th>
+                <th class="titre-colonne-table"> Données</th>
                 </tr>
             </thead>
             <?php
@@ -280,6 +291,7 @@ function displayRequete($requeteUser,$requeteCorrec){
         }
         ?>
     </table>
+</div>
     <?php
 }
 ?>

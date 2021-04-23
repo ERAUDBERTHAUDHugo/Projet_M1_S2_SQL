@@ -58,9 +58,9 @@
 				$resultat=$testResultat;
 			}
 			?>
+			<br>
 			<div class="title-box">
-
-				<p><?php echo "   Votre requête : ".$_POST["reponse"]; ?></p>
+				<p><?php echo "  Votre requête : ".$_POST["reponse"]; ?></p>
 				<p><?php echo " Résultat: ".$resultat[0]." - Points: ".$resultat[1];?></p>
 
 		    </div>
@@ -70,6 +70,7 @@
 
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////
 			?>
+
 			<div id="bouton-question-exercice">
 				<form action="index.php?page=exercice&id=<?php echo($_GET["id"]);?>" method="POST">
 					<button class="button" name="previous">Question précédente</button>
@@ -84,6 +85,7 @@
 					<button class="button" name="replaceDb">Remplacer par la dernière sauvergarde</button>
 				</form>
 			</div>
+			
 			<?php
 			echo($messagebackup);
 			?>
