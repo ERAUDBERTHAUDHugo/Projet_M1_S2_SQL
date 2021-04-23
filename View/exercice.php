@@ -6,7 +6,6 @@
 		$messagebackup=backupManagement();
 		if($_SESSION["question"]==-1){
 			$_SESSION["question"]=0;
-			echo(checkFirstTime());
 			if(checkFirstTime()==1){// creation of the unique db file for the exercice
 				//get dbname using user lastname :
 				$userId=$_SESSION["user"];
@@ -94,7 +93,7 @@
 		}else{
 			$quiz=$_GET['id'];
 			$limit=BDD::get()->query("SELECT COUNT(*) FROM `question` WHERE `quiz_id`= $quiz")->fetchAll();
-			if($_SESSION['question']<=((int)$limit)){
+			if($_SESSION['question']<((int)$limit[0][0])){
 
 				$quiz=$_GET['id'];
 				$user=$_SESSION['user'];

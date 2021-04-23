@@ -221,7 +221,8 @@ function displayButtons($button1,$button2) {
 function tabExercice(){
     ?>
     <form class="container-info" action ="index.php?page=adminDashboard&func=exercices" method="post">
-    <h3>Vos exercices disponibles en ligne</h3>
+    <h3>Vos exercices disponibles en ligne : </h3>
+        <p>(Les TPs qui contiennent un exercice supprimé seront également supprimés)</p>
         <table class="table-exercice">
             <thead>
                 <th class="titre-colonne-table"><?php echo("<input type='checkbox' onclick='selectAll(this)' name='selectAllExercice' /><label ></label>");?> All</th>
@@ -259,34 +260,45 @@ function tabExercice(){
             </tbody>
         </table>
         <br> <br>
-        <button type="submit" class="button" name="deleteExercice" onclick="deleteConfirm(this)">Supprimer les exercices séléctionnés</button>
+        <button type="submit" class="button" name="deleteExercice">Supprimer les exercices séléctionnés</button>
     </form>
     <?php
     //var_dump($exercices);
 }
 function deleteExercice(){
-    $exercices=BDD::get()->query("SELECT `quiz_name`,`quiz_id` FROM `quiz` ")->fetchAll();
-    foreach ($exercices as $exo){
-        $postName="quiz".$exo['quiz_id'];
-        if(isset($_POST[$postName])){
-            // delete quiz's question 
-            $quiz_id=$exo['quiz_id'];
-            $questionToDelete=BDD::get()->query("SELECT `question_id` FROM `question` WHERE quiz_id=$quiz_id")->fetchAll();
-            foreach ($questionToDelete as $questions ){
-                $question_id=$questions["question_id"];
-                $deleteQuestion = BDD::get()->prepare('DELETE FROM question WHERE question_id=:question_id LIMIT 1');  
-                $deleteQuestion->bindParam(':question_id',$question_id);
-                $deleteQuestion->execute();
+    $exercices=BDD::get()->query("SELECT `quiz_name`,`quiz_id` FROM `quiz` ");//->fetchAll()
+    if($exercices!=False){
+        $exercices=$exercices->fetchAll();
+        foreach ($exercices as $exo){
+            $postName="quiz".$exo['quiz_id'];
+            if(isset($_POST[$postName])){
+                // delete quiz's question 
+                $quiz_id=$exo['quiz_id'];
+                $questionToDelete=BDD::get()->query("SELECT `question_id` FROM `question` WHERE quiz_id=$quiz_id")->fetchAll();
+                foreach ($questionToDelete as $questions ){
+                    $question_id=$questions["question_id"];
+                    $deleteQuestion = BDD::get()->prepare('DELETE FROM question WHERE question_id=:question_id LIMIT 1');  
+                    $deleteQuestion->bindParam(':question_id',$question_id);
+                    $deleteQuestion->execute();
+                }
+                //delete tp
+                $tpToDelete=BDD::get()->query("SELECT `tp_id` FROM `tp` WHERE quiz_id=$quiz_id")->fetchAll();
+                foreach ($tpToDelete as $tps ){
+                    $tp_id=$tps["tp_id"];
+                    $deletetp = BDD::get()->prepare('DELETE FROM tp WHERE tp_id=:tp_id LIMIT 1');  
+                    $deletetp->bindParam(':tp_id',$tp_id);
+                    $deletetp->execute();
+                }
+                // delete quiz
+                $quiz_id=$exo['quiz_id'];
+                $deleteQuiz = BDD::get()->prepare('DELETE FROM quiz WHERE quiz_id=:id LIMIT 1');  
+                $deleteQuiz->bindParam(':id',$quiz_id);
+                $deleteQuiz->execute();
             }
-            // delete quiz
-            $quiz_id=$exo['quiz_id'];
-            $deleteQuiz = BDD::get()->prepare('DELETE FROM quiz WHERE quiz_id=:id LIMIT 1');  
-            $deleteQuiz->bindParam(':id',$quiz_id);
-            $deleteQuiz->execute();
-            echo("on va supprimer le quiz".$exo['quiz_id']);
         }
+        return 1;
     }
-    return 1;
+
 }
 ?>
 <?php
@@ -379,7 +391,11 @@ function deleteTeamsGroup(){
                 $deleteGroups = BDD::get()->prepare('DELETE FROM groupe WHERE groupe_id=:groupe_id LIMIT 1');  
                 $deleteGroups->bindParam(':groupe_id',$group_id);
                 $deleteGroups->execute();
+                $deletePartOf = BDD::get()->prepare('DELETE FROM part_of WHERE groupe_id=:groupe_id LIMIT 1');  
+                $deletePartOf->bindParam(':groupe_id',$group_id);
+                $deletePartOf->execute();
             }
+
         //delete team
         $deleteTeam = BDD::get()->prepare('DELETE FROM equipe WHERE equipe_id=:equipe_id LIMIT 1');  
         $deleteTeam->bindParam(':equipe_id',$equipeSelected);
@@ -388,6 +404,9 @@ function deleteTeamsGroup(){
         $deleteGroup = BDD::get()->prepare('DELETE FROM groupe WHERE groupe_id=:groupe_id LIMIT 1');  
         $deleteGroup->bindParam(':groupe_id',$groupSelected);
         $deleteGroup->execute();
+        $deletePartOf = BDD::get()->prepare('DELETE FROM part_of WHERE groupe_id=:groupe_id LIMIT 1');  
+        $deletePartOf->bindParam(':groupe_id',$group_id);
+        $deletePartOf->execute();
     }
     //delete only one group
 }

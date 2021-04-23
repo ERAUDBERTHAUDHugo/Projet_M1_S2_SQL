@@ -24,9 +24,8 @@
             
              <?php
              displayButtons("groupes","page principale");
-             if(isset($_COOKIE["delete"])){
-                deleteExercice();
-             }
+            deleteExercice();
+             
             displayManageExercise();
             tabExercice();
             tpManagement();

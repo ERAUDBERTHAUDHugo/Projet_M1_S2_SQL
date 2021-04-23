@@ -177,6 +177,8 @@ function insertQuestionCsvQuiz($Csvfilename,$quizName){// insert all question in
         }
         fclose($handle);
     }
+    $path="Csvfiles/".$Csvfilename.".csv";
+    unlink($path);
 }
 
 function addExercise($questionfile,$sqlfile,$imgfile){
@@ -235,14 +237,21 @@ function dispatchStudent($Csvfilename){
             $group=strtolower($data[1]);
             $lastname=strtolower($data[2]);
             $firstname=strtolower($data[3]);
-            manageCsvStudent($team,$group,$lastname,$firstname);
+            if(isset($data[4])){
+                $role = $data[4];
+            }else{
+                $role = 1;
+            }
+            manageCsvStudent($team,$group,$lastname,$firstname,$role);
             
         }
         fclose($handle);
     }
+    $path="Csvfiles/".$Csvfilename.".csv";
+    unlink($path);
 }
 
-function manageCsvStudent($team,$group,$lastname,$firstname){
+function manageCsvStudent($team,$group,$lastname,$firstname,$role){
     //check if team already exist
     $teamNames=BDD::get()->query("SELECT `equipe_id`,`equipe_name` FROM `equipe`")->fetchAll();
     $teamExist=0;
@@ -267,6 +276,8 @@ function manageCsvStudent($team,$group,$lastname,$firstname){
         $team_id=$teamIdRequest[0]['equipe_id'];
 
         foreach($groupNames as $namegroup){
+            echo $group;
+            echo $namegroup['groupe_name'];
             if($namegroup['groupe_name']==$group AND  $namegroup['equipe_id']==$team_id){
                 $groupExist=1;
                 break;
@@ -317,7 +328,6 @@ function manageCsvStudent($team,$group,$lastname,$firstname){
             }
         }
     }else{
-        $role=1;//0 is admin, 1 student
         $score=0;
         $password="default";
         insertNewUser($adress,$lastname,$firstname,$password,$role,$score);
