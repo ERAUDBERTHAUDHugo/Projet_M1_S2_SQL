@@ -16,7 +16,7 @@
             </div>
             </p>
             <p>Email</p>
-            <input type="text" name="email" placeholder="Entre ton pseudo">
+            <input type="text" name="email" placeholder="Entre ton email">
             <p>Mot de passe</p>
             <input type="password" name="psw" placeholder="Entre ton mot de passe">
             <input type="submit" name="login" value="Se connecter">
